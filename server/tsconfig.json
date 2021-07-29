@@ -9,10 +9,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "types": ["@cloudflare/workers-types"]
   },
-  "include": [
-    "src",
-    "./node_modules/@cloudflare/workers-types/*.ts"
-  ]
+  "include": ["src"]
 }

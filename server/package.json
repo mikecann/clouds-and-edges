@@ -4,11 +4,11 @@
   "version": "1.0.0",
   "module": "./dist/index.mjs",
   "scripts": {
+    "dev": "miniflare dist/index.mjs --watch --debug --port 8777",
     "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write '**/*.{js,css,json,md}'"
+    "build2": "vite build"
   },
-  "author": "{{ authors }}",
+  "author": "mike.cann@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.1",
@@ -16,12 +16,14 @@
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/is-odd": "^3.0.0",
+    "miniflare": "^1.3.3",
     "prettier": "^1.19.1",
     "rollup": "^2.36.1",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.1.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "vite": "^2.4.2"
   },
   "dependencies": {
     "is-even": "^1.0.0"

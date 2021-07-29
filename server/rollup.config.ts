@@ -18,6 +18,8 @@ export default {
     commonjs(),
     nodeResolve({ browser: true }),
     //terser(),
-    typescript(),
+    typescript({
+      
+    }),
   ],
 }
