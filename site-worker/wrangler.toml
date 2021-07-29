@@ -1,0 +1,10 @@
+name = "tinkering-with-durable-objects-site"
+type = "webpack"
+route = ''
+zone_id = ''
+usage_model = ''
+workers_dev = true
+
+[site]
+bucket = "../site/dist" 
+entry-point = "."

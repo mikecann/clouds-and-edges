@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "tinkering-with-durable-objects",
+  "version": "1.0.0",
+  "workspaces": [
+    "site",
+    "server",
+    "site-worker"
+  ],
+  "description": "Tinkering with some durable objects",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "dev": "miniflare dist/index.mjs --watch --debug",
+    "build": "cd site && yarn build",
+    "deploy": "cd site-worker && yarn deploy",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
+  },
+  "author": "mike.cann@gmail.com",
+  "license": "MIT"
+}

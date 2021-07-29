@@ -1,0 +1,22 @@
+name = "tinkering-with-durable-objects-server"
+type = "webpack"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+# [build]
+# command = "yarn install"
+
+# [build.upload]
+# format = "modules"
+# dir = "./site-worker"
+# main = "./index.mjs"
+# rules = [{type = "Data", globs = ["**/*.html"]}]
+
+# [durable_objects]
+# bindings = [{name = "COUNTER", class_name = "Counter"}]
+
+[site]
+bucket = "./site/dist"
+entry-point = "workers-site"
