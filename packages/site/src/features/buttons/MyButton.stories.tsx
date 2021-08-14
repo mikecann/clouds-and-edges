@@ -7,7 +7,9 @@ export default {
   component: MyButton,
 } as ComponentMeta<typeof MyButton>;
 
-const Template: ComponentStory<typeof MyButton> = args => <MyButton {...args} />;
+const Template: ComponentStory<typeof MyButton> = args => (
+  <MyButton {...args}>hello world</MyButton>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {};
