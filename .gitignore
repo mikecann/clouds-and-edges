@@ -75,5 +75,4 @@ typings/
 # FuseBox cache
 .fusebox/
 
-# yarn stuff
 node_modules
