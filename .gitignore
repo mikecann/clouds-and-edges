@@ -76,3 +76,4 @@ typings/
 .fusebox/
 
 node_modules
+dist
