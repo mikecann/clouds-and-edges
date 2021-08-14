@@ -1,0 +1,4 @@
+{
+  "exclude": ["\\.test\\.", "\\.stories\\.", "\/test\/", "\/declarations\/", "__"],
+  "delete": true
+}

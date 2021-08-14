@@ -8,6 +8,12 @@ Some experiments with Cloudflare's Durable Objects
 yarn install
 ```
 
+At all times have the type-checker running
+
+```
+yarn dev
+```
+
 In one terminal:
 
 ```
@@ -18,4 +24,9 @@ In another
 
 ```
 yarn site dev
+yarn site storybook
 ```
+
+## ToDo
+
+- Proper validation for commands coming from the client

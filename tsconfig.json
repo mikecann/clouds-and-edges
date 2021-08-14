@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "disableSourceOfProjectReferenceRedirect": true
+  },
+  "references": [
+    { "path": "./packages/site" },
+    { "path": "./packages/shared" },
+    { "path": "./packages/server" }
+  ],
+  "exclude": ["node_modules", "tmp"]
+}

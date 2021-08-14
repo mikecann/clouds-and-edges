@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { ChakraProvider } from "@chakra-ui/react";
-import {MyChakraProvider} from './features/theme/MyChakraProvider';
+import { MyChakraProvider } from "./features/theme/MyChakraProvider";
+import { MyButton } from "./features/buttons/MyButton";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,6 +32,7 @@ function App() {
           <p>
             Edit <code>App.tsx</code> and save to test HMR updates.
           </p>
+          <MyButton>Hello World</MyButton>
           <p>
             <a
               className="App-link"

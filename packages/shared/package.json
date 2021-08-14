@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@project/shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "jest",
+    "barrel": "barrelsby -d src -c ../build-tools/src/barrelsby.json"
+  },
+  "devDependencies": {
+    "barrelsby": "^2.2.0"
+  },
+  "dependencies": {}
+}

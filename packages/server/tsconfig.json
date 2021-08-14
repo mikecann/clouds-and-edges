@@ -1,16 +1,14 @@
 {
+  "extends": "../../tsconfig.settings.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "lib": ["esnext", "webworker"],
-    "outDir": "dist",
-    "strict": true,
-    "alwaysStrict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "preserveConstEnums": true,
-    "types": ["@cloudflare/workers-types"]
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["jest", "node", "@cloudflare/workers-types"]
   },
-  "include": ["src"]
+  "include": ["./src"],
+  "references": [{ "path": "../shared/tsconfig.json" }]
 }

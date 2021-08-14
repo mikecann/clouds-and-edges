@@ -77,3 +77,5 @@ typings/
 
 node_modules
 dist
+
+tsconfig.tsbuildinfo

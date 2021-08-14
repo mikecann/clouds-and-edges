@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "site",
+  "name": "@project/site",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
