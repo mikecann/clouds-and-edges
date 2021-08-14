@@ -3,16 +3,14 @@
   "name": "tinkering-with-durable-objects",
   "version": "1.0.0",
   "workspaces": [
-    "site",
-    "server",
-    "site-worker"
+    "packages/*"
   ],
   "description": "Tinkering with some durable objects",
   "module": "./dist/index.mjs",
   "scripts": {
-    "build": "yarn workspaces foreach -p -i run build",
-    "deploy": "yarn workspaces foreach -p -i run deploy",
-    "test": "yarn workspaces foreach -p -i run test"
+    "site": "cd packages/site && yarn run",
+    "server": "cd packages/server && yarn run",
+    "site-worker": "cd packages/site-worker && yarn run"
   },
   "author": "mike.cann@gmail.com",
   "license": "MIT"

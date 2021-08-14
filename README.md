@@ -11,13 +11,11 @@ yarn install
 In one terminal:
 
 ```
-cd server
-yarn dev
+yarn server dev
 ```
 
 In another
 
 ```
-cd site
-yarn dev
+yarn site dev
 ```
