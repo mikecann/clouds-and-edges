@@ -4,3 +4,4 @@
 
 export * from "./commands/commands";
 export * from "./commands/userCommands";
+export * from "./utils/object";

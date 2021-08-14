@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "CommonJS"
+  },
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../../build-tools/tsconfig.json" }
+  ]
+}

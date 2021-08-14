@@ -1,7 +1,7 @@
+interface Options {
 
+}
 
-const { log, error, warn } = logger("{{name}}");
-
-export function {{name}}() {
-  log(`starting..`);
+export const {{name}} = ({}: Options): string => {
+    return "foo";
 }

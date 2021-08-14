@@ -22,6 +22,7 @@
     "@types/node": "^16.4.10",
     "jest": "^27.0.6",
     "jest-extended": "^0.11.5",
+    "esbuild": "^0.12.18",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",

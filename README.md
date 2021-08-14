@@ -29,4 +29,6 @@ yarn site storybook
 
 ## ToDo
 
+- Stronger typesafty on commands
 - Proper validation for commands coming from the client
+- Do proper configs

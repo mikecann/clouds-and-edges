@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "module": "./dist/index.mjs",
   "scripts": {
-    "dev": "miniflare dist/index.mjs --watch --debug --port 8777",
-    "build": "rollup -c",
-    "build2": "vite build"
+    "script": "ts-node --transpile-only --require tsconfig-paths/register --project ./scripts/tsconfig.json",
+    "build": "yarn script ./scripts/build.ts",
+    "dev": "miniflare dist/index.mjs --watch --debug --port 8777"
   },
   "author": "mike.cann@gmail.com",
   "license": "MIT",

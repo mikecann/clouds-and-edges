@@ -1,35 +1,62 @@
-import isOdd from "is-odd";
-
 export interface EnvInterface {
   COUNTER: DurableObjectNamespace;
+  UserAggregate: DurableObjectNamespace;
 }
 
 // In order for the workers runtime to find the class that implements
 // our Durable Object namespace, we must export it from the root module.
 export { Counter } from "./Counter";
+export { UserAggregate } from "./aggregates/user/UserAggregate";
 
 export default {
   async fetch(request: Request, env: EnvInterface): Promise<Response> {
     try {
       return await handleRequest(request, env);
     } catch (e) {
+      console.error(e);
       return new Response(e.message);
     }
   },
 };
 
 async function handleRequest(request: Request, env: EnvInterface): Promise<Response> {
-  const startTime = Date.now();
+  let url = new URL(request.url);
+  let path = url.pathname.slice(1).split("/");
 
-  let id = env.COUNTER.idFromName("A");
-  let obj = env.COUNTER.get(id);
-  let resp = await obj.fetch(request.url);
-  let count = parseInt(await resp.text());
-  let wasOdd = isOdd(count) ? "is odd" : "is even";
+  if (path[0] != "api") throw new Error("Invalid API path");
 
-  const delta = Date.now() - startTime;
+  if (path[1] != `v1`) throw new Error("Invalid API version");
 
-  const response = new Response(`Hi Mike  ${count} ${wasOdd} that took ${delta}ms!!`);
+  if (path[2] != "command") throw new Error("Invalid API operation");
+
+  const aggregate = path[3];
+  const aggregateId = path[4];
+  const aggregateCommand = path[5];
+  const payload = await request.json();
+
+  if (aggregate != "User") throw new Error(`Invalid aggregate name ${aggregate}`);
+
+  if (!aggregateId) throw new Error(`Invalid aggregate id ${aggregateId}`);
+
+  if (!aggregateCommand) throw new Error(`Invalid aggregate command ${aggregateCommand}`);
+
+  console.log(`got aggregate command..`, {
+    aggregate,
+    aggregateId,
+    aggregateCommand,
+    payload,
+  });
+
+  const objId = env.UserAggregate.idFromName(aggregateId);
+  const aggregateObj = env.UserAggregate.get(objId);
+  const resp = await aggregateObj.fetch(aggregateCommand, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const text = await resp.text();
+
+  const response = new Response(`Aggregate returned ${text}`);
   response.headers.set("Access-Control-Allow-Origin", "*");
 
   return response;

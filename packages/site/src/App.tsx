@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { MyChakraProvider } from "./features/theme/MyChakraProvider";
 import { MyButton } from "./features/buttons/MyButton";
+import { Button } from "@chakra-ui/react";
+import { sendCommand } from "./features/cqrs/sendCommand";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -13,45 +15,21 @@ function App() {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>Hello Vite + React!</p>
-          <p>
-            <button
-              type="button"
-              onClick={() => {
-                setCount(count => count + 1);
-                setMessage(`loading`);
-                fetch("http://localhost:8777")
-                  .then(r => r.text())
-                  .then(setMessage);
-              }}
-            >
-              count is: {count}
-            </button>
-          </p>
-          <p>{message}</p>
-          <p>
-            Edit <code>App.tsx</code> and save to test HMR updates.
-          </p>
-          <MyButton>Hello World</MyButton>
-          <p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-            {" | "}
-            <a
-              className="App-link"
-              href="https://vitejs.dev/guide/features.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Vite Docs
-            </a>
-          </p>
+          <Button
+            colorScheme="blue"
+            onClick={() =>
+              sendCommand({
+                aggregate: "User",
+                aggregateId: "123",
+                command: "create",
+                payload: {
+                  name: "Mike",
+                },
+              })
+            }
+          >
+            Send Command
+          </Button>
         </header>
       </div>
     </MyChakraProvider>
