@@ -10,6 +10,12 @@ function App() {
   const [count, setCount] = useState(0);
   const [message, setMessage] = useState("");
 
+  const doSomething = async () => {
+    const response = await fetch(`http://localhost:8777/`);
+    const json = await response.text();
+    console.log(json);
+  };
+
   return (
     <MyChakraProvider>
       <div className="App">
@@ -19,8 +25,7 @@ function App() {
             colorScheme="blue"
             onClick={() =>
               sendCommand({
-                aggregate: "User",
-                aggregateId: "123",
+                aggregate: "user",
                 command: "create",
                 payload: {
                   name: "Mike",
@@ -28,7 +33,10 @@ function App() {
               })
             }
           >
-            Send Command
+            Create User
+          </Button>
+          <Button colorScheme="blue" onClick={() => doSomething()}>
+            Misc
           </Button>
         </header>
       </div>

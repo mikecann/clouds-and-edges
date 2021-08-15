@@ -1,24 +1,29 @@
-export interface EnvInterface {
-  COUNTER: DurableObjectNamespace;
-  UserAggregate: DurableObjectNamespace;
-}
+import { router } from "./routes";
 
 // In order for the workers runtime to find the class that implements
 // our Durable Object namespace, we must export it from the root module.
-export { Counter } from "./Counter";
 export { UserAggregate } from "./aggregates/user/UserAggregate";
+
+export interface EnvInterface {
+  UserAggregate: DurableObjectNamespace;
+}
 
 export default {
   async fetch(request: Request, env: EnvInterface): Promise<Response> {
     try {
-      return await handleRequest(request, env);
+      const response = await router.handle(request, env);
+      if (response) response.headers.set("Access-Control-Allow-Origin", "*");
+      return response;
     } catch (e) {
       console.error(e);
-      return new Response(e.message);
+      const response = new Response(e.message);
+      response.headers.set("Access-Control-Allow-Origin", "*");
+      return response;
     }
   },
 };
 
+/*
 async function handleRequest(request: Request, env: EnvInterface): Promise<Response> {
   let url = new URL(request.url);
   let path = url.pathname.slice(1).split("/");
@@ -30,13 +35,11 @@ async function handleRequest(request: Request, env: EnvInterface): Promise<Respo
   if (path[2] != "command") throw new Error("Invalid API operation");
 
   const aggregate = path[3];
-  const aggregateId = path[4];
+  const aggregateId = path[4] ?? generateId();
   const aggregateCommand = path[5];
   const payload = await request.json();
 
   if (aggregate != "User") throw new Error(`Invalid aggregate name ${aggregate}`);
-
-  if (!aggregateId) throw new Error(`Invalid aggregate id ${aggregateId}`);
 
   if (!aggregateCommand) throw new Error(`Invalid aggregate command ${aggregateCommand}`);
 
@@ -61,3 +64,4 @@ async function handleRequest(request: Request, env: EnvInterface): Promise<Respo
 
   return response;
 }
+*/

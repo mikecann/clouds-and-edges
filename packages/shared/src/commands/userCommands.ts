@@ -1,11 +1,13 @@
-export interface CreateUserCommand {
-  kind: `create-user`;
+export interface CreateCommand {
+  kind: `create`;
+  aggregate: `user`,
   name: string;
 }
 
-export interface SetUserNameCommand {
-  kind: `set-user-name`;
+export interface SetNameCommand {
+  kind: `set-name`;
+  aggregate: `user`,
   name: string;
 }
 
-export type UserCommands = CreateUserCommand | SetUserNameCommand;
+export type UserCommands = CreateCommand | SetNameCommand;

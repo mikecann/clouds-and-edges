@@ -9,6 +9,10 @@
     "barrel": "barrelsby -d src -c ../build-tools/src/barrelsby.json"
   },
   "devDependencies": {
-    "barrelsby": "^2.2.0"
-  }  
+    "barrelsby": "^2.2.0",
+    "@types/uuid": "^8.3.1"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
 }

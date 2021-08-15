@@ -26,6 +26,6 @@
     "vite": "^2.4.2"
   },
   "dependencies": {
-    "is-even": "^1.0.0"
+    "itty-router": "^2.4.2"
   }
 }
