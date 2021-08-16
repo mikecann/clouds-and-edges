@@ -1,12 +1,9 @@
+import { EnvInterface } from "./env";
 import { router } from "./routes";
 
 // In order for the workers runtime to find the class that implements
 // our Durable Object namespace, we must export it from the root module.
 export { UserAggregate } from "./aggregates/user/UserAggregate";
-
-export interface EnvInterface {
-  UserAggregate: DurableObjectNamespace;
-}
 
 export default {
   async fetch(request: Request, env: EnvInterface): Promise<Response> {
@@ -21,6 +18,7 @@ export default {
       return response;
     }
   },
+  // fetch: router.handle
 };
 
 /*

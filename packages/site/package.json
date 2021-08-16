@@ -16,8 +16,10 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "framer-motion": "^4",
+    "gls": "^3.0.1",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "typestyle": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

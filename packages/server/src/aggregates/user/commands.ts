@@ -3,7 +3,7 @@ import { UserAggregateState } from "./state";
 import { UserCommands } from "@project/shared";
 import { UserEvents } from "./events";
 
-export const commands: AggregateCommandHandlers<UserCommands, UserAggregateState, UserEvents> = {
+export const commands: AggregateCommandHandlers<UserAggregateState, UserCommands, UserEvents> = {
   create: (state, { payload: { name } }) => {
     if (state.createdAt) throw new Error(`user already created`);
     return {

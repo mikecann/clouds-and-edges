@@ -1,4 +1,4 @@
-import { ExecuteCommandApiEndpointPayload, AggregateNames, Commands } from "@project/shared";
+import { AggregateNames, Commands } from "@project/shared";
 
 export const sendCommand = async <
   TAggregate extends AggregateNames,
@@ -14,10 +14,10 @@ export const sendCommand = async <
   command: TCommand;
   payload: Omit<Extract<Commands, { aggregate: TAggregate; kind: TCommand }>, "aggregate" | "kind">;
 }) => {
-  const response = await fetch(
-    `http://localhost:8777/api/v1/command/${aggregate}/${aggregateId}/${command}`,
-    { method: "POST", body: JSON.stringify(payload) }
-  );
+  const response = await fetch(`http://localhost:8777/api/v1/commands`, {
+    method: "POST",
+    body: JSON.stringify({ aggregate, aggregateId, command, payload }),
+  });
   const json = await response.text();
   console.log(json);
 };

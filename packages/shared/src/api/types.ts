@@ -1,15 +1,25 @@
-import { AggregateNames } from "../aggregates/aggregates";
-import { Commands } from "../commands/commands";
+import { z } from "zod";
 
-export interface ExecuteCommandApiEndpointPayload<
-  TAggregateName extends AggregateNames,
-  TCommand extends Extract<Commands, { aggregate: TAggregateName }>["kind"]
-> {
-  aggregate: TAggregateName;
-  aggregateId?: string;
-  command: TCommand;
-  payload: Omit<
-    Extract<Commands, { aggregate: TAggregateName; kind: TCommand }>,
-    "aggregate" | "kind"
-  >;
-}
+export const api = {
+  v1: {
+    auth: {
+      signup: {
+        post: {
+          input: z.object({
+            name: z.string(),
+          }),
+        },
+      },
+    },
+    commands: {
+      post: {
+        input: z.object({
+          aggregate: z.string(),
+          aggregateId: z.string().optional(),
+          command: z.string(),
+          payload: z.any().optional(),
+        }),
+      },
+    },
+  },
+};

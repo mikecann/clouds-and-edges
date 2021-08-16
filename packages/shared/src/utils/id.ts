@@ -1,5 +1,11 @@
-import { v4 as uuidv4 } from "uuid";
+import { getRandom } from "./random";
 
-export const generateId = (): string => {
-  return uuidv4();
+export const generateId = (rng = getRandom()): string => {
+  return (
+    Date.now().toString(36) +
+    rng
+      .nextNumber()
+      .toString(36)
+      .substring(2)
+  );
 };

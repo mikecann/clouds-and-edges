@@ -2,44 +2,22 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { MyChakraProvider } from "./features/theme/MyChakraProvider";
-import { MyButton } from "./features/buttons/MyButton";
-import { Button } from "@chakra-ui/react";
-import { sendCommand } from "./features/cqrs/sendCommand";
+import { GLSDefaults } from "gls/lib";
+import { SignupPage } from "./features/signup/SignupPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [message, setMessage] = useState("");
-
-  const doSomething = async () => {
-    const response = await fetch(`http://localhost:8777/`);
-    const json = await response.text();
-    console.log(json);
-  };
+  const [userId, setUserId] = useState<string>();
 
   return (
     <MyChakraProvider>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Button
-            colorScheme="blue"
-            onClick={() =>
-              sendCommand({
-                aggregate: "user",
-                command: "create",
-                payload: {
-                  name: "Mike",
-                },
-              })
-            }
-          >
-            Create User
-          </Button>
-          <Button colorScheme="blue" onClick={() => doSomething()}>
-            Misc
-          </Button>
-        </header>
-      </div>
+      <GLSDefaults.Provider value={{ verticalSpacing: 0, horizontalSpacing: 0 }}>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <SignupPage onSignup={setUserId} />
+          </header>
+        </div>
+      </GLSDefaults.Provider>
     </MyChakraProvider>
   );
 }

@@ -6,9 +6,9 @@ export type AggregateCommandHandler<TState, TPayload, TEvents extends Kindable> 
 type Kindable = { kind: string };
 
 export type AggregateCommandHandlers<
-  TCommands extends Kindable,
-  TState,
-  TEvents extends Kindable
+  TState = any,
+  TCommands extends Kindable = Kindable,
+  TEvents extends Kindable = Kindable
 > = {
   [P in TCommands["kind"]]: AggregateCommandHandler<
     TState,
