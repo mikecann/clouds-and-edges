@@ -1,7 +1,10 @@
-import { ensure, getInObj, api } from "@project/shared";
+import { ensure, getInObj, AggregateNames } from "@project/shared";
 import { z } from "zod";
 import { AggregateCommandHandlers } from "./commands";
-import { AggregateReducer, AggregateReducers } from "./reducers";
+import { AggregateReducers } from "./reducers";
+import { Env } from "../env";
+import { addEventToEventStore } from "./addEventToEventStore";
+import { AddEventInput } from "./events";
 
 export const AggregateExecuteInput = z.object({
   command: z.string(),
@@ -14,6 +17,8 @@ export class AggreateDO<TState extends Record<string, any>> implements DurableOb
 
   constructor(
     private objectState: DurableObjectState,
+    private env: Env,
+    private aggregate: AggregateNames,
     private commands: AggregateCommandHandlers<TState>,
     private reducers: AggregateReducers<TState>
   ) {}
@@ -38,14 +43,16 @@ export class AggreateDO<TState extends Record<string, any>> implements DurableOb
 
     const input = AggregateExecuteInput.parse(await request.json());
 
-    console.log(`execution starting`, { input, state: this.state });
+    console.log(`execution starting`, { input, id: this.objectState.id.toString() });
 
-    const event = getInObj(this.commands, input.command)(this.state, { payload: input.payload });
+    const event: AddEventInput = getInObj(this.commands, input.command)(this.state, {
+      payload: input.payload,
+    });
 
     console.log(`execution finished`, event);
 
     const reducedState = getInObj(this.reducers, event.kind)(this.state, {
-      aggregateId: ensure(this.objectState.id.toString()),
+      aggregateId: this.objectState.id.toString(),
       payload: event.payload,
     });
 
@@ -57,6 +64,13 @@ export class AggreateDO<TState extends Record<string, any>> implements DurableOb
     console.log(`state stored`);
 
     console.log(`adding event to event store`);
+
+    await addEventToEventStore({
+      env: this.env,
+      event,
+      aggregate: this.aggregate,
+      aggregateId: this.objectState.id.toString(),
+    });
 
     return new Response(
       JSON.stringify({

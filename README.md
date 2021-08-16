@@ -32,3 +32,5 @@ yarn site storybook
 - Stronger typesafty on commands
 - Proper validation for commands coming from the client
 - Do proper configs
+- Ensure event stoage is secure and no overlaps or lost events etc
+- Make sure that the DO doesnt close the processes and projects

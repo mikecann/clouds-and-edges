@@ -1,12 +1,14 @@
-import { EnvInterface } from "./env";
+import { Env } from "./env";
 import { router } from "./routes";
 
 // In order for the workers runtime to find the class that implements
 // our Durable Object namespace, we must export it from the root module.
 export { UserAggregate } from "./aggregates/user/UserAggregate";
+export { EventStore } from "./lib/EventStore";
+export { UsersProjection } from "./projections/users/UsersProjection";
 
 export default {
-  async fetch(request: Request, env: EnvInterface): Promise<Response> {
+  async fetch(request: Request, env: Env): Promise<Response> {
     try {
       const response = await router.handle(request, env);
       if (response) response.headers.set("Access-Control-Allow-Origin", "*");

@@ -3984,6 +3984,13 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
+"@trpc/server@^8.4.2":
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-8.4.2.tgz#925ea2637a8327cedad8accd7ead6de9ee148ba2"
+  integrity sha512-i00omlfV5t0t3GMKzIFJsv2Uu2xqL998OGG8TSV/82aGv2a9AYuTP1yjNKnoAH+oc908r0N7ak1oXI3FZ3vEKw==
+  dependencies:
+    tslib "^2.1.0"
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.8.tgz#c1e4e80d6f964fbecb3359c43bd48b40f7cadad9"

@@ -4,6 +4,7 @@ import "./App.css";
 import { MyChakraProvider } from "./features/theme/MyChakraProvider";
 import { GLSDefaults } from "gls/lib";
 import { SignupPage } from "./features/signup/SignupPage";
+import { DashboardPage } from "./features/dashboard/DashboardPage";
 
 function App() {
   const [userId, setUserId] = useState<string>();
@@ -14,7 +15,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <SignupPage onSignup={setUserId} />
+            {userId ? <DashboardPage userId={userId} /> : <SignupPage onSignup={setUserId} />}
           </header>
         </div>
       </GLSDefaults.Provider>

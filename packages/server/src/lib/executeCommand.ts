@@ -1,11 +1,11 @@
 import { AggregateNames, getInObj } from "@project/shared";
 import { aggregates } from "../aggregates/aggregates";
 import { AggregateExecuteInput } from "./AggregateDO";
-import { EnvInterface } from "../env";
+import { Env } from "../env";
 
 interface Options {
   aggregate: AggregateNames;
-  env: EnvInterface;
+  env: Env;
   aggregateId?: string;
   command: string;
   payload: unknown;
@@ -20,7 +20,7 @@ export const executeCommand = async ({
 }: Options) => {
   const stub: DurableObjectNamespace = getInObj(env, getInObj(aggregates, aggregate));
 
-  const objId = aggregateId ? stub.idFromName(aggregateId) : stub.newUniqueId();
+  const objId = aggregateId ? aggregateId : stub.newUniqueId();
 
   console.log(`Executing command`, {
     aggregate,

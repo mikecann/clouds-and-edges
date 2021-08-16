@@ -1,4 +1,9 @@
 import { z } from "zod";
+import { Fail, Success } from "../utils/response";
+
+export type ApiEndpointResponse<T = any> = Success<T> | Fail;
+
+export type AuthSignupResponse = { userId: string };
 
 export const api = {
   v1: {
@@ -19,6 +24,15 @@ export const api = {
           command: z.string(),
           payload: z.any().optional(),
         }),
+      },
+    },
+    projections: {
+      user: {
+        get: {
+          input: z.object({
+            userId: z.string(),
+          }),
+        },
       },
     },
   },
