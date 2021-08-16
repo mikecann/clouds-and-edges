@@ -2,6 +2,7 @@ import { findInObj } from "../../../../shared/src";
 import { Events } from "../../events";
 import { Event } from "../../lib/events";
 import { ProjectionEventHandlers } from "../../lib/projections";
+import { getDOOperation } from "../../utils";
 
 interface ProjectionState {}
 
@@ -53,7 +54,9 @@ export class UsersProjection implements DurableObject {
 
     console.log(`UsersProjection got request, '${request.url}'`);
 
-    if (request.url == "onEvent") {
+    const operation = getDOOperation(request.url);
+
+    if (operation == "onEvent") {
       const event = await request.json();
       await this.handle(event);
       return new Response(
@@ -61,7 +64,7 @@ export class UsersProjection implements DurableObject {
           kind: `success`,
         })
       );
-    } else if (request.url == "query") {
+    } else if (operation == "query") {
       const query = await request.json();
       console.log(`performing query`, query);
       return new Response(

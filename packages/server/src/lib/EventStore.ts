@@ -1,6 +1,7 @@
 import { AggregateNames, generateId } from "@project/shared";
 import { Env } from "../env";
 import { Event, AddEventInput } from "./events";
+import {getDOOperation} from '../utils';
 
 const getStoreKey = (eventId: string, aggregate: AggregateNames, aggregateId: string) =>
   `e:${aggregate}:${aggregateId}:${eventId}`;
@@ -23,7 +24,7 @@ export class EventStore implements DurableObject {
     }
     await this.initializePromise;
 
-    if (request.url != "add") throw new Error(`only know how to add right now`);
+    if (getDOOperation(request.url) != "add") throw new Error(`only know how to add right now`);
 
     const req: AddEventRequest = await request.json();
 
@@ -47,7 +48,7 @@ export class EventStore implements DurableObject {
     // We now need to inform all projection and processes about the event but we dont
     // want to wait for them to finish as they could take a while.
     // I hope this is how it works in DOs
-    this.env.UsersProjection.get(`v1`).fetch("onEvent", {
+    this.env.UsersProjection.get(this.env.EventStore.idFromName(`v1`)).fetch("onEvent", {
       method: "POST",
       body: JSON.stringify(event),
     });
@@ -60,7 +61,7 @@ export class EventStore implements DurableObject {
   }
 }
 
-export const getEventStore = (env: Env) => env.EventStore.get(`v1`);
+export const getEventStore = (env: Env) => env.EventStore.get(env.EventStore.idFromName(`v1`));
 
 export interface AddEventRequest {
   aggregate: AggregateNames;

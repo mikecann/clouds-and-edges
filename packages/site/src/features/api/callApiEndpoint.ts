@@ -1,4 +1,5 @@
 import { ApiEndpointResponse } from "@project/shared";
+import {config} from '../config/config';
 
 interface Options {
   path: string;
@@ -7,7 +8,7 @@ interface Options {
 }
 
 export const callApiEndpoint = async ({ path, input, method = "POST" }: Options): Promise<any> => {
-  const response = await fetch(`http://localhost:8777/api/v1/${path}`, {
+  const response = await fetch(`${config.SERVER_ROOT}/api/v1/${path}`, {
     method,
     body: input ? JSON.stringify(input) : undefined,
   });

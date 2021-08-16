@@ -1,4 +1,5 @@
 import { Env } from "../env";
+import { EventStore } from "./EventStore";
 
 interface Options {
   env: Env;
@@ -7,7 +8,7 @@ interface Options {
 }
 
 export const queryProjection = async ({ env, projection, query }: Options) => {
-  const stub = env.UsersProjection.get(`v1`);
+  const stub = env.UsersProjection.get(env.EventStore.idFromName(`v1`));
 
   console.log(`querying projection`, {
     projection,

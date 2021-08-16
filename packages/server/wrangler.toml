@@ -5,10 +5,14 @@ workers_dev = true
 route = ""
 zone_id = ""
 
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "./index.mjs"
+rules = [{type = "Data", globs = ["**/*.html"]}]
+
 [build]
-command = "npm install && npm run build"
-upload_format = "modules"
-upload_exclude = ["*.map"]
+command = "yarn build"
 
 [durable_objects]
 bindings = [

@@ -1,5 +1,5 @@
 import { Router } from "itty-router";
-import { api, wait, ApiEndpointResponse, AuthSignupResponse } from "@project/shared";
+import { api, wait, ApiEndpointResponse, AuthSignupResponse, generateId } from "@project/shared";
 import { Env } from "./env";
 import { executeCommand } from "./lib/executeCommand";
 import { queryProjection } from "./lib/queryProjection";
@@ -15,7 +15,7 @@ router.post(`/api/v1/auth/signup`, async (request, env: Env) => {
 
   const input = api.v1.auth.signup.post.input.parse(await request.json!());
 
-  const userId = env.UserAggregate.newUniqueId().toString();
+  const userId = generateId();
 
   const response = await executeCommand({
     aggregate: "user",

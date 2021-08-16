@@ -5,6 +5,9 @@ import { AggregateReducers } from "./reducers";
 import { Env } from "../env";
 import { addEventToEventStore } from "./addEventToEventStore";
 import { AddEventInput } from "./events";
+import {Router} from 'itty-router';
+import {router} from '../routes';
+import {getDOOperation} from '../utils';
 
 export const AggregateExecuteInput = z.object({
   command: z.string(),
@@ -39,7 +42,10 @@ export class AggreateDO<TState extends Record<string, any>> implements DurableOb
     }
     await this.initializePromise;
 
-    if (request.url != `execute`) throw new Error(`can only support 'execute' right now`);
+    if (getDOOperation(request.url) != `execute`)
+      throw new Error(
+        `Request not supported '${request.url}', only 'execute' is currently supported`
+      );
 
     const input = AggregateExecuteInput.parse(await request.json());
 
