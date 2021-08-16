@@ -20,7 +20,7 @@ export const executeCommand = async ({
 }: Options) => {
   const stub: DurableObjectNamespace = getInObj(env, getInObj(aggregates, aggregate));
 
-  const objId = aggregateId ? stub.idFromName(aggregateId) : stub.newUniqueId();
+  const objId = aggregateId ? stub.idFromString(aggregateId) : stub.newUniqueId();
 
   console.log(`Executing command`, {
     aggregate,

@@ -3,6 +3,7 @@ import { api, wait, ApiEndpointResponse, AuthSignupResponse, generateId } from "
 import { Env } from "./env";
 import { executeCommand } from "./lib/executeCommand";
 import { queryProjection } from "./lib/queryProjection";
+import { generateShortId } from "../../shared/src/utils/id";
 
 export const router = Router();
 
@@ -15,7 +16,7 @@ router.post(`/api/v1/auth/signup`, async (request, env: Env) => {
 
   const input = api.v1.auth.signup.post.input.parse(await request.json!());
 
-  const userId = generateId();
+  const userId = env.UserAggregate.newUniqueId().toString();
 
   const response = await executeCommand({
     aggregate: "user",

@@ -9,3 +9,7 @@ export const generateId = (rng = getRandom()): string => {
       .substring(2)
   );
 };
+
+export const generateShortId = (rng = getRandom()): string => {
+  return generateId(rng).substring(0, 16);
+};

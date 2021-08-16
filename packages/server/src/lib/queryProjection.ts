@@ -8,7 +8,7 @@ interface Options {
 }
 
 export const queryProjection = async ({ env, projection, query }: Options) => {
-  const stub = env.UsersProjection.get(env.EventStore.idFromName(`v1`));
+  const stub = env.UsersProjection.get(env.UsersProjection.idFromName(`v1`));
 
   console.log(`querying projection`, {
     projection,

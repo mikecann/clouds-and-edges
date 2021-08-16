@@ -5,9 +5,9 @@ import { AggregateReducers } from "./reducers";
 import { Env } from "../env";
 import { addEventToEventStore } from "./addEventToEventStore";
 import { AddEventInput } from "./events";
-import {Router} from 'itty-router';
-import {router} from '../routes';
-import {getDOOperation} from '../utils';
+import { Router } from "itty-router";
+import { router } from "../routes";
+import { getDOOperation } from "../utils";
 
 export const AggregateExecuteInput = z.object({
   command: z.string(),
