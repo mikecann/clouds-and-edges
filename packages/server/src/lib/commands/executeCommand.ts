@@ -1,7 +1,8 @@
 import { AggregateNames, getInObj } from "@project/shared";
-import { aggregates } from "../aggregates/aggregates";
-import { AggregateExecuteInput } from "./AggregateDO";
-import { Env } from "../env";
+import { aggregates } from "../../aggregates/aggregates";
+import { Env } from "../../env";
+import { AggreateDO } from "../aggregates/AggregateDO";
+import { callDurableObject } from "../durableObjects/callDurableObject";
 
 interface Options {
   aggregate: AggregateNames;
@@ -30,20 +31,13 @@ export const executeCommand = async ({
     command,
   });
 
-  const response = await stub
-    .get(objId)
-    .fetch(`execute`, {
-      method: "POST",
-      body: JSON.stringify(
-        AggregateExecuteInput.parse({
-          payload: payload,
-          command: command,
-        })
-      ),
-    })
-    .then(r => r.json());
-
-  console.log(`command response`, response);
-
-  return response;
+  return callDurableObject({
+    stub: stub.get(objId),
+    object: AggreateDO,
+    endpoint: "execute",
+    input: {
+      command,
+      payload,
+    },
+  });
 };

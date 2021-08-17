@@ -23,7 +23,7 @@ export const useApiQuery = <TQuery extends QueryNames>(
     return () => {
       isCancelled = true;
     };
-  }, [endpoint, input]);
+  }, [endpoint, JSON.stringify(input)]);
 
   return data;
 };

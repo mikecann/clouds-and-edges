@@ -1,4 +1,4 @@
-import { AddEventInput } from "./events";
+import { AddEventInput } from "./events/events";
 
 export type AggregateReducer<TState, TPayload> = (
   state: TState,

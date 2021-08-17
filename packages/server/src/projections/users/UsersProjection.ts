@@ -1,78 +1,64 @@
 import { findInObj } from "../../../../shared/src";
 import { Events } from "../../events";
-import { Event } from "../../lib/events";
-import { ProjectionEventHandlers } from "../../lib/projections";
-import { getDOOperation } from "../../utils";
+import { Event } from "../../lib/events/events";
+import { ProjectionEventHandlers } from "../../lib/projections/projections";
+import { BaseDurableObject } from "../../lib/durableObjects/BaseDurableObject";
+import { z } from "zod";
+import { Env } from "../../env";
 
 interface ProjectionState {}
 
-export class UsersProjection implements DurableObject {
-  private initializePromise: Promise<void> | undefined;
+export class UsersProjection extends BaseDurableObject<typeof UsersProjection.api> {
+  static version = `1.0.0`;
 
-  constructor(private objectState: DurableObjectState) {}
-
-  async initialize(): Promise<void> {}
-
-  private handlers: ProjectionEventHandlers<Events> = {
-    "user-created": async ({ event: { aggregateId, payload } }) => {
-      console.log(`UsersProjection user-created`, aggregateId, payload);
-      await this.objectState.storage.put(`user:${aggregateId}`, {
-        id: aggregateId,
-        name: (payload as any).name,
-      });
-      console.log(`UsersProjection stored`);
+  static api = {
+    onEvent: {
+      input: z.object({
+        event: Event,
+      }),
+      output: z.object({}),
+    },
+    query: {
+      input: z.object({
+        id: z.string(),
+      }),
+      output: z.object({}),
     },
   };
 
-  private async handle(event: Event) {
-    console.log(`UsersProjection handling event`, event);
-    const handler = findInObj(this.handlers, event.kind);
-    if (!handler) {
-      console.log(`projection unable to handle event '${event.kind}'`);
-      return;
-    }
-    await handler({ event });
-  }
+  constructor(objectState: DurableObjectState, env: Env) {
+    super({
+      env,
+      init: async () => {},
+      routes: {
+        onEvent: async ({ event }) => {
+          console.log(`UsersProjection handling event`, event);
 
-  private async query(query: any) {
-    console.log(`handling query`, query);
-    const val = await this.objectState.storage.get(`user:${query.userId}`);
-    console.log(`lookup response`, val);
-    return val;
-  }
+          const handlers: ProjectionEventHandlers<Events> = {
+            "user-created": async ({ event: { aggregateId, payload } }) => {
+              console.log(`UsersProjection user-created`, aggregateId, payload);
+              await objectState.storage.put(`user:${aggregateId}`, {
+                id: aggregateId,
+                name: (payload as any).name,
+              });
+              console.log(`UsersProjection stored`);
+            },
+          };
 
-  // Handle HTTP requests from clients.
-  async fetch(request: Request) {
-    // First init from storage
-    if (!this.initializePromise) {
-      this.initializePromise = this.initialize().catch(err => {
-        this.initializePromise = undefined;
-        throw err;
-      });
-    }
-    await this.initializePromise;
-
-    console.log(`UsersProjection got request, '${request.url}'`);
-
-    const operation = getDOOperation(request.url);
-
-    if (operation == "onEvent") {
-      const event = await request.json();
-      await this.handle(event);
-      return new Response(
-        JSON.stringify({
-          kind: `success`,
-        })
-      );
-    } else if (operation == "query") {
-      const query = await request.json();
-      console.log(`performing query`, query);
-      return new Response(
-        JSON.stringify({
-          kind: `success`,
-          payload: await this.query(query),
-        })
-      );
-    } else throw new Error(`Unknown request '${request.url}'`);
+          const handler = findInObj(handlers, event.kind);
+          if (!handler) {
+            console.log(`projection unable to handle event '${event.kind}'`);
+            return;
+          }
+          await handler({ event });
+        },
+        query: async ({ id }) => {
+          console.log(`handling query`, id);
+          const val = await objectState.storage.get(`user:${id}`);
+          console.log(`lookup response`, val);
+          return val;
+        },
+      },
+    });
   }
 }

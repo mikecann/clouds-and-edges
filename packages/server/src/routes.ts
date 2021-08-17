@@ -1,7 +1,7 @@
 import { Router } from "itty-router";
 import { wait, API } from "@project/shared";
-import { executeCommand } from "./lib/executeCommand";
-import { queryProjection } from "./lib/queryProjection";
+import { executeCommand } from "./lib/commands/executeCommand";
+import { queryProjection } from "./lib/projections/queryProjection";
 import { addRpcRoutes } from "./lib/addRpcRoutes";
 
 export const router = Router();
@@ -17,7 +17,7 @@ addRpcRoutes<API["query"]>({
       // Temp
       await wait(100);
 
-      const resp = await queryProjection({
+      return queryProjection({
         env,
         projection: "users",
         query: {
@@ -35,7 +35,7 @@ addRpcRoutes<API["mutation"]>({
     "auth.signup": async (input, env) => {
       const userId = env.UserAggregate.newUniqueId().toString();
 
-      const response = await executeCommand({
+      await executeCommand({
         aggregate: "user",
         command: "create",
         env,
@@ -44,8 +44,6 @@ addRpcRoutes<API["mutation"]>({
         },
         aggregateId: userId,
       });
-
-      if (response.kind != `success`) throw new Error(`Failed to signup user: ${response.message}`);
 
       return {
         userId,

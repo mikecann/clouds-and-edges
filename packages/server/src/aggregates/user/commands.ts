@@ -1,4 +1,4 @@
-import { AggregateCommandHandlers } from "../../lib/commands";
+import { AggregateCommandHandlers } from "../../lib/commands/commands";
 import { UserAggregateState } from "./state";
 import { UserCommands } from "@project/shared";
 import { UserEvents } from "./events";
