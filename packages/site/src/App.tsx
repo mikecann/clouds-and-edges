@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./index.css";
 import { MyChakraProvider } from "./features/theme/MyChakraProvider";
 import { GLSDefaults } from "gls/lib";
 import { QueryClient, QueryClientProvider } from "react-query";

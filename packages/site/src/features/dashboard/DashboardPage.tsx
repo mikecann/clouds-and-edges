@@ -4,6 +4,7 @@ import { UserProfile } from "./UserProfile";
 import { Heading, Button } from "@chakra-ui/react";
 import { apiMutate } from "../api/apiMutate";
 import { useMe } from "../api/useMe";
+import { ConnectedDashboardSidebar } from "./sidebar/ConnectedDashboardSidebar";
 
 interface Props {
   userId: string;
@@ -21,6 +22,7 @@ export const DashboardPage: React.FC<Props> = ({ userId }) => {
 
   return (
     <Vertical spacing={10}>
+      <ConnectedDashboardSidebar />
       <Heading as="h1">Dashboard Page</Heading>
       <div style={{ opacity: 0.5 }}>Your UserID is: {userId}</div>
       {!me ? (

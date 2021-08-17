@@ -1,23 +1,33 @@
 import * as React from "react";
-import logo from "../../logo.svg";
 import { SignupPage } from "../signup/SignupPage";
-import { DashboardPage } from "../dashboard/DashboardPage";
 import { useAppState } from "../state/app";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { RootPage } from "../root/RootPage";
+import { useColorMode } from "@chakra-ui/react";
 
 interface Props {}
 
 export const Router: React.FC<Props> = ({}) => {
   const [{ userId }, setState] = useAppState();
+  const { setColorMode } = useColorMode();
+
+  React.useEffect(() => {
+    setColorMode("dark");
+  }, []);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {userId ? (
-          <DashboardPage userId={userId} />
-        ) : (
-          <SignupPage onSignup={(userId) => setState((p) => ({ ...p, userId }))} />
-        )}
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/signup">
+          <SignupPage />
+        </Route>
+        <Route path="/">
+          <RootPage />
+        </Route>
+        {/* <Route path="/dashboard">
+            <DashboardPage />
+          </Route> */}
+      </Switch>
+    </BrowserRouter>
   );
 };
