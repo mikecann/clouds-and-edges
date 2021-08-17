@@ -5,5 +5,5 @@
     "rootDir": "./src",
     "types": ["jest", "node"]
   },
-  "include": ["./src"] 
+  "include": ["./src", "../server/src/lib/rpc"] 
 }

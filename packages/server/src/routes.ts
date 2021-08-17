@@ -1,9 +1,8 @@
 import { Router } from "itty-router";
-import { api, wait, ApiEndpointResponse, AuthSignupResponse, generateId } from "@project/shared";
-import { Env } from "./env";
+import { wait, API } from "@project/shared";
 import { executeCommand } from "./lib/executeCommand";
 import { queryProjection } from "./lib/queryProjection";
-import { generateShortId } from "../../shared/src/utils/id";
+import { addRpcRoutes } from "./lib/addRpcRoutes";
 
 export const router = Router();
 
@@ -11,67 +10,58 @@ router.get("/", async () => {
   return new Response("Hello, World!");
 });
 
-router.post(`/api/v1/auth/signup`, async (request, env: Env) => {
-  console.log(`starting signup`);
+addRpcRoutes<API["query"]>({
+  urlPrefix: `/api/v1/query/`,
+  routes: {
+    "user.get": async (input, env) => {
+      // Temp
+      await wait(100);
 
-  const input = api.v1.auth.signup.post.input.parse(await request.json!());
-
-  const userId = env.UserAggregate.newUniqueId().toString();
-
-  const response = await executeCommand({
-    aggregate: "user",
-    command: "create",
-    env,
-    payload: {
-      name: input.name,
+      const resp = await queryProjection({
+        env,
+        projection: "users",
+        query: {
+          ...input,
+        },
+      });
     },
-    aggregateId: userId,
-  });
-
-  if (response.kind != `success`) throw new Error(`Failed to signup user: ${response.message}`);
-
-  const json: ApiEndpointResponse<AuthSignupResponse> = {
-    kind: `success`,
-    payload: {
-      userId,
-    },
-  };
-
-  return new Response(JSON.stringify(json));
+  },
+  router,
 });
 
-router.post(`/api/v1/commands`, async (request, env: Env) => {
-  const input = api.v1.commands.post.input.parse(await request.json!());
+addRpcRoutes<API["mutation"]>({
+  urlPrefix: `/api/v1/mutation/`,
+  routes: {
+    "auth.signup": async (input, env) => {
+      const userId = env.UserAggregate.newUniqueId().toString();
 
-  const response = await executeCommand({
-    aggregate: input.aggregate as any,
-    command: input.command,
-    env,
-    payload: input.payload,
-    aggregateId: input.aggregateId,
-  });
+      const response = await executeCommand({
+        aggregate: "user",
+        command: "create",
+        env,
+        payload: {
+          name: input.name,
+        },
+        aggregateId: userId,
+      });
 
-  return new Response(
-    JSON.stringify({
-      kind: `success`,
-      payload: response,
-    })
-  );
-});
+      if (response.kind != `success`) throw new Error(`Failed to signup user: ${response.message}`);
 
-router.get(`/api/v1/projections/users/:userId`, async (request, env) => {
-  // Temp
-  await wait(100);
-
-  const resp = await queryProjection({
-    env,
-    projection: "users",
-    query: {
-      ...request.params,
+      return {
+        userId,
+      };
     },
-  });
-
-  return new Response(JSON.stringify(resp));
+    command: async (input, env) => {
+      return await executeCommand({
+        aggregate: input.aggregate as any,
+        command: input.command,
+        env,
+        payload: input.payload,
+        aggregateId: input.aggregateId,
+      });
+    },
+  },
+  router,
 });
 
 // 404 for everything else

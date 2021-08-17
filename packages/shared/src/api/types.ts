@@ -6,34 +6,53 @@ export type ApiEndpointResponse<T = any> = Success<T> | Fail;
 export type AuthSignupResponse = { userId: string };
 
 export const api = {
-  v1: {
-    auth: {
-      signup: {
-        post: {
-          input: z.object({
-            name: z.string(),
-          }),
-        },
-      },
+  query: {
+    "user.get": {
+      input: z.object({
+        id: z.string(),
+      }),
+      output: z.object({}),
     },
-    commands: {
-      post: {
-        input: z.object({
-          aggregate: z.string(),
-          aggregateId: z.string().optional(),
-          command: z.string(),
-          payload: z.any().optional(),
-        }),
-      },
+  },
+  mutation: {
+    "auth.signup": {
+      input: z.object({
+        name: z.string(),
+      }),
+      output: z.object({
+        userId: z.string(),
+      }),
     },
-    projections: {
-      user: {
-        get: {
-          input: z.object({
-            userId: z.string(),
-          }),
-        },
-      },
+    command: {
+      input: z.object({
+        aggregate: z.string(),
+        aggregateId: z.string().optional(),
+        command: z.string(),
+        payload: z.any().optional(),
+      }),
+      output: z.object({}),
     },
   },
 };
+
+export type RPCOperation = "query" | "mutation";
+
+export type API = typeof api;
+
+export type Queries = API["query"];
+
+export type QueryNames = keyof Queries;
+
+export type QueryInput<TQuery extends QueryNames> = z.infer<Queries[TQuery]["input"]>;
+
+export type QueryOutput<TQuery extends QueryNames> = z.infer<Queries[TQuery]["output"]>;
+
+export type Mutations = API["mutation"];
+
+export type MutationNames = keyof Mutations;
+
+export type MutationInput<TMutation extends MutationNames> = z.infer<Mutations[TMutation]["input"]>;
+
+export type MutationOutput<TMutation extends MutationNames> = z.infer<
+  Mutations[TMutation]["output"]
+>;

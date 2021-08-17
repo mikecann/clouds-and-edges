@@ -1,15 +1,13 @@
 import * as React from "react";
 import { Vertical } from "gls";
-import { useApiEndpointQuery } from "../api/useApiEndpointQuery";
+import { useApiQuery } from "../api/useApiEndpointQuery";
 
 interface Props {
   userId: string;
 }
 
 export const DashboardPage: React.FC<Props> = ({ userId }) => {
-  const user = useApiEndpointQuery({
-    path: `projections/users/${userId}`,
-  });
+  const user = useApiQuery("user.get", { id: userId });
 
   return (
     <Vertical spacing={10}>

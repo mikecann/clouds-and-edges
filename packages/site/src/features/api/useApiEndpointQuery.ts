@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { callApiEndpoint } from "./callApiEndpoint";
+import { apiQuery } from "./apiQuery";
+import { QueryNames, QueryInput, QueryOutput } from "@project/shared";
 
-interface Options {
-  path: string;
-  input?: unknown;
-}
-
-export const useApiEndpointQuery = ({ path, input }: Options) => {
-  const [data, setData] = useState<unknown>(undefined);
+export const useApiQuery = <TQuery extends QueryNames>(
+  endpoint: TQuery,
+  input: QueryInput<TQuery>
+): QueryOutput<TQuery> | undefined => {
+  const [data, setData] = useState<QueryOutput<TQuery> | undefined>(undefined);
 
   useEffect(() => {
     let isCancelled = false;
-    callApiEndpoint({ path, input, method: "GET" })
-      .then(resp => {
+    apiQuery(endpoint, input)
+      .then((resp) => {
         if (isCancelled) return;
         setData(resp);
       })
-      .catch(err => {
+      .catch((err) => {
         if (isCancelled) return;
         console.error(`ApiEndpointQuery`, err);
         throw err;
@@ -24,7 +23,7 @@ export const useApiEndpointQuery = ({ path, input }: Options) => {
     return () => {
       isCancelled = true;
     };
-  }, [path, input]);
+  }, [endpoint, input]);
 
   return data;
 };
