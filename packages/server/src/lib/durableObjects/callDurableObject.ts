@@ -1,3 +1,4 @@
+import { ApiEndpointResponse } from "@project/shared";
 import { z } from "zod";
 import { RpcRoutesApi } from "../addRpcRoutes";
 
@@ -23,7 +24,7 @@ export const callDurableObject = async <TApi extends RpcRoutesApi, TEndpoint ext
     input,
   });
 
-  const response = await stub
+  const response: ApiEndpointResponse = await stub
     .fetch(`https://fake-host/${endpoint}`, {
       method: "POST",
       body: JSON.stringify(input),
@@ -32,5 +33,7 @@ export const callDurableObject = async <TApi extends RpcRoutesApi, TEndpoint ext
 
   console.log(`durable object response`, response);
 
-  return response;
+  if (response.kind != "success") throw new Error(`not success`);
+
+  return response.payload;
 };

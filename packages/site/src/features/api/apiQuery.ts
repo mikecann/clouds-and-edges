@@ -10,6 +10,7 @@ export const apiQuery = async <TQuery extends QueryNames>(
     method: "POST",
     body: JSON.stringify(input),
   });
+  if (!response.ok) throw new Error(`apiQuery response not ok`);
   const json: ApiEndpointResponse<QueryOutput<TQuery>> = await response.json();
   if (json.kind != `success`) throw new Error(`API Endpoint Error '${json.message}'`);
   return json.payload;

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserProjection } from "../projections/projections";
 import { Fail, Success } from "../utils/response";
 
 export type ApiEndpointResponse<T = any> = Success<T> | Fail;
@@ -11,7 +12,7 @@ export const api = {
       input: z.object({
         id: z.string(),
       }),
-      output: z.object({}),
+      output: UserProjection,
     },
   },
   mutation: {

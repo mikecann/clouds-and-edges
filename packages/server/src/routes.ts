@@ -23,7 +23,7 @@ addRpcRoutes<API["query"]>({
         query: {
           ...input,
         },
-      });
+      }) as any;
     },
   },
   router,

@@ -6,6 +6,7 @@ export * from "./aggregates/aggregates";
 export * from "./api/types";
 export * from "./commands/commands";
 export * from "./commands/userCommands";
+export * from "./modal/id";
 export * from "./projections/projections";
 export * from "./utils/ensure";
 export * from "./utils/id";
