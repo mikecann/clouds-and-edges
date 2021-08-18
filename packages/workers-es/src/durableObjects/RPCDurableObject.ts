@@ -1,38 +1,37 @@
-import { Router } from "itty-router";
-import { addRpcRoutes, RpcRoutesHandlers, RpcRoutesApi } from "../addRpcRoutes";
+import { RpcRoutesHandlers, RpcRoutesApi } from "../addRpcRoutes";
+import { RPCRequest } from "./rpc";
+import { getInObj, getLogger } from "@project/essentials";
 
-export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi> implements DurableObject {
-  private initializePromise: Promise<void> | undefined;
-  private router: Router<unknown>;
+export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
+  implements DurableObject
+{
+  private initPromise: Promise<void> | undefined;
+  protected logger = getLogger(`${this}`);
 
   constructor(
-    private options: {
-      env: any;
-      init: () => Promise<void>;
-      routes: RpcRoutesHandlers<TRoutesApi, unknown>;
-    }
-  ) {
-    this.router = Router();
-    addRpcRoutes<TRoutesApi, unknown>({
-      routes: options.routes,
-      urlPrefix: `/`,
-      router: this.router,
-    });
-    // 404 for everything else
-    this.router.all("*", () => new Response("Not Found.", { status: 404 }));
-  }
+    protected env: TEnv,
+    protected init: () => Promise<void> = async () => {},
+    protected routes: RpcRoutesHandlers<TRoutesApi, unknown>
+  ) {}
 
   // Handle HTTP requests from clients.
   async fetch(request: Request): Promise<Response> {
     // First init from storage
-    if (!this.initializePromise) {
-      this.initializePromise = this.options.init().catch((err) => {
-        this.initializePromise = undefined;
+    if (!this.initPromise) {
+      this.initPromise = this.init().catch((err) => {
+        this.initPromise = undefined;
         throw err;
       });
     }
-    await this.initializePromise;
+    await this.initPromise;
 
-    return this.router.handle(request, this.options.env);
+    const rpcRequest: RPCRequest = await request.json();
+    this.logger.debug(`got RPCRequest`, rpcRequest);
+
+    getInObj(this.routes, rpcRequest.endpoint)(rpcRequest.payload);
+
+    return new Response("okay");
+
+    //return this.router.handle(request, this.options.env);
   }
 }

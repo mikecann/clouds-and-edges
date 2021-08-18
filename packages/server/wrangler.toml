@@ -8,7 +8,7 @@ zone_id = ""
 [build.upload]
 format = "modules"
 dir = "dist"
-main = "./index.mjs"
+main = "./main.mjs"
 rules = [{type = "Data", globs = ["**/*.html"]}]
 
 [build]

@@ -6,8 +6,9 @@ import { AddEventInput } from "../events/events";
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { ensure, getInObj, getLogger } from "@project/essentials";
 
-export class AggreateDO<TState extends Record<string, any>> extends RPCDurableObject<
-  typeof AggreateDO.api
+export class AggreateDO<TState extends Record<string, any>, TEnv> extends RPCDurableObject<
+  typeof AggreateDO.api,
+  TEnv
 > {
   static api = {
     execute: {
@@ -21,7 +22,7 @@ export class AggreateDO<TState extends Record<string, any>> extends RPCDurableOb
 
   constructor(
     objectState: DurableObjectState,
-    env: any,
+    env: TEnv,
     aggregate: string,
     commands: AggregateCommandHandlers<TState>,
     reducers: AggregateReducers<TState>
@@ -30,13 +31,13 @@ export class AggreateDO<TState extends Record<string, any>> extends RPCDurableOb
     const logger = getLogger(`${aggregate}-aggregate`);
 
     const aggregateId = ensure(objectState.id.name);
-    super({
+    super(
       env,
-      init: async () => {
+      async () => {
         let stored = (await objectState.storage.get("state")) as TState | undefined;
         state = stored || ({} as any);
       },
-      routes: {
+      {
         execute: async (input) => {
           logger.debug(`${this} execution starting`, { input, aggregateId });
 
@@ -69,7 +70,7 @@ export class AggreateDO<TState extends Record<string, any>> extends RPCDurableOb
 
           return {};
         },
-      },
-    });
+      }
+    );
   }
 }

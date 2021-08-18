@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { RpcRoutesApi } from "../addRpcRoutes";
 import { getLogger } from "@project/essentials";
+import { RPCRequest } from "./rpc";
 
 interface Options<TApi extends RpcRoutesApi, TEndpoint extends keyof TApi> {
   stub: DurableObjectStub;
@@ -26,10 +27,15 @@ export const callDurableObject = async <TApi extends RpcRoutesApi, TEndpoint ext
     input,
   });
 
+  const rpcRequest: RPCRequest = {
+    endpoint: `${endpoint}`,
+    payload: input,
+  };
+
   const response = await stub
     .fetch(`https://fake-host/${endpoint}`, {
       method: "POST",
-      body: JSON.stringify(input),
+      body: JSON.stringify(rpcRequest),
     })
     .then((r) => r.json());
 

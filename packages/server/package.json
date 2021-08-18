@@ -6,7 +6,7 @@
   "scripts": {
     "script": "ts-node --transpile-only --require tsconfig-paths/register --project ./scripts/tsconfig.json",
     "build": "yarn script ./scripts/build.ts",
-    "dev": "miniflare dist/index.mjs --watch --debug --port 8777",
+    "dev": "miniflare dist/main.mjs --watch --debug --port 8777",
     "deploy": "wrangler publish",
     "new:class": "wrangler publish --new-class"
   },

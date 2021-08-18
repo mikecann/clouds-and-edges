@@ -9,7 +9,7 @@ interface ProjectionState {}
 
 const logger = getLogger(`UsersProjection`);
 
-export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api> {
+export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api, Env> {
   static version = `1.0.0`;
 
   static api = {
@@ -36,52 +36,48 @@ export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api
   };
 
   constructor({ storage }: DurableObjectState, env: Env) {
-    super({
-      env,
-      init: async () => {},
-      routes: {
-        onEvent: async ({ event }) => {
-          logger.debug(`UsersProjection handling event`, event);
+    super(env, async () => {}, {
+      onEvent: async ({ event }) => {
+        logger.debug(`UsersProjection handling event`, event);
 
-          const handlers: ProjectionEventHandlers<Events> = {
-            "user-created": async ({ event: { aggregateId, payload } }) => {
-              logger.debug(`UsersProjection user-created`, aggregateId, payload);
-              await storage.put(`user:${aggregateId}`, {
-                id: aggregateId,
-                name: (payload as any).name,
-              });
-              logger.debug(`UsersProjection stored`);
-            },
-            "user-name-set": async ({ event: { payload, aggregateId } }) => {
-              logger.debug(`UsersProjection user-name-set`, aggregateId, payload);
-              const user = await storage.get(`user:${aggregateId}`);
-              await storage.put(`user:${aggregateId}`, {
-                ...(user as any),
-                name: (payload as any).name,
-              });
-              logger.debug(`UsersProjection updated user`);
-            },
-          };
+        const handlers: ProjectionEventHandlers<Events> = {
+          "user-created": async ({ event: { aggregateId, payload } }) => {
+            logger.debug(`UsersProjection user-created`, aggregateId, payload);
+            await storage.put(`user:${aggregateId}`, {
+              id: aggregateId,
+              name: (payload as any).name,
+            });
+            logger.debug(`UsersProjection stored`);
+          },
+          "user-name-set": async ({ event: { payload, aggregateId } }) => {
+            logger.debug(`UsersProjection user-name-set`, aggregateId, payload);
+            const user = await storage.get(`user:${aggregateId}`);
+            await storage.put(`user:${aggregateId}`, {
+              ...(user as any),
+              name: (payload as any).name,
+            });
+            logger.debug(`UsersProjection updated user`);
+          },
+        };
 
-          const handler = findInObj(handlers, event.kind);
-          if (!handler) {
-            logger.debug(`projection unable to handle event '${event.kind}'`);
-            return;
-          }
-          await handler({ event });
-        },
-        query: async ({ id }) => {
-          logger.debug(`handling query`, id);
-          const val = await storage.get(`user:${id}`);
-          logger.debug(`lookup response`, val);
-          return val;
-        },
-        "admin.getState": async ({}) => {
-          return {};
-        },
-        "admin.rebuild": async ({}) => {
-          return {};
-        },
+        const handler = findInObj(handlers, event.kind);
+        if (!handler) {
+          logger.debug(`projection unable to handle event '${event.kind}'`);
+          return;
+        }
+        await handler({ event });
+      },
+      query: async ({ id }) => {
+        logger.debug(`handling query`, id);
+        const val = await storage.get(`user:${id}`);
+        logger.debug(`lookup response`, val);
+        return val;
+      },
+      "admin.getState": async ({}) => {
+        return {};
+      },
+      "admin.rebuild": async ({}) => {
+        return {};
       },
     });
   }

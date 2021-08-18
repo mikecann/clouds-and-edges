@@ -13,5 +13,4 @@ export * from "./events/addEventToEventStore";
 export * from "./events/BaseEventStore";
 export * from "./events/Event";
 export * from "./events/events";
-export * from "./events/onEventAddedToStore";
 export * from "./projections/projections";

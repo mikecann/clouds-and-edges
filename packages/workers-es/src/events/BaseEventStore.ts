@@ -9,7 +9,7 @@ const logger = getLogger(`EventStore`);
 const getEventId = (aggregate: string, aggregateId: string, index: number) =>
   `e:${aggregate}:${aggregateId}:${index}`;
 
-export class BaseEventStore extends RPCDurableObject<typeof BaseEventStore.api> {
+export class BaseEventStore<TEnv> extends RPCDurableObject<typeof BaseEventStore.api, TEnv> {
   static version = `1.0.6`;
 
   static api = {
@@ -28,17 +28,19 @@ export class BaseEventStore extends RPCDurableObject<typeof BaseEventStore.api> 
     },
   };
 
-  constructor({ storage }: DurableObjectState, env: any) {
-    let eventIndex: number = 0;
+  protected onEventAdded = (event: Event): any => {};
 
-    super({
+  private eventIndex: number = 0;
+
+  constructor({ storage }: DurableObjectState, env: any) {
+    super(
       env,
-      init: async () => {
-        eventIndex = (await storage.get("eventIndex")) ?? 0;
+      async () => {
+        this.eventIndex = (await storage.get("eventIndex")) ?? 0;
       },
-      routes: {
+      {
         add: async ({ aggregate, aggregateId, kind, payload }) => {
-          const id = getEventId(aggregate, aggregateId, eventIndex);
+          const id = getEventId(aggregate, aggregateId, this.eventIndex);
 
           const event: Event = {
             id,
@@ -52,13 +54,13 @@ export class BaseEventStore extends RPCDurableObject<typeof BaseEventStore.api> 
           logger.debug(`EventStore adding event`, event);
 
           // I think we need a better eventId here
-          await storage.put(`eventIndex`, eventIndex++);
+          await storage.put(`eventIndex`, this.eventIndex++);
           await storage.put(id, event);
 
           // We now need to inform all projection and processes about the event but we dont
           // want to wait for them to finish as they could take a while.
           // I hope this is how it works in DOs
-          //onEventAddedToStore({ event, env });
+          this.onEventAdded(event);
 
           return {};
         },
@@ -67,8 +69,8 @@ export class BaseEventStore extends RPCDurableObject<typeof BaseEventStore.api> 
           const events = [...contents.values()];
           return events as any;
         },
-      },
-    });
+      }
+    );
   }
 }
 
