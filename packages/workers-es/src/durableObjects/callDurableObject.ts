@@ -1,6 +1,6 @@
-import { ApiEndpointResponse } from "@project/shared";
 import { z } from "zod";
 import { RpcRoutesApi } from "../addRpcRoutes";
+import { getLogger } from "@project/essentials";
 
 interface Options<TApi extends RpcRoutesApi, TEndpoint extends keyof TApi> {
   stub: DurableObjectStub;
@@ -12,28 +12,28 @@ interface Options<TApi extends RpcRoutesApi, TEndpoint extends keyof TApi> {
   input: z.infer<TApi[TEndpoint]["input"]>;
 }
 
+const logger = getLogger(`callDurableObject`);
+
 export const callDurableObject = async <TApi extends RpcRoutesApi, TEndpoint extends keyof TApi>({
   stub,
   object,
   endpoint,
   input,
 }: Options<TApi, TEndpoint>): Promise<z.infer<TApi[TEndpoint]["output"]>> => {
-  console.log(`calling durable object '${object.name}'`, {
+  logger.debug(`calling durable object '${object.name}'`, {
     stub,
     endpoint,
     input,
   });
 
-  const response: ApiEndpointResponse = await stub
+  const response = await stub
     .fetch(`https://fake-host/${endpoint}`, {
       method: "POST",
       body: JSON.stringify(input),
     })
-    .then(r => r.json());
+    .then((r) => r.json());
 
-  console.log(`durable object response`, response);
+  logger.debug(`durable object response`, response);
 
-  if (response.kind != "success") throw new Error(`not success`);
-
-  return response.payload;
+  return response;
 };

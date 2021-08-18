@@ -1,20 +1,19 @@
 {
   "private": true,
-  "name": "@project/shared",
+  "name": "@project/workers-es",
+  "description": "a general framework for building event sourcing solutions on workers",
   "version": "1.0.0",
-  "description": "",
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
     "barrel": "barrelsby -d src -c ../build-tools/src/barrelsby.json"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.1",
+    "@cloudflare/workers-types": "^2.2.1",
     "barrelsby": "^2.2.0"
   },
   "dependencies": {
     "@project/essentials": "*",
-    "tslog": "^3.2.1",
-    "zod": "^3.7.2"
+    "itty-router": "^2.4.2"
   }
 }

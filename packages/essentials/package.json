@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "@project/shared",
+  "name": "@project/essentials",
   "version": "1.0.0",
-  "description": "",
+  "description": "the essential util, no other project deps",
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
@@ -13,8 +13,5 @@
     "barrelsby": "^2.2.0"
   },
   "dependencies": {
-    "@project/essentials": "*",
-    "tslog": "^3.2.1",
-    "zod": "^3.7.2"
   }
 }

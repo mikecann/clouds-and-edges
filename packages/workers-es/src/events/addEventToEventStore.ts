@@ -1,20 +1,18 @@
-import { Env } from "../../env";
-import { EventStore } from "./EventStore";
+import { BaseEventStore } from "./BaseEventStore";
 import { AddEventInput } from "./events";
-import { AggregateNames } from "@project/shared";
 import { callDurableObject } from "../durableObjects/callDurableObject";
 
 interface Options {
-  env: Env;
+  env: any;
   event: AddEventInput;
-  aggregate: AggregateNames;
+  aggregate: string;
   aggregateId: string;
 }
 
 export const addEventToEventStore = async ({ env, event, aggregate, aggregateId }: Options) => {
   return await callDurableObject({
-    stub: env.EventStore.get(env.EventStore.idFromName(EventStore.version)),
-    object: EventStore,
+    stub: env.EventStore.get(env.EventStore.idFromName(BaseEventStore.version)),
+    object: BaseEventStore,
     endpoint: "add",
     input: { aggregate, aggregateId, kind: event.kind, payload: event.payload },
   });

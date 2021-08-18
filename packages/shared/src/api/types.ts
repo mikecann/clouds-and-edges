@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { UserProjection } from "../projections/projections";
-import { Fail, Success } from "../utils/response";
+import { Fail, Success } from "../../../essentials/src/utils/response";
 import { Event } from "../events/events";
 
 export type ApiEndpointResponse<T = any> = Success<T> | Fail;

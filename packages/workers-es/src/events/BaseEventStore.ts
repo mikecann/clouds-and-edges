@@ -1,15 +1,16 @@
-import { Event } from "@project/shared";
 import { AddEventInput } from "./events";
 import { z } from "zod";
-import { onEventAddedToStore } from "./onEventAddedToStore";
-import { Env } from "../../env";
-import { BaseDurableObject } from "../durableObjects/BaseDurableObject";
+import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
+import { getLogger } from "@project/essentials";
+import { Event } from "./Event";
+
+const logger = getLogger(`EventStore`);
 
 const getEventId = (aggregate: string, aggregateId: string, index: number) =>
   `e:${aggregate}:${aggregateId}:${index}`;
 
-export class EventStore extends BaseDurableObject<typeof EventStore.api> {
-  static version = `1.0.5`;
+export class BaseEventStore extends RPCDurableObject<typeof BaseEventStore.api> {
+  static version = `1.0.6`;
 
   static api = {
     add: {
@@ -27,7 +28,7 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
     },
   };
 
-  constructor({ storage }: DurableObjectState, env: Env) {
+  constructor({ storage }: DurableObjectState, env: any) {
     let eventIndex: number = 0;
 
     super({
@@ -48,7 +49,7 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
             payload,
           };
 
-          console.log(`EventStore adding event`, event);
+          logger.debug(`EventStore adding event`, event);
 
           // I think we need a better eventId here
           await storage.put(`eventIndex`, eventIndex++);
@@ -57,7 +58,7 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
           // We now need to inform all projection and processes about the event but we dont
           // want to wait for them to finish as they could take a while.
           // I hope this is how it works in DOs
-          onEventAddedToStore({ event, env });
+          //onEventAddedToStore({ event, env });
 
           return {};
         },
@@ -71,7 +72,7 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
   }
 }
 
-export const getEventStore = (env: Env) => env.EventStore.get(env.EventStore.idFromName(`v1`));
+export const getEventStore = (env: any) => env.EventStore.get(env.EventStore.idFromName(`v1`));
 
 export interface AddEventRequest {
   aggregate: string;

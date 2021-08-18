@@ -1,13 +1,12 @@
-import { getInObj, AggregateNames } from "@project/shared";
 import { z } from "zod";
 import { AggregateCommandHandlers } from "../commands/commands";
 import { AggregateReducers } from "../reducers";
-import { Env } from "../../env";
 import { addEventToEventStore } from "../events/addEventToEventStore";
 import { AddEventInput } from "../events/events";
-import { BaseDurableObject } from "../durableObjects/BaseDurableObject";
+import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
+import { ensure, getInObj, getLogger } from "@project/essentials";
 
-export class AggreateDO<TState extends Record<string, any>> extends BaseDurableObject<
+export class AggreateDO<TState extends Record<string, any>> extends RPCDurableObject<
   typeof AggreateDO.api
 > {
   static api = {
@@ -22,12 +21,15 @@ export class AggreateDO<TState extends Record<string, any>> extends BaseDurableO
 
   constructor(
     objectState: DurableObjectState,
-    env: Env,
-    aggregate: AggregateNames,
+    env: any,
+    aggregate: string,
     commands: AggregateCommandHandlers<TState>,
     reducers: AggregateReducers<TState>
   ) {
     let state: TState = {} as any;
+    const logger = getLogger(`${aggregate}-aggregate`);
+
+    const aggregateId = ensure(objectState.id.name);
     super({
       env,
       init: async () => {
@@ -35,34 +37,34 @@ export class AggreateDO<TState extends Record<string, any>> extends BaseDurableO
         state = stored || ({} as any);
       },
       routes: {
-        execute: async input => {
-          console.log(`${this} execution starting`, { input, id: objectState.id.toString() });
+        execute: async (input) => {
+          logger.debug(`${this} execution starting`, { input, aggregateId });
 
           const event: AddEventInput = getInObj(commands, input.command)(state, {
             payload: input.payload,
           });
 
-          console.log(`${this} execution finished`, event);
+          logger.debug(`${this} execution finished`, event);
 
           const reducedState = getInObj(reducers, event.kind)(state, {
-            aggregateId: objectState.id.toString(),
+            aggregateId,
             payload: event.payload,
           });
 
-          console.log(`${this} state reduced`, reducedState);
+          logger.debug(`${this} state reduced`, reducedState);
 
           state = reducedState;
           await objectState.storage.put("state", reducedState);
 
-          console.log(`${this} state stored`);
+          logger.debug(`${this} state stored`);
 
-          console.log(`${this} adding event to event store`);
+          logger.debug(`${this} adding event to event store`);
 
           await addEventToEventStore({
             env: env,
             event,
-            aggregate: aggregate,
-            aggregateId: objectState.id.toString(),
+            aggregate: aggregate as any,
+            aggregateId,
           });
 
           return {};

@@ -5,7 +5,7 @@ import { router } from "./routes";
 // our Durable Object namespace, we must export it from the root module.
 export { UserAggregate } from "./aggregates/user/UserAggregate";
 export { UsersProjection } from "./projections/users/UsersProjection";
-export { EventStore } from "./lib/events/EventStore";
+export { EventStore } from "./EventStore";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

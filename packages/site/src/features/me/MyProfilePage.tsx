@@ -1,25 +1,27 @@
 import * as React from "react";
-import { Vertical } from "gls/lib";
 import { useMe } from "../api/useMe";
 import { LoadingPage } from "../loading/LoadingPage";
 import { SidebarPage } from "../page/SidebarPage";
 import { ConnectedEditableUserName } from "./ConnectedEditableUserName";
-import { Avatar, Text } from "@chakra-ui/react";
+import { Avatar, Button, Text, VStack } from "@chakra-ui/react";
+import { useSignout } from "../api/useSignout";
 
 interface Props {}
 
 export const MyProfilePage: React.FC<Props> = ({}) => {
   const { data: me } = useMe();
+  const onSignout = useSignout();
 
   if (!me) return <LoadingPage />;
 
   return (
     <SidebarPage>
-      <Vertical horizontalAlign="center">
+      <VStack>
         <Avatar size={"lg"} />
         <ConnectedEditableUserName name={me.name} />
         <Text color={"gray.500"}>{me.id}</Text>
-      </Vertical>
+        <Button onClick={onSignout}>Signout</Button>
+      </VStack>
     </SidebarPage>
   );
 };

@@ -1,4 +1,7 @@
 import { AggregateNames, Commands } from "@project/shared";
+import { getLogger } from "@project/essentials";
+
+const logger = getLogger(`sendCommand`);
 
 export const sendCommand = async <
   TAggregate extends AggregateNames,
@@ -19,5 +22,5 @@ export const sendCommand = async <
     body: JSON.stringify({ aggregate, aggregateId, command, payload }),
   });
   const json = await response.text();
-  console.log(json);
+  logger.debug(json);
 };

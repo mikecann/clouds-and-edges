@@ -5,6 +5,5 @@
     "rootDir": "./src",
     "types": ["jest"]
   },
-  "include": ["./src"],
-  "references": [{ "path": "../essentials/tsconfig.json" }]
+  "include": ["./src"]
 }

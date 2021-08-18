@@ -4,15 +4,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "lib": ["esnext", "webworker"],
-    "noEmit": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": ["jest", "node", "@cloudflare/workers-types"]
   },
   "include": ["./src"],
-  "references": [
-    { "path": "../shared/tsconfig.json" },
-    { "path": "../workers-es/tsconfig.json" },
-    { "path": "../essentials/tsconfig.json" }
-  ]
+  "references": [{ "path": "../essentials/tsconfig.json" }]
 }

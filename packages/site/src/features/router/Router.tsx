@@ -3,17 +3,17 @@ import { SignupPage } from "../signup/SignupPage";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { RootPage } from "../root/RootPage";
 import { useColorMode } from "@chakra-ui/react";
-import { useAppState } from "../state/appState";
 import { DashboardPage } from "../dashboard/DashboardPage";
 import { AuthRequired } from "./AuthRequired";
 import { MyProfilePage } from "../me/MyProfilePage";
 import { AdminPage } from "../admin/AdminPage";
+import { useAppStatePersistance } from "../state/useAppStatePersistance";
 
 interface Props {}
 
 export const Router: React.FC<Props> = ({}) => {
-  const [{ userId }, setState] = useAppState();
   const { setColorMode } = useColorMode();
+  useAppStatePersistance();
 
   React.useEffect(() => {
     setColorMode("dark");

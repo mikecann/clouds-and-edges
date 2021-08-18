@@ -10,5 +10,5 @@
     "noEmit": true
   },
   "include": ["./src"],
-  "references": [{ "path": "../shared/tsconfig.json" }]
+  "references": [{ "path": "../shared/tsconfig.json" }, { "path": "../essentials/tsconfig.json" }]
 }

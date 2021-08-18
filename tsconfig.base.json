@@ -21,8 +21,10 @@
     "typeRoots": ["node_modules/@types"],
     "paths": {
       "@project/site": ["packages/site/src/index.ts"],
+      "@project/essentials": ["packages/essentials/src/index.ts"],
       "@project/shared": ["packages/shared/src/index.ts"],
-      "@project/server": ["packages/server/src/index.ts"]
+      "@project/server": ["packages/server/src/index.ts"],
+      "@project/workers-es": ["packages/server/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

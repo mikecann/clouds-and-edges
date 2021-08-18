@@ -5,8 +5,10 @@
   },
   "references": [
     { "path": "./packages/site" },
+    { "path": "./packages/essentials" },
     { "path": "./packages/shared" },
-    { "path": "./packages/server" }
+    { "path": "./packages/server" },
+    { "path": "./packages/workers-es" }
   ],
   "exclude": ["node_modules", "tmp"]
 }

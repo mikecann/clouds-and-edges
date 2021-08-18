@@ -1,4 +1,4 @@
-import { ensure, wait } from "@project/shared";
+import { ensure, wait } from "@project/essentials";
 import { useMutation, useQueryClient } from "react-query";
 import { apiMutate } from "./apiMutate";
 import { useMe } from "./useMe";

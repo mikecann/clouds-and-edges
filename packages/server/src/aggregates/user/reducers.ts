@@ -1,5 +1,5 @@
 import { UserAggregateState } from "./state";
-import { AggregateReducers } from "../../lib/reducers";
+import { AggregateReducers } from "@project/workers-es";
 import { UserEvents } from "./events";
 
 export const reducers: AggregateReducers<UserAggregateState, UserEvents> = {

@@ -1,5 +1,6 @@
-import { Event, generateId } from "@project/shared";
+import { Event } from "@project/shared";
 import faker from "faker";
+import { generateId } from "@project/essentials";
 
 export const createFakeEvent = (): Event => ({
   id: generateId(),

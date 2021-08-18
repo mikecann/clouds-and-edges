@@ -1,8 +1,8 @@
 import { commands } from "./commands";
 import { reducers } from "./reducers";
 import { UserAggregateState } from "./state";
-import { AggreateDO } from "../../lib/aggregates/AggregateDO";
 import { Env } from "../../env";
+import { AggreateDO } from "@project/workers-es/dist";
 
 export class UserAggregate extends AggreateDO<UserAggregateState> {
   constructor(objectState: DurableObjectState, env: Env) {

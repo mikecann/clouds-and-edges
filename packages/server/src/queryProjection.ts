@@ -1,15 +1,17 @@
-import { Env } from "../../env";
-import { UsersProjection } from "../../projections/users/UsersProjection";
-import { callDurableObject } from "../durableObjects/callDurableObject";
+import { callDurableObject } from "@project/workers-es";
+import { getLogger } from "@project/essentials";
+import { UsersProjection } from "./projections/users/UsersProjection";
 
 interface Options {
-  env: Env;
+  env: any;
   projection: string;
   query: unknown;
 }
 
+const logger = getLogger(`queryProjection`);
+
 export const queryProjection = async ({ env, projection, query }: Options) => {
-  console.log(`querying projection`, {
+  logger.debug(`querying projection`, {
     projection,
     query,
   });

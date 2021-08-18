@@ -1,4 +1,4 @@
-import { QueryNames, QueryOutput, ensure } from "@project/shared";
+import { QueryNames, QueryOutput } from "@project/shared";
 import { useQuery } from "react-query";
 import { apiQuery } from "./apiQuery";
 

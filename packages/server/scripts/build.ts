@@ -7,7 +7,7 @@ async function bootstrap() {
   console.log(`starting`, config);
 
   await build({
-    entryPoints: ["./src/index.ts"],
+    entryPoints: ["./src/main.ts"],
     bundle: true,
     format: "esm",
     outdir: `dist`,
@@ -39,7 +39,7 @@ bootstrap()
       process.exit(0);
     }
   })
-  .catch(e => {
+  .catch((e) => {
     console.error(e);
     process.exit(1);
   });

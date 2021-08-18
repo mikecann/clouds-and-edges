@@ -1,4 +1,4 @@
-import { Event } from "@project/shared";
+import { Event } from "../events/Event";
 
 type Kindable = { kind: string };
 

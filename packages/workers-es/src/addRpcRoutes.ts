@@ -1,37 +1,31 @@
 import { z, ZodTypeAny } from "zod";
 import { Router } from "itty-router";
-import { Env } from "../env";
 
 export type RpcRoutesApi = Record<string, { input: ZodTypeAny; output: ZodTypeAny }>;
 
-export type RpcRoutesHandlers<TApi extends RpcRoutesApi> = {
+export type RpcRoutesHandlers<TApi extends RpcRoutesApi, TEnv> = {
   [P in keyof TApi]: (
     input: z.infer<TApi[P]["input"]>,
-    env: Env
+    env: TEnv
   ) => Promise<z.infer<TApi[P]["output"]>> | z.infer<TApi[P]["output"]>;
 };
 
-interface Options<TApi extends RpcRoutesApi> {
+interface Options<TApi extends RpcRoutesApi, TEnv> {
   urlPrefix?: string;
-  routes: RpcRoutesHandlers<TApi>;
+  routes: RpcRoutesHandlers<TApi, TEnv>;
   router: Router<unknown>;
 }
 
-export const addRpcRoutes = <TApi extends RpcRoutesApi>({
+export const addRpcRoutes = <TApi extends RpcRoutesApi, TEnv>({
   routes,
   urlPrefix = `/`,
   router,
-}: Options<TApi>) => {
+}: Options<TApi, TEnv>) => {
   for (let endpoint in routes) {
     router.post(`${urlPrefix}${endpoint}`, async (request, env) => {
       const json = await request.json!();
       const response = await routes[endpoint](json, env);
-      return new Response(
-        JSON.stringify({
-          kind: `success`,
-          payload: response,
-        })
-      );
+      return new Response(JSON.stringify(response));
     });
   }
 };
