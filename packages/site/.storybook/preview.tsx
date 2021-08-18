@@ -1,12 +1,15 @@
 import * as React from "react";
-import { MyChakraProvider } from "../src/features/theme/MyChakraProvider";
+import { ProjectChakraProvider } from "../src/features/theme/ProjectChakraProvider";
+import { ProjectGLSProvider } from "../src/features/theme/ProjectGLSProvider";
 
 export const decorators = [
   (Story, params) => {
     return (
-      <MyChakraProvider>
-        <Story />
-      </MyChakraProvider>
+      <ProjectChakraProvider>
+        <ProjectGLSProvider>
+          <Story />
+        </ProjectGLSProvider>
+      </ProjectChakraProvider>
     );
   },
 ];

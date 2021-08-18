@@ -1,7 +1,7 @@
 import { Env } from "../../env";
 import { UsersProjection } from "../../projections/users/UsersProjection";
 import { callDurableObject } from "../durableObjects/callDurableObject";
-import { Event } from "./events";
+import { Event } from "@project/shared";
 
 interface Options {
   event: Event;

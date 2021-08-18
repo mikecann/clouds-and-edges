@@ -1,10 +1,10 @@
 import { findInObj } from "../../../../shared/src";
 import { Events } from "../../events";
-import { Event } from "../../lib/events/events";
 import { ProjectionEventHandlers } from "../../lib/projections/projections";
 import { BaseDurableObject } from "../../lib/durableObjects/BaseDurableObject";
 import { z } from "zod";
 import { Env } from "../../env";
+import { Event } from "@project/shared";
 
 interface ProjectionState {}
 

@@ -13,6 +13,7 @@
     "barrelsby": "^2.2.0"
   },
   "dependencies": {
+    "short-unique-id": "^4.3.3",
     "zod": "^3.7.2"
   }
 }

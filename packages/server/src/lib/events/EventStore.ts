@@ -1,15 +1,15 @@
-import { AggregateNames, generateId, getInObj } from "@project/shared";
-import { Event, AddEventInput } from "./events";
+import { Event } from "@project/shared";
+import { AddEventInput } from "./events";
 import { z } from "zod";
 import { onEventAddedToStore } from "./onEventAddedToStore";
 import { Env } from "../../env";
 import { BaseDurableObject } from "../durableObjects/BaseDurableObject";
 
-const getStoreKey = (eventId: string, aggregate: string, aggregateId: string) =>
-  `e:${aggregate}:${aggregateId}:${eventId}`;
+const getEventId = (aggregate: string, aggregateId: string, index: number) =>
+  `e:${aggregate}:${aggregateId}:${index}`;
 
 export class EventStore extends BaseDurableObject<typeof EventStore.api> {
-  static version = `1.0.0`;
+  static version = `1.0.5`;
 
   static api = {
     add: {
@@ -21,19 +21,26 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
       }),
       output: z.object({}),
     },
+    "query.events": {
+      input: z.object({}),
+      output: z.array(Event),
+    },
   };
 
-  constructor(objectState: DurableObjectState, env: Env) {
+  constructor({ storage }: DurableObjectState, env: Env) {
+    let eventIndex: number = 0;
+
     super({
       env,
-      init: async () => {},
+      init: async () => {
+        eventIndex = (await storage.get("eventIndex")) ?? 0;
+      },
       routes: {
         add: async ({ aggregate, aggregateId, kind, payload }) => {
-          const eventId = generateId();
-
-          const key = getStoreKey(eventId, aggregate, aggregateId);
+          const id = getEventId(aggregate, aggregateId, eventIndex);
 
           const event: Event = {
+            id,
             kind,
             aggregate,
             aggregateId,
@@ -44,7 +51,8 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
           console.log(`EventStore adding event`, event);
 
           // I think we need a better eventId here
-          await objectState.storage.put(key, event);
+          await storage.put(`eventIndex`, eventIndex++);
+          await storage.put(id, event);
 
           // We now need to inform all projection and processes about the event but we dont
           // want to wait for them to finish as they could take a while.
@@ -52,6 +60,11 @@ export class EventStore extends BaseDurableObject<typeof EventStore.api> {
           onEventAddedToStore({ event, env });
 
           return {};
+        },
+        "query.events": async ({}) => {
+          const contents = await storage.list({ limit: 100, prefix: "e:" });
+          const events = [...contents.values()];
+          return events as any;
         },
       },
     });

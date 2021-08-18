@@ -1,5 +1,5 @@
 import { Avatar, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { Vertical } from "gls/lib";
+import { Stretch, StretchSpacer, Vertical } from "gls/lib";
 import * as React from "react";
 import { SidebarButton } from "./SidebarButton";
 
@@ -25,10 +25,12 @@ export const ConnectedDashboardSidebar: React.FC<Props> = ({}) => {
           <Tab _selected={{ color: "white", bg: "green.400" }}>Matches</Tab>
         </TabList>
       </Tabs> */}
-      <SidebarButton>
+      <SidebarButton to={"/me"}>
         <Avatar />
       </SidebarButton>
-      <SidebarButton>Matches</SidebarButton>
+      <SidebarButton to={"/matches"}>Matches</SidebarButton>
+      <StretchSpacer />
+      <SidebarButton to={"/admin"}>Admin</SidebarButton>
     </Vertical>
   );
 };

@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/react";
 import * as React from "react";
-import { MyChakraProvider } from "../theme/MyChakraProvider";
 
 interface Props {}
 

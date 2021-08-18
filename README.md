@@ -35,3 +35,4 @@ yarn site storybook
 - Ensure event stoage is secure and no overlaps or lost events etc
 - Make sure that the DO doesnt close the processes and projects
 - Adding event to event store should be done in transaction just incase it fails the aggregate state set should be rolled back
+- What happenes to the stored state if you dont reference it for a while?

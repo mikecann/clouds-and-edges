@@ -1,8 +1,10 @@
 import { Router } from "itty-router";
-import { wait, API } from "@project/shared";
+import { wait, API, generateShortId } from "@project/shared";
 import { executeCommand } from "./lib/commands/executeCommand";
 import { queryProjection } from "./lib/projections/queryProjection";
 import { addRpcRoutes } from "./lib/addRpcRoutes";
+import { callDurableObject } from "./lib/durableObjects/callDurableObject";
+import { EventStore } from "./lib/events/EventStore";
 
 export const router = Router();
 
@@ -25,6 +27,14 @@ addRpcRoutes<API["query"]>({
         },
       }) as any;
     },
+    "admin.events": async (input, env) => {
+      return callDurableObject({
+        object: EventStore,
+        stub: env.EventStore.get(env.EventStore.idFromName(EventStore.version)),
+        input: {},
+        endpoint: "query.events",
+      }) as any;
+    },
   },
   router,
 });
@@ -33,7 +43,7 @@ addRpcRoutes<API["mutation"]>({
   urlPrefix: `/api/v1/mutation/`,
   routes: {
     "auth.signup": async (input, env) => {
-      const userId = env.UserAggregate.newUniqueId().toString();
+      const userId = generateShortId();
 
       await executeCommand({
         aggregate: "user",

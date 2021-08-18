@@ -26,6 +26,8 @@
     "typestyle": "^2.1.0"
   },
   "devDependencies": {
+    "faker": "^5.5.3",
+    "@types/faker": "^5.5.8",
     "@babel/core": "^7.15.0",
     "@storybook/addon-actions": "^6.4.0-alpha.29",
     "@storybook/addon-essentials": "^6.4.0-alpha.29",

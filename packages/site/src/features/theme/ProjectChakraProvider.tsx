@@ -11,6 +11,6 @@ export const theme = extendTheme(config);
 
 interface Props {}
 
-export const MyChakraProvider: React.FC<Props> = ({ children }) => {
+export const ProjectChakraProvider: React.FC<Props> = ({ children }) => {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
