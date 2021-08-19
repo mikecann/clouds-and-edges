@@ -1,6 +1,6 @@
 import { Router } from "itty-router";
 import { AggregateKinds, API } from "@project/shared";
-import { addRpcRoutes, executeCommand, callDurableObject } from "@project/workers-es";
+import { executeCommand, callDurableObject, addRpcRoutes } from "@project/workers-es";
 import { generateId, wait } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
@@ -18,21 +18,21 @@ addRpcRoutes<API, Env>({
     "projection.user.findUserById": async (input, env) => {
       // Temp
       await wait(100);
-      return await callDurableObject({
+      return (await callDurableObject({
         stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
         object: UsersProjection,
         endpoint: "findUserById",
         input,
-      });
+      })) as any;
     },
-    "projection.user.admin.getState": async (input, env) => {
-      return await callDurableObject({
-        stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
-        object: UsersProjection,
-        endpoint: "admin.getState",
-        input,
-      });
-    },
+    // "projection.user.admin.getState": async (input, env) => {
+    //   return await callDurableObject({
+    //     stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
+    //     object: UsersProjection,
+    //     endpoint: "admin.getState",
+    //     input,
+    //   });
+    // },
     "event-store.events": async (input, env) => {
       return callDurableObject({
         object: EventStore,
@@ -60,14 +60,14 @@ addRpcRoutes<API, Env>({
       };
     },
     command: async (input, env) => {
-      return await executeCommand({
+      return (await executeCommand({
         namespace: aggregateToNamespace(input.aggregate as any, env),
         aggregate: input.aggregate as any,
         command: input.command,
         env,
         payload: input.payload,
         aggregateId: input.aggregateId,
-      });
+      })) as any;
     },
   },
   router,

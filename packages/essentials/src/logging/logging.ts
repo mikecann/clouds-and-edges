@@ -7,3 +7,5 @@ export const getLogger = (name: string) => ({
   error: (...args: any[]) => console.error(`[${name}]`, ...args),
   warn: (...args: any[]) => console.warn(`[${name}]`, ...args),
 });
+
+export type Logger = ReturnType<typeof getLogger>;

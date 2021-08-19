@@ -1,4 +1,4 @@
-import { ProjectionEventHandlers } from "@project/workers-es/dist";
+import { ProjectionEventHandlers } from "@project/workers-es";
 import { Events } from "../../events";
 import { getLogger } from "@project/essentials";
 

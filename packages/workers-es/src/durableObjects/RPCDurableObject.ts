@@ -1,17 +1,12 @@
-import { RpcRoutesHandlers, RpcRoutesApi } from "../addRpcRoutes";
 import { getInObj, getLogger } from "@project/essentials";
 
-export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
-  implements DurableObject
-{
-  private initPromise: Promise<void> | undefined;
+export abstract class RPCDurableObject<TEnv> implements DurableObject {
   protected logger = getLogger(`${this.constructor.name}`);
+  protected initPromise: Promise<any> | undefined = undefined;
 
-  constructor(
-    protected env: TEnv,
-    protected init: () => Promise<void> = async () => {},
-    protected routes: RpcRoutesHandlers<TRoutesApi, unknown>
-  ) {}
+  protected constructor() {}
+
+  protected async init() {}
 
   // Handle HTTP requests from clients.
   async fetch(request: Request): Promise<Response> {
@@ -30,6 +25,9 @@ export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
 
     this.logger.debug(`got RPCRequest`, { endpoint, payload });
 
-    return new Response(JSON.stringify(await getInObj(this.routes, endpoint)(payload)));
+    const handler = getInObj(this, endpoint);
+    const output = await handler.bind(this)(payload);
+
+    return new Response(JSON.stringify(output));
   }
 }

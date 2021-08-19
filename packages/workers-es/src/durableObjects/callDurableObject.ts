@@ -1,25 +1,21 @@
-import { z } from "zod";
 import { RpcRoutesApi } from "../addRpcRoutes";
 import { getLogger } from "@project/essentials";
 
-interface Options<TApi extends RpcRoutesApi, TEndpoint extends keyof TApi> {
+interface Options {
   stub: DurableObjectStub;
-  object: {
-    api: TApi;
-    name: string;
-  };
-  endpoint: TEndpoint;
-  input: z.infer<TApi[TEndpoint]["input"]>;
+  object: any;
+  endpoint: any;
+  input: any; //Parameters<TObject[TEndpoint]>;
 }
 
 const logger = getLogger(`callDurableObject`);
 
-export const callDurableObject = async <TApi extends RpcRoutesApi, TEndpoint extends keyof TApi>({
+export const callDurableObject = async ({
   stub,
   object,
   endpoint,
   input,
-}: Options<TApi, TEndpoint>): Promise<z.infer<TApi[TEndpoint]["output"]>> => {
+}: Options): Promise<unknown> => {
   logger.debug(`calling durable object '${object.name}'`, {
     stub,
     endpoint,

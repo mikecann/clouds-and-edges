@@ -13,7 +13,7 @@ export const addEventToEventStore = async ({ env, event, aggregate, aggregateId 
   return await callDurableObject({
     stub: env.EventStore.get(env.EventStore.idFromName(BaseEventStore.version)),
     object: BaseEventStore,
-    endpoint: "add",
+    endpoint: "addEvent",
     input: { aggregate, aggregateId, kind: event.kind, payload: event.payload },
   });
 };

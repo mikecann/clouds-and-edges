@@ -1,13 +1,12 @@
-import { z, ZodTypeAny } from "zod";
 import { Router } from "itty-router";
 
-export type RpcRoutesApi = Record<string, { input: ZodTypeAny; output: ZodTypeAny }>;
+export type RpcRoutesApi = Record<string, { input: unknown; output: unknown }>;
 
 export type RpcRoutesHandlers<TApi extends RpcRoutesApi, TEnv> = {
   [P in keyof TApi]: (
-    input: z.infer<TApi[P]["input"]>,
+    input: TApi[P]["input"],
     env: TEnv
-  ) => Promise<z.infer<TApi[P]["output"]>> | z.infer<TApi[P]["output"]>;
+  ) => Promise<TApi[P]["output"]> | TApi[P]["output"];
 };
 
 interface Options<TApi extends RpcRoutesApi, TEnv> {

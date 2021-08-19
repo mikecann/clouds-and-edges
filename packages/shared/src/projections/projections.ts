@@ -1,27 +1,21 @@
-import { z } from "zod";
-import { Id } from "@project/shared";
-import { ProjectionAdminState } from "@project/workers-es";
+import { Id } from "../modal/id";
 
-export const UserProjection = z.object({
-  id: Id,
-  name: z.string(),
-});
+export interface UserProjection {
+  id: Id;
+  name: string;
+}
 
-export interface UserProjection extends z.infer<typeof UserProjection> {}
-
-export const projections = {
-  user: {
+export type Projections = {
+  users: {
     findUserById: {
-      input: z.object({
-        id: z.string(),
-      }),
-      output: z.union([UserProjection, z.null()]),
-    },
-    "admin.getState": {
-      input: z.object({}),
-      output: ProjectionAdminState,
-    },
-  },
+      input: {
+        id: string;
+      };
+      output: {
+        user?: UserProjection | null;
+      };
+    };
+  };
 };
 
-export type ProjectionKinds = keyof typeof projections;
+export type ProjectionKinds = keyof Projections;

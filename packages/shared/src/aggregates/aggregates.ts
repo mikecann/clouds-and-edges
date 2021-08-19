@@ -1,16 +1,5 @@
-import { z } from "zod";
+export interface Aggregates {
+  user: {};
+}
 
-export const aggregates = {
-  user: {
-    xxx: {
-      input: z.object({
-        name: z.string(),
-      }),
-      output: z.object({
-        userId: z.string(),
-      }),
-    },
-  },
-};
-
-export type AggregateKinds = keyof typeof aggregates;
+export type AggregateKinds = keyof Aggregates;

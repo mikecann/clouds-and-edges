@@ -4,13 +4,15 @@
 
 export * from "./addRpcRoutes";
 export * from "./reducers";
-export * from "./aggregates/AggregateDO";
+export * from "./aggregates/AggreateDurableObject";
 export * from "./commands/commands";
 export * from "./commands/executeCommand";
 export * from "./durableObjects/callDurableObject";
+export * from "./durableObjects/rpc";
 export * from "./durableObjects/RPCDurableObject";
 export * from "./events/addEventToEventStore";
 export * from "./events/BaseEventStore";
 export * from "./events/Event";
 export * from "./events/events";
+export * from "./projections/ProjectionDurableObject";
 export * from "./projections/projections";

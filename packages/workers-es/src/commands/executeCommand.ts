@@ -1,6 +1,6 @@
-import { AggreateDO } from "../aggregates/AggregateDO";
 import { callDurableObject } from "../durableObjects/callDurableObject";
 import { generateId, getLogger } from "@project/essentials";
+import { AggreateDurableObject } from "../aggregates/AggreateDurableObject";
 
 interface Options {
   namespace: DurableObjectNamespace;
@@ -31,7 +31,7 @@ export const executeCommand = async ({
 
   return callDurableObject({
     stub: namespace.get(namespace.idFromName(aggregateId)),
-    object: AggreateDO,
+    object: AggreateDurableObject,
     endpoint: "execute",
     input: {
       command,
