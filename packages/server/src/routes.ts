@@ -1,9 +1,10 @@
 import { Router } from "itty-router";
-import { API } from "@project/shared";
+import { AggregateKinds, API } from "@project/shared";
 import { addRpcRoutes, executeCommand, callDurableObject } from "@project/workers-es";
-import { generateId } from "@project/essentials";
+import { generateId, wait } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
+import { UsersProjection } from "./projections/users/UsersProjection";
 
 export const router = Router();
 
@@ -14,19 +15,16 @@ router.get("/", async () => {
 addRpcRoutes<API, Env>({
   urlPrefix: `/api/v1/`,
   routes: {
-    // "user.get": async (input, env) => {
-    //   // Temp
-    //   await wait(100);
-    //
-    //   return queryProjection({
-    //     env,
-    //     projection: "users",
-    //     query: {
-    //       ...input,
-    //     },
-    //   }) as any;
-    // },
-    projection: async (input, env) => {},
+    "user.findUserById": async (input, env) => {
+      // Temp
+      await wait(100);
+      return await callDurableObject({
+        stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
+        object: UsersProjection,
+        endpoint: "findUserById",
+        input,
+      });
+    },
     "event-store.events": async (input, env) => {
       return callDurableObject({
         object: EventStore,
@@ -39,7 +37,7 @@ addRpcRoutes<API, Env>({
       const userId = generateId();
 
       await executeCommand({
-        namespace: env.UsersProjection,
+        namespace: env.UserAggregate,
         aggregate: "user",
         command: "create",
         env,
@@ -70,7 +68,7 @@ addRpcRoutes<API, Env>({
 // 404 for everything else
 router.all("*", () => new Response("Not Found.", { status: 404 }));
 
-const aggregateToNamespace = (name: AggregateNames, env: Env) => {
+const aggregateToNamespace = (name: AggregateKinds, env: Env) => {
   if (name == "user") return env.UserAggregate;
   throw new Error(`cannot get namespace '${name}'`);
 };

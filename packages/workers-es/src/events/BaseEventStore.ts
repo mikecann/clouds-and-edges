@@ -10,7 +10,7 @@ const getEventId = (aggregate: string, aggregateId: string, index: number) =>
   `e:${aggregate}:${aggregateId}:${index}`;
 
 export class BaseEventStore<TEnv> extends RPCDurableObject<typeof BaseEventStore.api, TEnv> {
-  static version = `1.0.6`;
+  static version = `1.0.9`;
 
   static api = {
     add: {

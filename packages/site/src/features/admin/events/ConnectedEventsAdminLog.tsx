@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EventsAdminLog } from "./EventsAdminLog";
-import { useEventStoreEvents } from "../../api/useAdminEvents";
+import { useEventStoreEvents } from "../../api/useEventStoreEvents";
 
 interface Props {}
 

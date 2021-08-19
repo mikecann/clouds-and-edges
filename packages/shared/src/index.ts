@@ -8,3 +8,4 @@ export * from "./commands/commands";
 export * from "./commands/userCommands";
 export * from "./events/events";
 export * from "./modal/id";
+export * from "./projections/projections";

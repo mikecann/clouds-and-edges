@@ -1,17 +1,19 @@
 import { z } from "zod";
-import { Fail, Success } from "@project/essentials";
+import {
+  Fail,
+  OperationInput,
+  OperationNames,
+  RPCOperation,
+  RPCOperations,
+  Success,
+} from "@project/essentials";
 import { Event } from "../events/events";
+import { projections } from "../projections/projections";
 
-export type ApiEndpointResponse<T = any> = Success<T> | Fail;
+// export type ApiEndpointResponse<T = any> = Success<T> | Fail;
 
 export const api = {
-  projection: {
-    input: z.object({
-      name: z.string(),
-      payload: z.unknown(),
-    }),
-    output: z.unknown(), // todo type this better
-  },
+  "user.findUserById": projections.user.findUserById,
   "event-store.events": {
     input: z.object({}),
     output: z.array(Event),
@@ -38,3 +40,8 @@ export const api = {
 export type API = typeof api;
 
 export type APIOperations = keyof API;
+
+export type APIOperationInput<TOperation extends APIOperations> = z.infer<API[TOperation]["input"]>;
+export type APIOperationOutput<TOperation extends APIOperations> = z.infer<
+  API[TOperation]["output"]
+>;

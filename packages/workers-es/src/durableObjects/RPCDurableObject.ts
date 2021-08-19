@@ -1,5 +1,4 @@
 import { RpcRoutesHandlers, RpcRoutesApi } from "../addRpcRoutes";
-import { RPCRequest } from "./rpc";
 import { getInObj, getLogger } from "@project/essentials";
 
 export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
@@ -25,13 +24,12 @@ export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
     }
     await this.initPromise;
 
-    const rpcRequest: RPCRequest = await request.json();
-    this.logger.debug(`got RPCRequest`, rpcRequest);
+    const parts = request.url.split("/");
+    const endpoint = parts[parts.length - 1];
+    const payload = await request.json();
 
-    getInObj(this.routes, rpcRequest.endpoint)(rpcRequest.payload);
+    this.logger.debug(`got RPCRequest`, { endpoint, payload });
 
-    return new Response("okay");
-
-    //return this.router.handle(request, this.options.env);
+    return new Response(JSON.stringify(await getInObj(this.routes, endpoint)(payload)));
   }
 }

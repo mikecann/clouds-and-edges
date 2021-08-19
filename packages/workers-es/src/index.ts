@@ -8,7 +8,6 @@ export * from "./aggregates/AggregateDO";
 export * from "./commands/commands";
 export * from "./commands/executeCommand";
 export * from "./durableObjects/callDurableObject";
-export * from "./durableObjects/rpc";
 export * from "./durableObjects/RPCDurableObject";
 export * from "./events/addEventToEventStore";
 export * from "./events/BaseEventStore";

@@ -1,7 +1,7 @@
 import { Events } from "../../events";
 import { z } from "zod";
 import { Env } from "../../env";
-import { Event } from "@project/shared";
+import { Event, projections, UserProjection } from "@project/shared";
 import { findInObj, getLogger } from "@project/essentials";
 import { ProjectionEventHandlers, RPCDurableObject } from "@project/workers-es";
 
@@ -17,12 +17,7 @@ export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api
       }),
       output: z.object({}),
     },
-    query: {
-      input: z.object({
-        id: z.string(),
-      }),
-      output: z.object({}),
-    },
+    ...projections.user,
     "admin.getState": {
       input: z.object({}),
       output: z.object({}),
@@ -65,11 +60,11 @@ export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api
         }
         await handler({ event });
       },
-      query: async ({ id }) => {
+      findUserById: async ({ id }) => {
         logger.debug(`handling query`, id);
         const val = await storage.get(`user:${id}`);
         logger.debug(`lookup response`, val);
-        return val;
+        return val ? (val as UserProjection) : null;
       },
       "admin.getState": async ({}) => {
         return {};

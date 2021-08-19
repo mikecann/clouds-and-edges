@@ -6,6 +6,8 @@ export const UserProjection = z.object({
   name: z.string(),
 });
 
+export interface UserProjection extends z.infer<typeof UserProjection> {}
+
 export const projections = {
   user: {
     findUserById: {
@@ -17,4 +19,4 @@ export const projections = {
   },
 };
 
-export type AggregateKinds = keyof typeof projections;
+export type ProjectionKinds = keyof typeof projections;
