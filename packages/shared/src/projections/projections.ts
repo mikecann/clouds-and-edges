@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Id } from "@project/shared";
+import { ProjectionAdminState } from "@project/workers-es";
 
 export const UserProjection = z.object({
   id: Id,
@@ -7,10 +8,6 @@ export const UserProjection = z.object({
 });
 
 export interface UserProjection extends z.infer<typeof UserProjection> {}
-
-export const ProjectionState = z.object({
-  status: z.union([z.literal("built"), z.literal("building")]),
-});
 
 export const projections = {
   user: {
@@ -22,7 +19,7 @@ export const projections = {
     },
     "admin.getState": {
       input: z.object({}),
-      output: z.union([UserProjection, z.null()]),
+      output: ProjectionAdminState,
     },
   },
 };

@@ -1,9 +1,9 @@
-import { Events } from "../../events";
 import { z } from "zod";
 import { Env } from "../../env";
 import { Event, projections, UserProjection } from "@project/shared";
 import { findInObj, getLogger } from "@project/essentials";
-import { ProjectionEventHandlers, RPCDurableObject } from "@project/workers-es";
+import { ProjectionAdminState, RPCDurableObject } from "@project/workers-es";
+import { getHandlers } from "./eventHandlers";
 
 const logger = getLogger(`UsersProjection`);
 
@@ -18,40 +18,16 @@ export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api
       output: z.object({}),
     },
     ...projections.user,
-    "admin.getState": {
-      input: z.object({}),
-      output: z.object({}),
-    },
-    "admin.rebuild": {
-      input: z.object({}),
-      output: z.object({}),
-    },
   };
 
   constructor({ storage }: DurableObjectState, env: Env) {
+    const handlers = getHandlers(storage);
+    let adminState: ProjectionAdminState = {
+      status: "not-built",
+    };
     super(env, async () => {}, {
       onEvent: async ({ event }) => {
         logger.debug(`UsersProjection handling event`, event);
-
-        const handlers: ProjectionEventHandlers<Events> = {
-          "user-created": async ({ event: { aggregateId, payload } }) => {
-            logger.debug(`UsersProjection user-created`, aggregateId, payload);
-            await storage.put(`user:${aggregateId}`, {
-              id: aggregateId,
-              name: (payload as any).name,
-            });
-            logger.debug(`UsersProjection stored`);
-          },
-          "user-name-set": async ({ event: { payload, aggregateId } }) => {
-            logger.debug(`UsersProjection user-name-set`, aggregateId, payload);
-            const user = await storage.get(`user:${aggregateId}`);
-            await storage.put(`user:${aggregateId}`, {
-              ...(user as any),
-              name: (payload as any).name,
-            });
-            logger.debug(`UsersProjection updated user`);
-          },
-        };
 
         const handler = findInObj(handlers, event.kind);
         if (!handler) {
@@ -67,10 +43,7 @@ export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api
         return val ? (val as UserProjection) : null;
       },
       "admin.getState": async ({}) => {
-        return {};
-      },
-      "admin.rebuild": async ({}) => {
-        return {};
+        return adminState;
       },
     });
   }

@@ -25,6 +25,14 @@ addRpcRoutes<API, Env>({
         input,
       });
     },
+    "projection.user.admin.getState": async (input, env) => {
+      return await callDurableObject({
+        stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
+        object: UsersProjection,
+        endpoint: "admin.getState",
+        input,
+      });
+    },
     "event-store.events": async (input, env) => {
       return callDurableObject({
         object: EventStore,

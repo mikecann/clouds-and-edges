@@ -4,7 +4,7 @@ import { projections } from "../projections/projections";
 
 export const api = {
   "projection.user.findUserById": projections.user.findUserById,
-  "projection.user.admin.getState": projections.user.findUserById,
+  "projection.user.admin.getState": projections.user["admin.getState"],
   "event-store.events": {
     input: z.object({}),
     output: z.array(Event),
