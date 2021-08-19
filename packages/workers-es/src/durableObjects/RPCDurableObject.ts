@@ -6,7 +6,7 @@ export abstract class RPCDurableObject<TRoutesApi extends RpcRoutesApi, TEnv>
   implements DurableObject
 {
   private initPromise: Promise<void> | undefined;
-  protected logger = getLogger(`${this}`);
+  protected logger = getLogger(`${this.constructor.name}`);
 
   constructor(
     protected env: TEnv,

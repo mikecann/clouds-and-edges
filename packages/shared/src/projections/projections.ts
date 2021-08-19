@@ -1,10 +1,20 @@
 import { z } from "zod";
-import { Id } from "../modal/id";
-export type ProjectionNames = "user";
+import { Id } from "@project/shared";
 
 export const UserProjection = z.object({
   id: Id,
   name: z.string(),
 });
 
-export interface UserProjection extends z.infer<typeof UserProjection> {}
+export const projections = {
+  user: {
+    findUserById: {
+      input: z.object({
+        id: z.string(),
+      }),
+      output: z.union([UserProjection, z.null()]),
+    },
+  },
+};
+
+export type AggregateKinds = keyof typeof projections;

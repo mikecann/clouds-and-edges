@@ -3,6 +3,10 @@
  */
 
 export * from "./logging/logging";
+export * from "./match/experimental";
+export * from "./match/kind";
+export * from "./match/nonDiscriminatedMatch";
+export * from "./rpc/rpc";
 export * from "./utils/ensure";
 export * from "./utils/id";
 export * from "./utils/misc";

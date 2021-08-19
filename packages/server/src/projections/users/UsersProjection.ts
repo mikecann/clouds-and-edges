@@ -5,8 +5,6 @@ import { Event } from "@project/shared";
 import { findInObj, getLogger } from "@project/essentials";
 import { ProjectionEventHandlers, RPCDurableObject } from "@project/workers-es";
 
-interface ProjectionState {}
-
 const logger = getLogger(`UsersProjection`);
 
 export class UsersProjection extends RPCDurableObject<typeof UsersProjection.api, Env> {

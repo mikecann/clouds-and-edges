@@ -3,9 +3,8 @@
  */
 
 export * from "./aggregates/aggregates";
-export * from "./api/types";
+export * from "./api/api";
 export * from "./commands/commands";
 export * from "./commands/userCommands";
 export * from "./events/events";
 export * from "./modal/id";
-export * from "./projections/projections";

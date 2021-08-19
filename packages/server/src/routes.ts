@@ -1,8 +1,7 @@
 import { Router } from "itty-router";
-import { AggregateNames, API } from "@project/shared";
+import { API } from "@project/shared";
 import { addRpcRoutes, executeCommand, callDurableObject } from "@project/workers-es";
-import { generateId, wait } from "@project/essentials";
-import { queryProjection } from "./queryProjection";
+import { generateId } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
 
@@ -12,22 +11,23 @@ router.get("/", async () => {
   return new Response("Hello, World!");
 });
 
-addRpcRoutes<API["query"], Env>({
-  urlPrefix: `/api/v1/query/`,
+addRpcRoutes<API, Env>({
+  urlPrefix: `/api/v1/`,
   routes: {
-    "user.get": async (input, env) => {
-      // Temp
-      await wait(100);
-
-      return queryProjection({
-        env,
-        projection: "users",
-        query: {
-          ...input,
-        },
-      }) as any;
-    },
-    "admin.events": async (input, env) => {
+    // "user.get": async (input, env) => {
+    //   // Temp
+    //   await wait(100);
+    //
+    //   return queryProjection({
+    //     env,
+    //     projection: "users",
+    //     query: {
+    //       ...input,
+    //     },
+    //   }) as any;
+    // },
+    projection: async (input, env) => {},
+    "event-store.events": async (input, env) => {
       return callDurableObject({
         object: EventStore,
         stub: env.EventStore.get(env.EventStore.idFromName(EventStore.version)),
@@ -35,13 +35,6 @@ addRpcRoutes<API["query"], Env>({
         endpoint: "query.events",
       }) as any;
     },
-  },
-  router,
-});
-
-addRpcRoutes<API["mutation"], Env>({
-  urlPrefix: `/api/v1/mutation/`,
-  routes: {
     "auth.signup": async (input, env) => {
       const userId = generateId();
 
