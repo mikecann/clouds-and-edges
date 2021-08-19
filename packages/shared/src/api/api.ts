@@ -1,19 +1,10 @@
 import { z } from "zod";
-import {
-  Fail,
-  OperationInput,
-  OperationNames,
-  RPCOperation,
-  RPCOperations,
-  Success,
-} from "@project/essentials";
 import { Event } from "../events/events";
 import { projections } from "../projections/projections";
 
-// export type ApiEndpointResponse<T = any> = Success<T> | Fail;
-
 export const api = {
-  "user.findUserById": projections.user.findUserById,
+  "projection.user.findUserById": projections.user.findUserById,
+  "projection.user.admin.getState": projections.user.findUserById,
   "event-store.events": {
     input: z.object({}),
     output: z.array(Event),

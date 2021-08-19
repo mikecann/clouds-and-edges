@@ -15,7 +15,7 @@ router.get("/", async () => {
 addRpcRoutes<API, Env>({
   urlPrefix: `/api/v1/`,
   routes: {
-    "user.findUserById": async (input, env) => {
+    "projection.user.findUserById": async (input, env) => {
       // Temp
       await wait(100);
       return await callDurableObject({

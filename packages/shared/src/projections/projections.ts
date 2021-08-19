@@ -8,12 +8,20 @@ export const UserProjection = z.object({
 
 export interface UserProjection extends z.infer<typeof UserProjection> {}
 
+export const ProjectionState = z.object({
+  status: z.union([z.literal("built"), z.literal("building")]),
+});
+
 export const projections = {
   user: {
     findUserById: {
       input: z.object({
         id: z.string(),
       }),
+      output: z.union([UserProjection, z.null()]),
+    },
+    "admin.getState": {
+      input: z.object({}),
       output: z.union([UserProjection, z.null()]),
     },
   },
