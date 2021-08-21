@@ -1,11 +1,11 @@
 import { UserAggregateState } from "./state";
 import { AggregateReducers } from "@project/workers-es";
-import { UserEvents } from "./events";
+import { UserEvent } from "./events";
 
-export const reducers: AggregateReducers<UserAggregateState, UserEvents> = {
-  "user-created": (state, { aggregateId, payload: { name } }) => ({
+export const reducers: AggregateReducers<UserAggregateState, UserEvent> = {
+  "user-created": (state, { aggregateId, timestamp, payload: { name } }) => ({
     id: aggregateId,
-    createdAt: Date.now(),
+    createdAt: timestamp,
     name,
   }),
   "user-name-set": (state, { aggregateId, payload: { name } }) => ({

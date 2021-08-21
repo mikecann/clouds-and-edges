@@ -17,6 +17,16 @@ export type Projections = {
       };
     };
   };
+  proposals: {
+    findUserById: {
+      input: {
+        id: string;
+      };
+      output: {
+        user?: UserProjection | null;
+      };
+    };
+  };
 };
 
 export type ProjectionKinds = keyof Projections;

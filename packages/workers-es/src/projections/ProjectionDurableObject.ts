@@ -1,15 +1,15 @@
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { findInObj, getInObj, getLogger, Logger } from "@project/essentials";
-import { Event } from "../events/Event";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { ProjectionAdminState } from "./projections";
 import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
 import { BaseEventStore } from "../events/BaseEventStore";
+import { StoredEvent } from "../events/events";
 
 export type ProjectionDurableObjectAPI = {
   onEvent: {
     input: {
-      event: Event;
+      event: StoredEvent;
     };
     output: {};
   };
@@ -67,6 +67,8 @@ export class ProjectionDurableObject<TEnv = object>
       return;
     }
     await handler({ event });
+
+    return {};
   };
 
   getAdminState: RPCHandler<API, "getAdminState"> = async ({}) => {

@@ -17,6 +17,7 @@ command = "yarn build"
 [durable_objects]
 bindings = [
   {name = "UserAggregate", class_name = "UserAggregate"},
+  {name = "ProposalAggregate", class_name = "ProposalAggregate"},
   {name = "EventStore", class_name = "EventStore"},
   {name = "UsersProjection", class_name = "UsersProjection"},
 ]

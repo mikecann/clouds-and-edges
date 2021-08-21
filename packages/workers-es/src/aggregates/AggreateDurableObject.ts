@@ -1,26 +1,26 @@
-import { AggregateCommandHandlers } from "../commands/commands";
-import { AggregateReducers } from "../reducers";
-import { addEventToEventStore } from "../events/addEventToEventStore";
-import { AddEventInput } from "../events/events";
+import { AggregateCommandHandler, AggregateCommandHandlers } from "../commands/commands";
+import { AggregateReducer, AggregateReducers } from "../reducers";
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
-import { ensure, getInObj, getLogger, Logger } from "@project/essentials";
+import { getInObj, getLogger, Logger } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
+import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
+import { BaseEventStore } from "../events/BaseEventStore";
+import { Env } from "../env";
 
 export type AggreateDurableObjectAPI = {
   execute: {
     input: {
+      userId: string;
       command: string;
       payload: unknown;
     };
-    output: {
-      aggregateId: string;
-    };
+    output: {};
   };
 };
 
 type API = AggreateDurableObjectAPI;
 
-export class AggreateDurableObject<TState extends Record<string, any>, TEnv>
+export class AggreateDurableObject<TState extends Record<string, any>, TEnv extends Env>
   extends RPCDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
@@ -41,10 +41,6 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv>
   }
 
   protected get aggregateId() {
-    // return ensure(
-    //   this.objectState.id.name,
-    //   `aggregate name missing on object state '${this.objectState.id}'`
-    // );
     return this.objectState.id.toString();
   }
 
@@ -54,37 +50,57 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv>
   }
 
   execute: RPCHandler<API, "execute"> = async (input) => {
-    this.logger.debug(`${this} execution starting`, { input, aggregateId: this.aggregateId });
+    const timestamp = Date.now();
 
-    const event: AddEventInput = getInObj(this.commands, input.command)(this.state, {
+    this.logger.debug(`${this} execution starting`, {
+      input,
+      aggregateId: this.aggregateId,
+      timestamp,
+    });
+
+    // First we grabe the handler for the command
+    const commandHandler: AggregateCommandHandler<TState, any, any> = getInObj(
+      this.commands,
+      input.command
+    );
+
+    // Then we execute the command which returns an event (or throws an error)
+    const addEventInput = commandHandler(this.state, {
+      userId: input.userId,
+      timestamp,
       payload: input.payload,
     });
 
-    this.logger.debug(`${this} execution finished`, event);
-
-    const reducedState = getInObj(this.reducers, event.kind)(this.state, {
-      aggregateId: this.aggregateId,
-      payload: event.payload,
-    });
-
-    this.logger.debug(`${this} state reduced`, reducedState);
-
-    this.state = reducedState;
-    await this.storage.put("state", reducedState);
-
-    this.logger.debug(`${this} state stored`);
-
-    this.logger.debug(`${this} adding event to event store`);
-
-    await addEventToEventStore({
-      env: this.env,
-      event,
-      aggregate: this.aggregate as any,
-      aggregateId: this.aggregateId,
-    });
-
-    return {
-      aggregateId: this.aggregateId,
+    const addEventToStore = async () => {
+      // We then add that event to the store
+      const stub = this.env.EventStore.get(this.env.EventStore.idFromName(`1`));
+      await createDurableObjectRPCProxy(BaseEventStore, stub).addEvent({
+        aggregate: this.aggregate,
+        aggregateId: this.aggregateId,
+        kind: addEventInput.kind,
+        payload: addEventInput.payload,
+        timestamp,
+      });
     };
+
+    const updateLocalState = async () => {
+      const reducer: AggregateReducer<TState, any> = getInObj(this.reducers, addEventInput.kind);
+
+      const reducedState = reducer(this.state, {
+        timestamp,
+        aggregateId: this.aggregateId,
+        payload: addEventInput.payload,
+      });
+
+      this.state = reducedState;
+      await this.storage.put("state", reducedState);
+    };
+
+    // At the same time we add the event to the store and update the local state
+    await Promise.all([addEventToStore(), updateLocalState()]);
+
+    this.logger.debug(`${this} execution finished`);
+
+    return {};
   };
 }

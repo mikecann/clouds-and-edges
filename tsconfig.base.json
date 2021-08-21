@@ -24,7 +24,7 @@
       "@project/essentials": ["packages/essentials/src/index.ts"],
       "@project/shared": ["packages/shared/src/index.ts"],
       "@project/server": ["packages/server/src/index.ts"],
-      "@project/workers-es": ["packages/server/src/index.ts"]
+      "@project/workers-es": ["packages/workers-es/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

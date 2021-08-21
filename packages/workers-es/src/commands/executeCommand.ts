@@ -9,6 +9,7 @@ interface Options {
   aggregateId?: string;
   command: string;
   payload: unknown;
+  userId: string;
 }
 
 const logger = getLogger(`executeCommand`);
@@ -19,6 +20,7 @@ export const executeCommand = async ({
   aggregate,
   aggregateId = generateId(),
   command,
+  userId,
   payload,
 }: Options) => {
   logger.debug(`Executing command`, {
@@ -27,10 +29,11 @@ export const executeCommand = async ({
     env,
     payload,
     command,
+    userId,
   });
 
   return createDurableObjectRPCProxy(
     AggreateDurableObject,
     namespace.get(namespace.idFromString(aggregateId))
-  ).execute({ command, payload });
+  ).execute({ command, payload, userId });
 };

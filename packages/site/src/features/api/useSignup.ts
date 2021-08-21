@@ -4,7 +4,8 @@ import { performRPCOperation } from "./performRPCOperation";
 
 export const useSignup = () => {
   const [, setState] = useAppState();
-  return useMutation(performRPCOperation("auth.signup"), {
+  const [{ userId }] = useAppState();
+  return useMutation(performRPCOperation("auth.signup", userId), {
     onSuccess: async ({ userId }) => {
       setState((p) => ({ ...p, userId }));
     },

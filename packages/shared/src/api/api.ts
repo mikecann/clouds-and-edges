@@ -1,7 +1,7 @@
-import { Event } from "../events/events";
 import { Result } from "@project/essentials";
 import { Projections } from "../projections/projections";
 import { ProjectionAdminState, ProjectionDurableObjectAPI } from "@project/workers-es/dist";
+import { StoredEvent } from "@project/workers-es";
 
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
@@ -14,7 +14,7 @@ export type API = {
   "event-store.events": {
     input: {};
     output: {
-      events: Event[];
+      events: StoredEvent[];
     };
   };
   "auth.signup": {

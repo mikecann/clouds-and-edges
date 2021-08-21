@@ -11,7 +11,10 @@ export const useMe = () => {
   const [{ userId }] = useAppState();
   //const signout = useSignout();
   return useQuery<UserProjection | null | undefined, Error>(`me`, async () => {
-    const { user } = await performRPCOperation("projections.users.findUserById")({
+    const { user } = await performRPCOperation(
+      "projections.users.findUserById",
+      userId
+    )({
       id: ensure(userId),
     });
     // if (!user) {

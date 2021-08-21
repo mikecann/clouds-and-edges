@@ -1,7 +1,7 @@
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { getLogger } from "@project/essentials";
-import { Event } from "./Event";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
+import { StoredEvent } from "./events";
 
 const logger = getLogger(`EventStore`);
 
@@ -15,6 +15,7 @@ export type BaseEventStoreAPI = {
       aggregateId: string;
       kind: string;
       payload: unknown;
+      timestamp: number;
     };
     output: {
       eventId: string;
@@ -25,7 +26,7 @@ export type BaseEventStoreAPI = {
       aggregate?: string;
     };
     output: {
-      events: Event[];
+      events: StoredEvent[];
     };
   };
 };
@@ -42,28 +43,34 @@ export class BaseEventStore<TEnv> extends RPCDurableObject<TEnv> implements RPCA
     this.storage = objectState.storage;
   }
 
-  protected onEventAdded = (event: Event): any => {};
+  protected onEventAdded = (event: StoredEvent): any => {};
 
   async init() {
     this.eventIndex = (await this.storage.get("eventIndex")) ?? 0;
   }
 
-  addEvent: RPCHandler<API, "addEvent"> = async ({ aggregate, aggregateId, kind, payload }) => {
+  addEvent: RPCHandler<API, "addEvent"> = async ({
+    aggregate,
+    aggregateId,
+    kind,
+    payload,
+    timestamp,
+  }) => {
     const id = getEventId(aggregate, aggregateId, this.eventIndex);
 
-    const event: Event = {
+    const event: StoredEvent = {
       id,
       kind,
       aggregate,
       aggregateId,
-      createdAt: Date.now(), // not 100% sure how date now works in a DO, hopefully UTC will be okay everywhere
       payload,
+      timestamp,
     };
 
     logger.debug(`adding event`, event);
 
     // I think we need a better eventId here
-    await this.storage.put(`eventIndex`, this.eventIndex++);
+    await this.storage.put(`eventIndex`, ++this.eventIndex);
     await this.storage.put(id, event);
 
     // We now need to inform all projection and processes about the event but we dont
@@ -83,7 +90,7 @@ export class BaseEventStore<TEnv> extends RPCDurableObject<TEnv> implements RPCA
       limit: 100,
       prefix,
     });
-    const events: Event[] = [...contents.values()] as any;
+    const events: StoredEvent[] = [...contents.values()] as any;
     return { events };
   };
 }

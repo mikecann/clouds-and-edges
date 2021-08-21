@@ -24,10 +24,12 @@ export abstract class RPCDurableObject<TEnv> implements DurableObject {
     const endpoint = url.pathname.substring(1);
     const payload = await request.json();
 
-    this.logger.debug(`got RPCRequest`, { endpoint, payload });
+    this.logger.debug(`executing '${endpoint}'`, payload);
 
     const handler = getInObj(this, endpoint);
     const output = await handler.bind(this)(payload);
+
+    this.logger.debug(`returning`, output);
 
     return new Response(JSON.stringify(output));
   }

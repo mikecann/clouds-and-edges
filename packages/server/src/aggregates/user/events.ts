@@ -12,4 +12,4 @@ export interface UserNameSet {
   };
 }
 
-export type UserEvents = UserCreated | UserNameSet;
+export type UserEvent = UserCreated | UserNameSet;

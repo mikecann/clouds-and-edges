@@ -1,3 +1,4 @@
-import { UserCommands } from "./userCommands";
+import { UserCommand } from "./userCommand";
+import { ProposalCommand } from "./proposalCommands";
 
-export type Commands = UserCommands;
+export type Commands = UserCommand | ProposalCommand;

@@ -1,14 +1,19 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useMe } from "./useMe";
 import { ensure, wait } from "@project/essentials";
-import { performCommand } from "./performCommand";
+import { useAppState } from "../state/appState";
+import { performRPCOperation } from "./performRPCOperation";
 
 export const useSetName = () => {
   const { data: me } = useMe();
+  const [{ userId }] = useAppState();
   const queryClient = useQueryClient();
   return useMutation(
     ({ name }: { name: string }) =>
-      performCommand({
+      performRPCOperation(
+        "command",
+        userId
+      )({
         aggregate: "user",
         command: "set-name",
         aggregateId: ensure(me).id,

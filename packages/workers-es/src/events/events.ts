@@ -1,4 +1,8 @@
-export interface AddEventInput {
+export interface StoredEvent {
+  id: string;
   kind: string;
-  payload?: unknown;
+  aggregate: string;
+  aggregateId: string;
+  payload: unknown;
+  timestamp: number;
 }

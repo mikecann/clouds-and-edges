@@ -1,19 +1,17 @@
 import { ProjectionDurableObject } from "./ProjectionDurableObject";
 import { DurableObjectStorage, MemoryKVStorage } from "miniflare";
+import { DurableObjectId, DurableObjectState } from "miniflare/dist/modules/do";
 
 let storage = new DurableObjectStorage(new MemoryKVStorage());
 let obj: ProjectionDurableObject;
 
 const createObj = () => {
-  const objState: DurableObjectState = {
-    storage,
-    id: {
-      name: "",
-      toString: () => "",
-    },
-  } as any;
-
-  return new ProjectionDurableObject(objState, {}, {} as any, "user");
+  return new ProjectionDurableObject(
+    new DurableObjectState(new DurableObjectId(""), storage),
+    {},
+    {} as any,
+    "user"
+  );
 };
 
 beforeEach(() => {

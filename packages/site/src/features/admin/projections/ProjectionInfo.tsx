@@ -14,7 +14,7 @@ export const ProjectionInfo: React.FC<ProjectionInfoProps> = ({
   storageContents,
 }) => {
   return (
-    <VStack>
+    <VStack maxHeight={600} overflowY={"auto"}>
       <Code>{JSON.stringify(adminState)}</Code>
       <Button onClick={onRebuild}>Rebuild</Button>
       <Table variant="simple">
@@ -26,7 +26,7 @@ export const ProjectionInfo: React.FC<ProjectionInfoProps> = ({
         </Thead>
         <Tbody>
           {Object.entries(storageContents).map(([key, value]) => (
-            <Tr>
+            <Tr key={key}>
               <Td maxWidth={400}>{key}</Td>
               <Td maxWidth={400}>{JSON.stringify(value)}</Td>
             </Tr>

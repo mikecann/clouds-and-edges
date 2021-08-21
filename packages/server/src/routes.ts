@@ -1,7 +1,7 @@
 import { Router } from "itty-router";
 import { AggregateKinds, API } from "@project/shared";
 import { executeCommand, addRpcRoutes, createDurableObjectRPCProxy } from "@project/workers-es";
-import { wait } from "@project/essentials";
+import { ensure, wait } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
 import { UsersProjection } from "./projections/users/UsersProjection";
@@ -61,13 +61,14 @@ addRpcRoutes<API, Env>({
           name: input.name,
         },
         aggregateId: userId,
+        userId,
       });
 
       return {
         userId,
       };
     },
-    command: async (input, env) => {
+    command: async (input, env, userId) => {
       return (await executeCommand({
         namespace: aggregateToNamespace(input.aggregate as any, env),
         aggregate: input.aggregate as any,
@@ -75,11 +76,14 @@ addRpcRoutes<API, Env>({
         env,
         payload: input.payload,
         aggregateId: input.aggregateId,
+        userId: ensure(userId),
       })) as any;
     },
   },
   router,
 });
+
+router.options("*", () => new Response("Is Okay", { status: 200 }));
 
 // 404 for everything else
 router.all("*", () => new Response("Not Found.", { status: 404 }));

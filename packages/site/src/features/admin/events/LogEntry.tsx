@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Event } from "@project/shared";
 import {
   AccordionButton,
   AccordionIcon,
@@ -9,9 +8,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { EventItem } from "./EventItem";
+import { StoredEvent } from "@project/workers-es";
 
 interface Props {
-  event: Event;
+  event: StoredEvent;
 }
 
 export const LogEntry: React.FC<Props> = ({ event }) => {
@@ -36,7 +36,7 @@ export const LogEntry: React.FC<Props> = ({ event }) => {
           <EventItem label={"aggregate"} value={event.aggregate} />
           <EventItem label={"aggregateId"} value={event.aggregateId} />
           <EventItem label={"kind"} value={event.kind} />
-          <EventItem label={"createdAt"} value={event.createdAt} />
+          <EventItem label={"timestamp"} value={event.timestamp} />
           <EventItem label={"payload"} value={JSON.stringify(event.payload)} />
         </VStack>
       </AccordionPanel>
