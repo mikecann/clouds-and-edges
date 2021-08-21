@@ -14,7 +14,7 @@ export default {
       if (response) response.headers.set("Access-Control-Allow-Origin", "*");
       return response;
     } catch (e) {
-      console.error(e);
+      console.error(`main fetch caught error`, e + "");
       const response = new Response(e.message);
       response.headers.set("Access-Control-Allow-Origin", "*");
       return response;

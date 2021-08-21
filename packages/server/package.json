@@ -6,9 +6,10 @@
   "scripts": {
     "script": "ts-node --transpile-only --require tsconfig-paths/register --project ./scripts/tsconfig.json",
     "build": "yarn script ./scripts/build.ts",
-    "dev": "miniflare dist/main.mjs --watch --debug --port 8777",
+    "dev": "miniflare dist/main.mjs --watch --debug --do-persist --port 8777",
     "deploy": "wrangler publish",
-    "new:class": "wrangler publish --new-class"
+    "new:class": "wrangler publish --new-class",
+    "tail": "wrangler tail --format pretty"
   },
   "author": "mike.cann@gmail.com",
   "license": "MIT",

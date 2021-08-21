@@ -1,4 +1,5 @@
 import { Id } from "../modal/id";
+import { ProjectionAdminState } from "@project/workers-es";
 
 export interface UserProjection {
   id: Id;

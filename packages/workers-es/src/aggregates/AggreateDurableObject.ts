@@ -10,7 +10,7 @@ export type AggreateDurableObjectAPI = {
   execute: {
     input: {
       command: string;
-      payload: string;
+      payload: unknown;
     };
     output: {
       aggregateId: string;
@@ -26,7 +26,6 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv>
 {
   protected state: TState = {} as any;
   protected logger: Logger;
-  protected aggregateId: string;
   protected storage: DurableObjectStorage;
 
   constructor(
@@ -39,7 +38,14 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv>
     super();
     this.storage = objectState.storage;
     this.logger = getLogger(`${aggregate}-aggregate`);
-    this.aggregateId = ensure(objectState.id.name);
+  }
+
+  protected get aggregateId() {
+    // return ensure(
+    //   this.objectState.id.name,
+    //   `aggregate name missing on object state '${this.objectState.id}'`
+    // );
+    return this.objectState.id.toString();
   }
 
   protected async init() {

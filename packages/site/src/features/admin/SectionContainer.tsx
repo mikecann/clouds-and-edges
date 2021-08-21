@@ -14,7 +14,15 @@ export const SectionContainer: React.FC<Props> = ({ title, children }) => {
       padding={5}
       minHeight={300}
     >
-      <Heading fontSize="xl">{title}</Heading>
+      <Heading
+        fontSize="xl"
+        backgroundColor={"rgba(0,0,0,0.2)"}
+        padding={2}
+        borderRadius={10}
+        paddingLeft={5}
+      >
+        {title}
+      </Heading>
       <Box
         backgroundColor={"gray.200.200"}
         height={"100%"}

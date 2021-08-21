@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@project/essentials": "*",
-    "itty-router": "^2.4.2"
+    "itty-router": "^2.4.2",
+    "miniflare": "^1.3.3"
   }
 }

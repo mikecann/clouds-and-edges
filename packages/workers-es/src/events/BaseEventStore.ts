@@ -21,7 +21,9 @@ export type BaseEventStoreAPI = {
     };
   };
   getEvents: {
-    input: {};
+    input: {
+      aggregate?: string;
+    };
     output: {
       events: Event[];
     };
@@ -31,8 +33,6 @@ export type BaseEventStoreAPI = {
 type API = BaseEventStoreAPI;
 
 export class BaseEventStore<TEnv> extends RPCDurableObject<TEnv> implements RPCApiHandler<API> {
-  static version = `1.0.9`;
-
   private eventIndex: number = 0;
 
   protected storage: DurableObjectStorage;
@@ -60,7 +60,7 @@ export class BaseEventStore<TEnv> extends RPCDurableObject<TEnv> implements RPCA
       payload,
     };
 
-    logger.debug(`EventStore adding event`, event);
+    logger.debug(`adding event`, event);
 
     // I think we need a better eventId here
     await this.storage.put(`eventIndex`, this.eventIndex++);
@@ -69,16 +69,21 @@ export class BaseEventStore<TEnv> extends RPCDurableObject<TEnv> implements RPCA
     // We now need to inform all projection and processes about the event but we dont
     // want to wait for them to finish as they could take a while.
     // I hope this is how it works in DOs
-    this.onEventAdded(event);
+    await this.onEventAdded(event);
 
     return {
       eventId: id,
     };
   };
 
-  getEvents: RPCHandler<API, "getEvents"> = async ({}) => {
-    const contents = await this.storage.list({ limit: 100, prefix: "e:" });
-    const events = [...contents.values()];
-    return events as any;
+  getEvents: RPCHandler<API, "getEvents"> = async ({ aggregate }) => {
+    const prefix = `e:${aggregate ? `${aggregate}:` : ``}`;
+    this.logger.debug(`getting events with prefix '${prefix}'`);
+    const contents = await this.storage.list({
+      limit: 100,
+      prefix,
+    });
+    const events: Event[] = [...contents.values()] as any;
+    return { events };
   };
 }

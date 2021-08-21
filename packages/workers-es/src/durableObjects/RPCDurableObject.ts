@@ -19,8 +19,9 @@ export abstract class RPCDurableObject<TEnv> implements DurableObject {
     }
     await this.initPromise;
 
-    const parts = request.url.split("/");
-    const endpoint = parts[parts.length - 1];
+    const url = new URL(request.url);
+
+    const endpoint = url.pathname.substring(1);
     const payload = await request.json();
 
     this.logger.debug(`got RPCRequest`, { endpoint, payload });

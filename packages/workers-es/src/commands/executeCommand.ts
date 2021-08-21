@@ -1,6 +1,6 @@
-import { callDurableObject } from "../durableObjects/callDurableObject";
 import { generateId, getLogger } from "@project/essentials";
 import { AggreateDurableObject } from "../aggregates/AggreateDurableObject";
+import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
 
 interface Options {
   namespace: DurableObjectNamespace;
@@ -29,13 +29,8 @@ export const executeCommand = async ({
     command,
   });
 
-  return callDurableObject({
-    stub: namespace.get(namespace.idFromName(aggregateId)),
-    object: AggreateDurableObject,
-    endpoint: "execute",
-    input: {
-      command,
-      payload,
-    },
-  });
+  return createDurableObjectRPCProxy(
+    AggreateDurableObject,
+    namespace.get(namespace.idFromString(aggregateId))
+  ).execute({ command, payload });
 };

@@ -11,5 +11,5 @@ export type ProjectionEventHandlers<TEvents extends Kindable> = Partial<
 >;
 
 export interface ProjectionAdminState {
-  status: `not-built` | `building` | `build`;
+  status: `not-built` | `building` | `built`;
 }

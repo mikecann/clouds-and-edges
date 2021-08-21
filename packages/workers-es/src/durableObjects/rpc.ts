@@ -1,4 +1,4 @@
-type RPCApi = Record<string, { input: unknown; output: unknown }>;
+export type RPCApi = Record<string, { input: unknown; output: unknown }>;
 
 export type RPCHandler<TApi extends RPCApi, TEndpoint extends keyof TApi> = (
   input: TApi[TEndpoint]["input"]

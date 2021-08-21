@@ -9,13 +9,15 @@ const logger = getLogger(`useMe`);
 
 export const useMe = () => {
   const [{ userId }] = useAppState();
-  const signout = useSignout();
+  //const signout = useSignout();
   return useQuery<UserProjection | null | undefined, Error>(`me`, async () => {
-    const me = await performRPCOperation("projection.user.findUserById")({ id: ensure(userId) });
-    if (!me) {
-      logger.info(`could not get me with id '${userId}' from API so going to signout`);
-      signout();
-    }
-    return me.user;
+    const { user } = await performRPCOperation("projections.users.findUserById")({
+      id: ensure(userId),
+    });
+    // if (!user) {
+    //   logger.info(`could not get me with id '${userId}' from API so going to signout`);
+    //   signout();
+    // }
+    return user;
   });
 };

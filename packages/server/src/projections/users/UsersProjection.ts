@@ -6,10 +6,13 @@ import { getHandlers } from "./eventHandlers";
 type API = Projections["users"];
 
 export class UsersProjection extends ProjectionDurableObject<Env> implements RPCApiHandler<API> {
-  static version = `1.0.0`;
-
   constructor(objectState: DurableObjectState, env: Env) {
-    super(objectState, env, getHandlers(objectState.storage));
+    super(
+      objectState,
+      getHandlers(objectState.storage),
+      () => env.EventStore.get(env.EventStore.idFromName(`1`)),
+      "user"
+    );
   }
 
   findUserById: RPCHandler<API, "findUserById"> = async ({ id }) => {

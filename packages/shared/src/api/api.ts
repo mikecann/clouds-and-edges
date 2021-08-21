@@ -1,12 +1,21 @@
 import { Event } from "../events/events";
 import { Result } from "@project/essentials";
 import { Projections } from "../projections/projections";
+import { ProjectionAdminState, ProjectionDurableObjectAPI } from "@project/workers-es/dist";
 
 export type API = {
-  "projection.user.findUserById": Projections["users"]["findUserById"];
+  "projections.users.findUserById": Projections["users"]["findUserById"];
+  "projections.users.getAdminState": {
+    input: {};
+    output: ProjectionAdminState;
+  };
+  "projections.users.rebuild": ProjectionDurableObjectAPI["rebuild"];
+  "projections.users.getStorageContents": ProjectionDurableObjectAPI["getStorageContents"];
   "event-store.events": {
     input: {};
-    output: Event[];
+    output: {
+      events: Event[];
+    };
   };
   "auth.signup": {
     input: {

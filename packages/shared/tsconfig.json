@@ -6,5 +6,8 @@
     "types": ["jest"]
   },
   "include": ["./src"],
-  "references": [{ "path": "../essentials/tsconfig.json" }]
+  "references": [
+    { "path": "../essentials/tsconfig.json" },
+    { "path": "../workers-es/tsconfig.json" }
+  ]
 }

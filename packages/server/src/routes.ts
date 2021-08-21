@@ -1,7 +1,7 @@
 import { Router } from "itty-router";
 import { AggregateKinds, API } from "@project/shared";
-import { executeCommand, callDurableObject, addRpcRoutes } from "@project/workers-es";
-import { generateId, wait } from "@project/essentials";
+import { executeCommand, addRpcRoutes, createDurableObjectRPCProxy } from "@project/workers-es";
+import { wait } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
 import { UsersProjection } from "./projections/users/UsersProjection";
@@ -15,34 +15,42 @@ router.get("/", async () => {
 addRpcRoutes<API, Env>({
   urlPrefix: `/api/v1/`,
   routes: {
-    "projection.user.findUserById": async (input, env) => {
+    "projections.users.findUserById": async (input, env) => {
       // Temp
       await wait(100);
-      return (await callDurableObject({
-        stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
-        object: UsersProjection,
-        endpoint: "findUserById",
-        input,
-      })) as any;
+      return createDurableObjectRPCProxy(
+        UsersProjection,
+        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
+      ).findUserById({
+        id: input.id,
+      });
     },
-    // "projection.user.admin.getState": async (input, env) => {
-    //   return await callDurableObject({
-    //     stub: env.UsersProjection.get(env.UsersProjection.idFromName(UsersProjection.version)),
-    //     object: UsersProjection,
-    //     endpoint: "admin.getState",
-    //     input,
-    //   });
-    // },
+    "projections.users.getAdminState": async (input, env) => {
+      return createDurableObjectRPCProxy(
+        UsersProjection,
+        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
+      ).getAdminState({});
+    },
+    "projections.users.rebuild": async (input, env) => {
+      return createDurableObjectRPCProxy(
+        UsersProjection,
+        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
+      ).rebuild({});
+    },
+    "projections.users.getStorageContents": async (input, env) => {
+      return createDurableObjectRPCProxy(
+        UsersProjection,
+        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
+      ).getStorageContents({});
+    },
     "event-store.events": async (input, env) => {
-      return callDurableObject({
-        object: EventStore,
-        stub: env.EventStore.get(env.EventStore.idFromName(EventStore.version)),
-        input: {},
-        endpoint: "query.events",
-      }) as any;
+      return createDurableObjectRPCProxy(
+        EventStore,
+        env.EventStore.get(env.EventStore.idFromName(`1`))
+      ).getEvents({});
     },
     "auth.signup": async (input, env) => {
-      const userId = generateId();
+      const userId = env.UserAggregate.newUniqueId().toString();
 
       await executeCommand({
         namespace: env.UserAggregate,
