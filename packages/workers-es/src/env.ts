@@ -1,3 +1,1 @@
-export type Env = {
-  EventStore: DurableObjectNamespace;
-};
+export type Env = Record<string, DurableObjectNamespace>;

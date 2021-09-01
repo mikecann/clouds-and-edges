@@ -1,9 +1,15 @@
 import { Id } from "../modal/id";
-import { ProjectionAdminState } from "@project/workers-es";
+import { MatchSettings } from "../events/match";
 
 export interface UserProjection {
   id: Id;
   name: string;
+}
+
+export interface ProposalProjection {
+  id: Id;
+  settings: MatchSettings;
+  createdByUserId: string;
 }
 
 export type Projections = {
@@ -18,12 +24,12 @@ export type Projections = {
     };
   };
   proposals: {
-    findUserById: {
+    getProposals: {
       input: {
-        id: string;
+        userId: string;
       };
       output: {
-        user?: UserProjection | null;
+        proposals: ProposalProjection[];
       };
     };
   };

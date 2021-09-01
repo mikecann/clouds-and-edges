@@ -1,10 +1,13 @@
 import { Router } from "itty-router";
-import { AggregateKinds, API } from "@project/shared";
+import { AggregateKinds, API, ProjectionKinds } from "@project/shared";
 import { executeCommand, addRpcRoutes, createDurableObjectRPCProxy } from "@project/workers-es";
 import { ensure, wait } from "@project/essentials";
 import { Env } from "./env";
 import { EventStore } from "./EventStore";
 import { UsersProjection } from "./projections/users/UsersProjection";
+import { matchLiteral } from "variant";
+import { ProposalsProjection } from "./projections/proposals/ProposalsProjection";
+import { system } from "./system";
 
 export const router = Router();
 
@@ -25,23 +28,19 @@ addRpcRoutes<API, Env>({
         id: input.id,
       });
     },
-    "projections.users.getAdminState": async (input, env) => {
-      return createDurableObjectRPCProxy(
-        UsersProjection,
-        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
-      ).getAdminState({});
+    "projection.admin": async (input, env) => {
+      const namespace = projectionToNamespace(input.projection, env);
+      return createDurableObjectRPCProxy({} as any, namespace.get(namespace.idFromName(`1`)))[
+        input.operation
+      ](input.payload);
     },
-    "projections.users.rebuild": async (input, env) => {
+    "projections.proposals.getProposals": async (input, env, userId) => {
       return createDurableObjectRPCProxy(
-        UsersProjection,
-        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
-      ).rebuild({});
-    },
-    "projections.users.getStorageContents": async (input, env) => {
-      return createDurableObjectRPCProxy(
-        UsersProjection,
-        env.UsersProjection.get(env.UsersProjection.idFromName(`1`))
-      ).getStorageContents({});
+        ProposalsProjection,
+        env.ProposalsProjection.get(env.ProposalsProjection.idFromName(`1`))
+      ).getProposals({
+        userId: ensure(userId),
+      });
     },
     "event-store.events": async (input, env) => {
       return createDurableObjectRPCProxy(
@@ -53,14 +52,16 @@ addRpcRoutes<API, Env>({
       const userId = env.UserAggregate.newUniqueId().toString();
 
       await executeCommand({
-        namespace: env.UserAggregate,
-        aggregate: "user",
-        command: "create",
-        env,
-        payload: {
-          name: input.name,
+        system,
+        command: {
+          aggregateId: userId,
+          payload: {
+            name: input.name,
+          },
+          kind: "create",
+          aggregate: "user",
         },
-        aggregateId: userId,
+        env,
         userId,
       });
 
@@ -69,13 +70,16 @@ addRpcRoutes<API, Env>({
       };
     },
     command: async (input, env, userId) => {
+      const namespace = aggregateToNamespace(input.aggregate, env);
       return (await executeCommand({
-        namespace: aggregateToNamespace(input.aggregate as any, env),
-        aggregate: input.aggregate as any,
-        command: input.command,
+        system,
+        command: {
+          aggregateId: input.aggregateId ?? namespace.newUniqueId().toString(),
+          payload: input.payload,
+          kind: input.command,
+          aggregate: input.aggregate,
+        },
         env,
-        payload: input.payload,
-        aggregateId: input.aggregateId,
         userId: ensure(userId),
       })) as any;
     },
@@ -88,7 +92,15 @@ router.options("*", () => new Response("Is Okay", { status: 200 }));
 // 404 for everything else
 router.all("*", () => new Response("Not Found.", { status: 404 }));
 
-const aggregateToNamespace = (name: AggregateKinds, env: Env) => {
-  if (name == "user") return env.UserAggregate;
-  throw new Error(`cannot get namespace '${name}'`);
-};
+const aggregateToNamespace = (name: AggregateKinds, env: Env) =>
+  matchLiteral(name, {
+    user: () => env.UserAggregate,
+    proposal: () => env.ProposalAggregate,
+    match: () => env.MatchAggregate,
+  });
+
+const projectionToNamespace = (name: ProjectionKinds, env: Env) =>
+  matchLiteral(name, {
+    users: () => env.UsersProjection,
+    proposals: () => env.ProposalsProjection,
+  });

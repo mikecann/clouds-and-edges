@@ -3,6 +3,7 @@
  */
 
 export * from "./addRpcRoutes";
+export * from "./env";
 export * from "./reducers";
 export * from "./aggregates/AggreateDurableObject";
 export * from "./commands/commands";
@@ -12,6 +13,9 @@ export * from "./durableObjects/rpc";
 export * from "./durableObjects/RPCDurableObject";
 export * from "./events/BaseEventStore";
 export * from "./events/events";
+export * from "./processes/ProcessDurableObject";
+export * from "./processes/processes";
 export * from "./projections/ProjectionDurableObject";
 export * from "./projections/projections";
-export * from "./projections/rebuildProjection";
+export * from "./projections/projectionStore";
+export * from "./system/system";

@@ -10,7 +10,7 @@ export const RootPage: React.FC<Props> = ({}) => {
 
   React.useEffect(() => {
     if (!state.userId) history.push(`/signup`);
-    else history.push(`/dashboard`);
+    else history.push(`/matches`);
   }, []);
 
   return null;

@@ -5,6 +5,7 @@ export interface ProposalAggregateState {
   createdAt?: number;
   cancelledAt?: number;
   joinedAt?: number;
+  matchmadeAt?: number;
   rejectedAt?: number;
   createdByUserId?: string;
   settings?: MatchSettings;

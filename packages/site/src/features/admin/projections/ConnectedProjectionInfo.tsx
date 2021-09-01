@@ -1,18 +1,21 @@
 import * as React from "react";
 import { ProjectionInfo } from "./ProjectionInfo";
-import { useProjectionAdmin } from "../../api/useProjectionAdmin";
+import { useProjectionAdmin } from "../useProjectionAdmin";
+import { ProjectionKinds } from "@project/shared";
 
-interface Props {}
+interface Props {
+  projection: ProjectionKinds;
+}
 
-export const ConnectedProjectionInfo: React.FC<Props> = ({}) => {
-  const { rebuild, state, storageContents } = useProjectionAdmin();
+export const ConnectedProjectionInfo: React.FC<Props> = ({ projection }) => {
+  const { rebuild, state, storageContents } = useProjectionAdmin(projection);
 
   if (!state || !storageContents) return null;
 
   return (
     <ProjectionInfo
       adminState={state}
-      onRebuild={() => rebuild.mutate({})}
+      onRebuild={() => rebuild.mutate()}
       storageContents={storageContents.contents}
     />
   );

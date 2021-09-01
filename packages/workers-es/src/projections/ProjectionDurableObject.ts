@@ -64,7 +64,7 @@ export class ProjectionDurableObject<TEnv = object>
     const handler = findInObj(this.handlers, event.kind);
     if (!handler) {
       this.logger.debug(`projection unable to handle event '${event.kind}'`);
-      return;
+      return {};
     }
     await handler({ event });
 

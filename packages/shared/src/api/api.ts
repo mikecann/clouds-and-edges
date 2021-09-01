@@ -1,16 +1,20 @@
 import { Result } from "@project/essentials";
-import { Projections } from "../projections/projections";
-import { ProjectionAdminState, ProjectionDurableObjectAPI } from "@project/workers-es/dist";
+import { ProjectionKinds, Projections } from "../projections/projections";
+import { ProjectionDurableObjectAPI } from "@project/workers-es";
 import { StoredEvent } from "@project/workers-es";
+import { AggregateKinds } from "../aggregates/aggregates";
 
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
-  "projections.users.getAdminState": {
-    input: {};
-    output: ProjectionAdminState;
+  "projection.admin": {
+    input: {
+      projection: ProjectionKinds;
+      operation: keyof ProjectionDurableObjectAPI;
+      payload: any;
+    };
+    output: any;
   };
-  "projections.users.rebuild": ProjectionDurableObjectAPI["rebuild"];
-  "projections.users.getStorageContents": ProjectionDurableObjectAPI["getStorageContents"];
+  "projections.proposals.getProposals": Projections["proposals"]["getProposals"];
   "event-store.events": {
     input: {};
     output: {
@@ -27,7 +31,7 @@ export type API = {
   };
   command: {
     input: {
-      aggregate: string;
+      aggregate: AggregateKinds;
       aggregateId?: string;
       command: string;
       payload: unknown;

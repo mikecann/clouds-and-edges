@@ -21,16 +21,16 @@
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.10",
+    "esbuild": "^0.12.18",
     "jest": "^27.0.6",
     "jest-extended": "^0.11.5",
-    "esbuild": "^0.12.18",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "tsconfig-paths": "^3.10.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2"
   },
   "author": "mike.cann@gmail.com",
   "license": "MIT"

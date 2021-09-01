@@ -3,3 +3,7 @@ export function wait(ms: number) {
 }
 
 export const iife = <T>(fn: () => T): T => fn();
+
+export function leftFillNum(num: number, targetLength: number) {
+  return num.toString().padStart(targetLength, "0");
+}

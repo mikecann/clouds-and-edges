@@ -36,3 +36,5 @@ yarn site storybook
 - Make sure that the DO doesnt close the processes and projects
 - Adding event to event store should be done in transaction just incase it fails the aggregate state set should be rolled back
 - What happenes to the stored state if you dont reference it for a while?
+- Issues are that the projections might have to use a different DB to support more powerful queries
+- Make better use of react query keys according to that site

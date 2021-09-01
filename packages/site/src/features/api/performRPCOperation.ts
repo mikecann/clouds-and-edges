@@ -12,6 +12,6 @@ export const performRPCOperation =
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
     });
-    if (!response.ok) throw new Error(`apiQuery response not ok`);
+    if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
     return await response.json();
   };

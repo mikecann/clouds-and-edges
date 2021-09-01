@@ -3,6 +3,7 @@ import { MatchSettings } from "@project/shared";
 export interface ProposalCreated {
   kind: "proposal-created";
   payload: {
+    createdByUserId: string;
     settings: MatchSettings;
   };
 }
@@ -21,6 +22,13 @@ export interface ProposalCancelled {
 
 export interface ProposalJoined {
   kind: "proposal-joined";
+  payload: {
+    userId: string;
+  };
+}
+
+export interface ProposalMatchmade {
+  kind: "proposal-matchmade";
   payload: {};
 }
 
@@ -28,4 +36,5 @@ export type ProposalEvent =
   | ProposalCreated
   | ProposalCreationRejected
   | ProposalCancelled
-  | ProposalJoined;
+  | ProposalJoined
+  | ProposalMatchmade;

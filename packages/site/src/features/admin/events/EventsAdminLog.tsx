@@ -10,9 +10,11 @@ export interface EventsAdminLogProps {
 export const EventsAdminLog: React.FC<EventsAdminLogProps> = ({ events }) => {
   return (
     <Accordion maxHeight={600} overflowY={"auto"}>
-      {events.map((event) => (
-        <LogEntry key={event.id} event={event} />
-      ))}
+      {events
+        .sort((a, b) => a.timestamp - b.timestamp)
+        .map((event) => (
+          <LogEntry key={event.id} event={event} />
+        ))}
     </Accordion>
   );
 };

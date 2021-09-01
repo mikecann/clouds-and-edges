@@ -12,7 +12,7 @@ export const createDurableObjectRPCProxy = <TObject extends abstract new (...arg
         const endpoint = prop as string;
         const input = arguments[0];
 
-        logger.debug(`calling durable object '${stub.name}'`, {
+        logger.debug(`calling durable object '${obj.name}'`, {
           stub,
           endpoint,
           input,

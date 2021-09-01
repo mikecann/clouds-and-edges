@@ -30,7 +30,7 @@ export const addRpcRoutes = <TApi extends RpcRoutesApi, TEnv>({
         if (!authorization) return undefined;
         const parts = authorization.split("Bearer");
         if (parts.length < 2) return undefined;
-        return parts[1];
+        return parts[1].trim();
       });
       const json = await request.json!();
       const response = await routes[endpoint](json, env, userId);

@@ -1,12 +1,14 @@
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
-import { getLogger } from "@project/essentials";
+import { getLogger, leftFillNum } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { StoredEvent } from "./events";
 
 const logger = getLogger(`EventStore`);
 
+// This key is super important
+// We use leftFillNum to ensure lexographically incrementing keys when we retrieve events when rebuilding
 const getEventId = (aggregate: string, aggregateId: string, index: number) =>
-  `e:${aggregate}:${aggregateId}:${index}`;
+  `e:${aggregate}:${aggregateId}:${leftFillNum(index, 10)}`;
 
 export type BaseEventStoreAPI = {
   addEvent: {

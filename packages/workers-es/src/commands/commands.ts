@@ -16,3 +16,14 @@ export type AggregateCommandHandlers<
     TEvents
   >;
 };
+
+export interface Command<
+  TKind extends string = string,
+  TAggregate extends string = string,
+  TPayload extends unknown = unknown
+> {
+  kind: TKind;
+  aggregate: TAggregate;
+  aggregateId?: string;
+  payload: TPayload;
+}

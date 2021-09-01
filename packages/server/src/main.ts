@@ -1,11 +1,13 @@
 import { Env } from "./env";
 import { router } from "./routes";
 
-// In order for the workers runtime to find the class that implements
-// our Durable Object namespace, we must export it from the root module.
 export { UserAggregate } from "./aggregates/user/UserAggregate";
 export { ProposalAggregate } from "./aggregates/proposal/ProposalAggregate";
+export { MatchAggregate } from "./aggregates/match/MatchAggregate";
+
 export { UsersProjection } from "./projections/users/UsersProjection";
+
+export { ProposalsProjection } from "./projections/proposals/ProposalsProjection";
 export { EventStore } from "./EventStore";
 
 export default {
@@ -19,7 +21,10 @@ export default {
       return response;
     } catch (e) {
       console.error(`main fetch caught error`, e + "");
-      const response = new Response(e.message);
+      const errorMessage = e instanceof Error ? e.message : e + "";
+      const response = new Response(errorMessage, {
+        status: 500,
+      });
       response.headers.set("Access-Control-Allow-Origin", "*");
       return response;
     }

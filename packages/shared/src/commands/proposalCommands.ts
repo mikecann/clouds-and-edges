@@ -1,35 +1,36 @@
-import { MatchSettings } from "../events/match";
+import { MatchProposalSize } from "../modal/proposal";
 
-interface Create {
-  kind: `create`;
+interface Base {
   aggregate: `proposal`;
+}
+
+interface Create extends Base {
+  kind: `create`;
   payload: {
-    settings: MatchSettings;
+    size: MatchProposalSize;
   };
 }
 
-interface Reject {
+interface Reject extends Base {
   kind: `reject-create`;
-  aggregate: `proposal`;
   payload: {
     reason: string;
   };
 }
 
-interface Cancel {
+interface Cancel extends Base {
   kind: `cancel`;
-  aggregate: `proposal`;
-  payload: {
-    proposalId: string;
-  };
+  payload: {};
 }
 
-interface Join {
+interface Join extends Base {
   kind: `join`;
-  aggregate: `proposal`;
-  payload: {
-    proposalId: string;
-  };
+  payload: {};
 }
 
-export type ProposalCommand = Create | Reject | Cancel | Join;
+interface Matchmake extends Base {
+  kind: `matchmake`;
+  payload: {};
+}
+
+export type ProposalCommand = Create | Reject | Cancel | Join | Matchmake;
