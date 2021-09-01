@@ -9,6 +9,7 @@ const createObj = () => {
   return new ProjectionDurableObject(
     new DurableObjectState(new DurableObjectId(""), storage),
     {},
+    {},
     {} as any,
     "user"
   );

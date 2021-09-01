@@ -3,9 +3,8 @@ import { AggregateReducer, AggregateReducers } from "../reducers";
 import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { getInObj, getLogger, Logger } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
-import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
-import { BaseEventStore } from "../events/BaseEventStore";
 import { Env } from "../env";
+import { System } from "../system/system";
 
 export type AggreateDurableObjectAPI = {
   execute: {
@@ -20,7 +19,10 @@ export type AggreateDurableObjectAPI = {
 
 type API = AggreateDurableObjectAPI;
 
-export class AggreateDurableObject<TState extends Record<string, any>, TEnv extends Env>
+export class AggreateDurableObject<
+    TState extends Record<string, any> = Record<string, any>,
+    TEnv extends Env = Env
+  >
   extends RPCDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
@@ -31,6 +33,7 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv exte
   constructor(
     protected objectState: DurableObjectState,
     protected env: TEnv,
+    protected system: System,
     protected aggregate: string,
     protected commands: AggregateCommandHandlers<TState>,
     protected reducers: AggregateReducers<TState>
@@ -52,7 +55,7 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv exte
   execute: RPCHandler<API, "execute"> = async (input) => {
     const timestamp = Date.now();
 
-    this.logger.debug(`${this} execution starting`, {
+    this.logger.debug(`execution starting`, {
       input,
       aggregateId: this.aggregateId,
       timestamp,
@@ -73,8 +76,7 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv exte
 
     const addEventToStore = async () => {
       // We then add that event to the store
-      const stub = this.env.EventStore.get(this.env.EventStore.idFromName(`1`));
-      await createDurableObjectRPCProxy(BaseEventStore, stub).addEvent({
+      await this.system.getEventStore(this.env).addEvent({
         aggregate: this.aggregate,
         aggregateId: this.aggregateId,
         kind: addEventInput.kind,
@@ -94,12 +96,15 @@ export class AggreateDurableObject<TState extends Record<string, any>, TEnv exte
 
       this.state = reducedState;
       await this.storage.put("state", reducedState);
+
+      this.logger.debug(`reducedState stored`, reducedState);
     };
 
     // At the same time we add the event to the store and update the local state
-    await Promise.all([addEventToStore(), updateLocalState()]);
+    await updateLocalState();
+    await addEventToStore();
 
-    this.logger.debug(`${this} execution finished`);
+    this.logger.debug(`execution finished`);
 
     return {};
   };

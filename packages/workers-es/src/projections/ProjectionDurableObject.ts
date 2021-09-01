@@ -5,6 +5,8 @@ import { ProjectionAdminState } from "./projections";
 import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
 import { BaseEventStore } from "../events/BaseEventStore";
 import { StoredEvent } from "../events/events";
+import { System } from "../system/system";
+import { Env } from "../env";
 
 export type ProjectionDurableObjectAPI = {
   onEvent: {
@@ -45,7 +47,8 @@ export class ProjectionDurableObject<TEnv = object>
   constructor(
     protected objectState: DurableObjectState,
     protected handlers: any,
-    protected getEventStoreStub: () => DurableObjectStub,
+    protected env: Env,
+    protected system: System,
     protected aggregate: string
   ) {
     super();
@@ -93,12 +96,10 @@ export class ProjectionDurableObject<TEnv = object>
     // This should be done as a cronjob response
     const doRebuild = async () => {
       // Without waiting for the response lets rebuild, hopefully this promise isnt killed..
-      const { events } = await createDurableObjectRPCProxy(
-        BaseEventStore,
-        this.getEventStoreStub()
-      ).getEvents({
-        aggregate: this.aggregate,
-      });
+      const { events } = await this.system
+        .getEventStore(this.env)
+        .getEvents({ aggregate: this.aggregate });
+
       for (let event of events) await this.onEvent({ event });
     };
 

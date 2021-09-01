@@ -6,7 +6,7 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "noEmit": true,
-    "types": ["jest", "chrome"],
+    "types": ["jest"],
     "jsx": "react",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "experimentalDecorators": true,

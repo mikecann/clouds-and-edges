@@ -2,6 +2,7 @@ import { Env } from "../../env";
 import { Projections, ProposalProjection } from "@project/shared";
 import { RPCApiHandler, RPCHandler, ProjectionDurableObject } from "@project/workers-es";
 import { getHandlers } from "./eventHandlers";
+import { system } from "../../system";
 
 type API = Projections["proposals"];
 
@@ -10,12 +11,7 @@ export class ProposalsProjection
   implements RPCApiHandler<API>
 {
   constructor(objectState: DurableObjectState, env: Env) {
-    super(
-      objectState,
-      getHandlers(objectState.storage),
-      () => env.EventStore.get(env.EventStore.idFromName(`1`)),
-      "proposal"
-    );
+    super(objectState, getHandlers(objectState.storage), env, system, "proposal");
   }
 
   getProposals: RPCHandler<API, "getProposals"> = async ({ userId }) => {

@@ -23,7 +23,7 @@ export const MatchesPage: React.FC<Props> = ({}) => {
       />
       <VStack>
         <Heading>Matches</Heading>
-        <ConnectedProposalCards />
+        {/*<ConnectedProposalCards />*/}
       </VStack>
     </SidebarPage>
   );

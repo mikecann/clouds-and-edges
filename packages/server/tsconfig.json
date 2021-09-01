@@ -5,10 +5,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",
+    "lib": ["esnext", "webworker"],
     "noEmit": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "@cloudflare/workers-types"],
     "paths": {
       "@project/essentials": ["../essentials/src/index.ts"],
       "@project/shared": ["../shared/src/index.ts"],
