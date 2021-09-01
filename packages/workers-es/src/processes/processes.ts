@@ -18,7 +18,7 @@ export type ProcessEventHandler<
   P extends TEvents["kind"] = TEvents["kind"]
 > = (context: {
   event: StoredEvent<Extract<TEvents, { kind: P }>>;
-  sideEffects: ProcessSideEffects<TCommands> & TSideEffects;
+  effects: ProcessSideEffects<TCommands> & TSideEffects;
   storage: TStorage;
 }) => Promise<void> | void;
 
@@ -34,7 +34,7 @@ export type ProcessEventHandlers<
     }
   >;
 
-  sideEffects: TSideEffects;
+  effects: TSideEffects;
 };
 
 export const processUserId = `PROCESS_ADMIN`;

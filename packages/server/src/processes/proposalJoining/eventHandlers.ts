@@ -1,4 +1,4 @@
-import { ProcessEventHandlers, ProjectionEventHandlers } from "@project/workers-es";
+import { ProcessEventHandlers } from "@project/workers-es";
 import { Events } from "../../events";
 import { ensure, getLogger } from "@project/essentials";
 import { Commands, MatchSettings } from "@project/shared";
@@ -11,6 +11,8 @@ type StoredProposal = {
   settings: MatchSettings;
 };
 
+// NOTE TO SELF: this is now implemented, just need to make sure it works now!
+
 export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands> = {
   handlers: {
     "proposal-created": async ({
@@ -18,7 +20,6 @@ export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands
         aggregateId,
         payload: { createdByUserId, settings },
       },
-      sideEffects,
       storage,
     }) => {
       await storage.put<StoredProposal>(`proposal:${aggregateId}`, {
@@ -33,21 +34,21 @@ export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands
         aggregateId,
         payload: { userId },
       },
-      sideEffects,
+      effects,
       storage,
     }) => {
       // Grab the already created proposal
       const proposal = ensure(await storage.get<StoredProposal>(`proposal:${aggregateId}`));
 
       // Lets matchmake it
-      await sideEffects.executeCommand({
+      await effects.executeCommand({
         aggregate: "proposal",
         kind: "matchmake",
         payload: {},
       });
 
       // Then create the match
-      await sideEffects.executeCommand({
+      await effects.executeCommand({
         aggregate: "match",
         kind: "create",
         payload: {
@@ -56,21 +57,26 @@ export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands
         },
       });
 
-      // Now we can remove it from our cache as we no longer need it
+      // Let the opponent know that a match has been created
+      await effects.sendEmail(proposal.createdByUserId);
+    },
+
+    "proposal-cancelled": async ({ event: { aggregateId }, storage }) => {
       await storage.delete(`proposal:${aggregateId}`);
     },
 
-    "proposal-cancelled": async ({
-      event: {
-        aggregateId,
-        payload: {},
-      },
-      sideEffects,
-      storage,
-    }) => {
+    "proposal-creation-rejected": async ({ event: { aggregateId }, storage }) => {
+      await storage.delete(`proposal:${aggregateId}`);
+    },
+
+    "proposal-matchmade": async ({ event: { aggregateId }, storage }) => {
       await storage.delete(`proposal:${aggregateId}`);
     },
   },
 
-  sideEffects: {},
+  effects: {
+    sendEmail: (toUserId: string) => {
+      // todo
+    },
+  },
 };

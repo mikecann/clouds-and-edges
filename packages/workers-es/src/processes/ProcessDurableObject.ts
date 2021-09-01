@@ -79,7 +79,7 @@ export class ProcessDurableObject<TEnv = Env>
     await handler({
       event: event as any,
       storage: this.storage,
-      sideEffects: {
+      effects: {
         executeCommand: async (command) =>
           executeCommand({
             env: this.env,
