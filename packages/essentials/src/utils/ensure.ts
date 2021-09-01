@@ -24,7 +24,7 @@ export const ensure = <T>(
 };
 
 export const ensureNotUndefinedFP = (
-  err: string = `variable was undefined when it shouldnt have been.`
+  err = `variable was undefined when it shouldnt have been.`
 ) => <T>(obj: T | undefined): T => {
   if (obj === undefined) throw new Error(err);
   return obj;

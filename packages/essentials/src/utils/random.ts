@@ -2,7 +2,7 @@
  * copied almost directly from Mersenne Twister implementation found in https://gist.github.com/banksean/300494
  * all rights reserved to him.
  */
- export class Random {
+export class Random {
   static N = 624;
   static M = 397;
   static MATRIX_A = 0x9908b0df;
@@ -32,7 +32,7 @@
   private init_genrand(s: number) {
     this.mt[0] = s >>> 0;
     for (this.mti = 1; this.mti < Random.N; this.mti++) {
-      var s = this.mt[this.mti - 1] ^ (this.mt[this.mti - 1] >>> 30);
+      const s = this.mt[this.mti - 1] ^ (this.mt[this.mti - 1] >>> 30);
       this.mt[this.mti] =
         ((((s & 0xffff0000) >>> 16) * 1812433253) << 16) + (s & 0x0000ffff) * 1812433253 + this.mti;
       /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
@@ -49,13 +49,13 @@
    * @private
    */
   private _nextInt32(): number {
-    var y: number;
-    var mag01 = new Array(0x0, Random.MATRIX_A);
+    let y: number;
+    const mag01 = [0x0, Random.MATRIX_A];
     /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
     if (this.mti >= Random.N) {
       /* generate N words at one time */
-      var kk: number;
+      let kk: number;
 
       if (this.mti == Random.N + 1)
         /* if init_genrand() has not been called, */
@@ -93,7 +93,7 @@
    * @return {number}
    */
   nextInt32(range: [number, number] | null = null): number {
-    var result = this._nextInt32();
+    const result = this._nextInt32();
     if (range == null) {
       return result;
     }
@@ -119,8 +119,8 @@
    * generates a random number on [0,1) with 53-bit resolution
    */
   nextNumber53(): number {
-    var a = this._nextInt32() >>> 5,
-      b = this._nextInt32() >>> 6;
+    const a = this._nextInt32() >>> 5;
+    const b = this._nextInt32() >>> 6;
     return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
   }
 }

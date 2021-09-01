@@ -1,0 +1,28 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "eslint:recommended",
+    "standard",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "ignorePatterns": ["dist", "node_modules", "examples", "scripts", "assets", ".storybook", "jest.config.js", "*.js", "*.test.ts"],
+  "rules": {
+    "eqeqeq": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-empty-function": "warn",
+    "no-empty-pattern": "off",
+    "camelcase": "off", // we need this for _v2 of functions
+    "spaced-comment": "off"
+  }
+}

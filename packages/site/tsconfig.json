@@ -1,14 +1,20 @@
 {
-  "extends": "../../tsconfig.settings.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["jest"],
+    "baseUrl": ".",
+    "noEmit": true,
+    "types": ["jest", "chrome"],
     "jsx": "react",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "experimentalDecorators": true,
-    "noEmit": true
+    "paths": {
+      "@project/essentials": ["../essentials/src/index.ts"],
+      "@project/shared": ["../shared/src/index.ts"]
+    }
   },
-  "include": ["./src"],
-  "references": [{ "path": "../shared/tsconfig.json" }, { "path": "../essentials/tsconfig.json" }]
+  "include": ["src/**/*"],
+  "references": [{ "path": "../essentials/tsconfig.json" }, { "path": "../shared/tsconfig.json" }]
 }

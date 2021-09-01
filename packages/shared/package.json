@@ -6,7 +6,8 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
-    "barrel": "barrelsby -d src -c ../build-tools/src/barrelsby.json"
+    "barrel": "barrelsby -d src -c ../build-tools/src/barrelsby.json",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "barrelsby": "^2.2.0"

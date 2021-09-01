@@ -1,4 +1,4 @@
-import { logger } from "@battletabs/essentials";
+import { logger } from "@project/essentials";
 import { ThunkAC } from "../types";
 
 const { log } = logger(`{{name}}`);

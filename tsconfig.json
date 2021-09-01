@@ -1,7 +1,26 @@
 {
-  "files": [],
   "compilerOptions": {
-    "disableSourceOfProjectReferenceRedirect": true
+    "incremental": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ES2018",
+    "sourceMap": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "strict": true,
+    "pretty": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "noEmitHelpers": true,
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "@project/*": ["packages/*/src/index.ts"]
+    }
   },
   "references": [
     { "path": "./packages/site" },
@@ -10,5 +29,6 @@
     { "path": "./packages/server" },
     { "path": "./packages/workers-es" }
   ],
-  "exclude": ["node_modules", "tmp"]
+  "include": [],
+  "exclude": ["node_modules", "dist", "*.d.ts", "tmp", "blueprint-templates", ".github"]
 }

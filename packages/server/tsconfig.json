@@ -1,18 +1,24 @@
 {
-  "extends": "../../tsconfig.settings.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "lib": ["esnext", "webworker"],
+    "baseUrl": ".",
     "noEmit": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": ["jest", "node", "@cloudflare/workers-types"]
+    "types": ["jest", "node"],
+    "paths": {
+      "@project/essentials": ["../essentials/src/index.ts"],
+      "@project/shared": ["../shared/src/index.ts"],
+      "@project/workers-es": ["../workers-es/src/index.ts"]
+    }
   },
-  "include": ["./src"],
+  "include": ["src/**/*"],
   "references": [
+    { "path": "../essentials/tsconfig.json" },
     { "path": "../shared/tsconfig.json" },
-    { "path": "../workers-es/tsconfig.json" },
-    { "path": "../essentials/tsconfig.json" }
+    { "path": "../workers-es/tsconfig.json" }
   ]
 }

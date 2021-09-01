@@ -9,7 +9,8 @@
     "dev": "miniflare dist/main.mjs --watch --debug --do-persist --port 8777",
     "deploy": "wrangler publish",
     "new:class": "wrangler publish --new-class",
-    "tail": "wrangler tail --format pretty"
+    "tail": "wrangler tail --format pretty",
+    "lint": "eslint ./src"
   },
   "author": "mike.cann@gmail.com",
   "license": "MIT",

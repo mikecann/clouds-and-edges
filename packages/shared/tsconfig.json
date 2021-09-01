@@ -1,11 +1,18 @@
 {
-  "extends": "../../tsconfig.settings.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["jest"]
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"],
+    "types": ["jest", "node"],
+    "paths": {
+      "@project/essentials": ["../essentials/src/index.ts"],
+      "@project/workers-es": ["../workers-es/src/index.ts"]
+    }
   },
-  "include": ["./src"],
+  "include": ["src/**/*"],
   "references": [
     { "path": "../essentials/tsconfig.json" },
     { "path": "../workers-es/tsconfig.json" }

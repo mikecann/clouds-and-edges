@@ -1,6 +1,6 @@
 import { ActionType } from "typesafe-actions";
 import * as actions from "./actions";
-import { validate as _validate } from "@battletabs/essentials";
+import { validate as _validate } from "@project/essentials";
 import * as t from "io-ts";
 
 export type {{pascalCase name}}Actions = ActionType<typeof actions>;

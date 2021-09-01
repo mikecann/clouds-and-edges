@@ -1,13 +1,16 @@
 {
-  "extends": "../../tsconfig.settings.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "lib": ["esnext", "webworker"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "types": ["jest", "node", "@cloudflare/workers-types"]
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"],
+    "types": ["jest", "node"],
+    "paths": {
+      "@project/essentials": ["../essentials/src/index.ts"]
+    }
   },
-  "include": ["./src"],
+  "include": ["src/**/*"],
   "references": [{ "path": "../essentials/tsconfig.json" }]
 }
