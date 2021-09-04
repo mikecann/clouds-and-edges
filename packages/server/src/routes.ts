@@ -27,7 +27,7 @@ addRpcRoutes<API, Env>({
           system.getProjection(name as ProjectionKinds, env).queryStorage(input),
         aggregate: ({ name, id }) =>
           system.getAggregate(name as AggregateKinds, env, id).queryStorage(input),
-        process: ({ name }) => system.getProcess(name as any, env).queryStorage(input),
+        process: ({ name }) => system.getProcess(name as ProcessKinds, env).queryStorage(input),
         eventStore: () => system.getEventStore(env).queryStorage(input),
       });
     },

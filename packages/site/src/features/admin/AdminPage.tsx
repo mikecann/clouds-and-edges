@@ -31,6 +31,11 @@ export const AdminPage: React.FC<Props> = ({}) => {
             </SectionContainer>
           </WrapItem>
           <WrapItem>
+            <SectionContainer title={"Matches Projection"}>
+              <ConnectedProjectionInfo projection={"matches"} />
+            </SectionContainer>
+          </WrapItem>
+          <WrapItem>
             <SectionContainer title={"Proposal Joined Process"}>
               <ConnectedProcessInfo process={"proposalJoining"} />
             </SectionContainer>

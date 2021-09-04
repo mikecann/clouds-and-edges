@@ -12,6 +12,12 @@ export interface ProposalProjection {
   createdByUserId: string;
 }
 
+export interface MatchProjection {
+  id: Id;
+  settings: MatchSettings;
+  players: string[];
+}
+
 export type Projections = {
   users: {
     findUserById: {
@@ -31,6 +37,14 @@ export type Projections = {
       output: {
         proposals: ProposalProjection[];
       };
+    };
+  };
+  matches: {
+    getMatches: {
+      input: {
+        userId: string;
+      };
+      output: MatchProjection[];
     };
   };
 };
