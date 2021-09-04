@@ -1,5 +1,5 @@
 export type Processes = {
-  proposalJoined: {};
+  proposalJoining: {};
 };
 
 export type ProcessKinds = keyof Processes;

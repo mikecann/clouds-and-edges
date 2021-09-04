@@ -1,12 +1,10 @@
-import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
-import { findInObj, getInObj, getLogger, Logger } from "@project/essentials";
+import { findInObj, getLogger, Logger } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { ProjectionAdminState } from "./projections";
-import { createDurableObjectRPCProxy } from "../durableObjects/createDurableObjectRPCProxy";
-import { BaseEventStore } from "../events/BaseEventStore";
 import { StoredEvent } from "../events/events";
 import { System } from "../system/system";
 import { Env } from "../env";
+import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
 
 export type ProjectionDurableObjectAPI = {
   onEvent: {
@@ -14,16 +12,6 @@ export type ProjectionDurableObjectAPI = {
       event: StoredEvent;
     };
     output: {};
-  };
-  getAdminState: {
-    input: {};
-    output: ProjectionAdminState;
-  };
-  getStorageContents: {
-    input: {};
-    output: {
-      contents: Record<string, unknown>;
-    };
   };
   rebuild: {
     input: {};
@@ -34,7 +22,7 @@ export type ProjectionDurableObjectAPI = {
 type API = ProjectionDurableObjectAPI;
 
 export class ProjectionDurableObject<TEnv = object>
-  extends RPCDurableObject<TEnv>
+  extends InspectableStorageDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
   protected logger: Logger;
@@ -51,7 +39,7 @@ export class ProjectionDurableObject<TEnv = object>
     protected system: System,
     protected aggregate: string
   ) {
-    super();
+    super(objectState);
     this.storage = objectState.storage;
     this.logger = getLogger(`${this.constructor.name}`);
   }
@@ -72,16 +60,6 @@ export class ProjectionDurableObject<TEnv = object>
     await handler({ event });
 
     return {};
-  };
-
-  getAdminState: RPCHandler<API, "getAdminState"> = async ({}) => {
-    return this.adminState;
-  };
-
-  getStorageContents: RPCHandler<API, "getStorageContents"> = async ({}) => {
-    return {
-      contents: await this.storage.list().then(Object.fromEntries),
-    };
   };
 
   rebuild: RPCHandler<API, "rebuild"> = async ({}) => {

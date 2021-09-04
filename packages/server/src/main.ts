@@ -6,8 +6,10 @@ export { ProposalAggregate } from "./aggregates/proposal/ProposalAggregate";
 export { MatchAggregate } from "./aggregates/match/MatchAggregate";
 
 export { UsersProjection } from "./projections/users/UsersProjection";
-
 export { ProposalsProjection } from "./projections/proposals/ProposalsProjection";
+
+export { ProposalJoiningProcess } from "./processes/proposalJoining/ProposalJoiningProcess";
+
 export { EventStore } from "./EventStore";
 
 export default {
@@ -20,7 +22,7 @@ export default {
       }
       return response;
     } catch (e) {
-      console.error(`main fetch caught error`, e + "");
+      console.error(`main fetch caught error`, e);
       const errorMessage = e instanceof Error ? e.message : e + "";
       const response = new Response(errorMessage, {
         status: 500,

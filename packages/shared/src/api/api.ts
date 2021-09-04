@@ -1,18 +1,17 @@
 import { Result } from "@project/essentials";
-import { ProjectionKinds, Projections } from "../projections/projections";
-import { ProjectionDurableObjectAPI } from "@project/workers-es";
+import { Projections } from "../projections/projections";
+import { DurableObjectIdentifier, QueryStorageAPI } from "@project/workers-es";
 import { StoredEvent } from "@project/workers-es";
 import { AggregateKinds } from "../aggregates/aggregates";
 
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
-  "projection.admin": {
+  "admin.queryStorage": {
     input: {
-      projection: ProjectionKinds;
-      operation: keyof ProjectionDurableObjectAPI;
-      payload: any;
+      identifier: DurableObjectIdentifier;
+      input: QueryStorageAPI["input"];
     };
-    output: any;
+    output: QueryStorageAPI["output"];
   };
   "projections.proposals.getProposals": Projections["proposals"]["getProposals"];
   "event-store.events": {

@@ -1,10 +1,10 @@
 import { AggregateCommandHandler, AggregateCommandHandlers } from "../commands/commands";
 import { AggregateReducer, AggregateReducers } from "../reducers";
-import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { getInObj, getLogger, Logger } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { Env } from "../env";
 import { System } from "../system/system";
+import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
 
 export type AggreateDurableObjectAPI = {
   execute: {
@@ -23,7 +23,7 @@ export class AggreateDurableObject<
     TState extends Record<string, any> = Record<string, any>,
     TEnv extends Env = Env
   >
-  extends RPCDurableObject<TEnv>
+  extends InspectableStorageDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
   protected state: TState = {} as any;
@@ -38,7 +38,7 @@ export class AggreateDurableObject<
     protected commands: AggregateCommandHandlers<TState>,
     protected reducers: AggregateReducers<TState>
   ) {
-    super();
+    super(objectState);
     this.storage = objectState.storage;
     this.logger = getLogger(`${aggregate}-aggregate`);
   }

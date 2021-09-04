@@ -4,6 +4,7 @@ import { Center, Heading, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react"
 import { SectionContainer } from "./SectionContainer";
 import { ConnectedEventsAdminLog } from "./events/ConnectedEventsAdminLog";
 import { ConnectedProjectionInfo } from "./projections/ConnectedProjectionInfo";
+import { ConnectedProcessInfo } from "./processes/ConnectedProcessInfo";
 
 interface Props {}
 
@@ -27,6 +28,11 @@ export const AdminPage: React.FC<Props> = ({}) => {
           <WrapItem>
             <SectionContainer title={"Proposals Projection"}>
               <ConnectedProjectionInfo projection={"proposals"} />
+            </SectionContainer>
+          </WrapItem>
+          <WrapItem>
+            <SectionContainer title={"Proposal Joined Process"}>
+              <ConnectedProcessInfo process={"proposalJoining"} />
             </SectionContainer>
           </WrapItem>
           {/*<WrapItem>*/}

@@ -1,13 +1,13 @@
 import * as React from "react";
-import { ProjectionKinds } from "@project/shared";
+import { ProcessKinds, ProjectionKinds } from "@project/shared";
 import { Button, VStack } from "@chakra-ui/react";
 import { ConnectedInspectableStorage } from "../storage/ConnectedInspectableStorage";
 
 interface Props {
-  projection: ProjectionKinds;
+  process: ProcessKinds;
 }
 
-export const ConnectedProjectionInfo: React.FC<Props> = ({ projection }) => {
+export const ConnectedProcessInfo: React.FC<Props> = ({ process }) => {
   //const { rebuild, state, storageContents } = useProjectionAdmin(projection);
 
   //if (!state || !storageContents) return null;
@@ -15,7 +15,7 @@ export const ConnectedProjectionInfo: React.FC<Props> = ({ projection }) => {
   return (
     <VStack maxHeight={600} overflowY={"auto"}>
       <Button onClick={() => {}}>Rebuild</Button>
-      <ConnectedInspectableStorage identifier={{ kind: "projection", name: projection }} />
+      <ConnectedInspectableStorage identifier={{ kind: "process", name: process }} />
     </VStack>
   );
 };

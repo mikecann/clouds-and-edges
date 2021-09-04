@@ -1,8 +1,8 @@
-import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { getLogger, leftFillNum } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { StoredEvent } from "./events";
 import { Env } from "../env";
+import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
 
 const logger = getLogger(`EventStore`);
 
@@ -37,7 +37,7 @@ export type BaseEventStoreAPI = {
 type API = BaseEventStoreAPI;
 
 export class BaseEventStore<TEnv extends Env = Env>
-  extends RPCDurableObject<TEnv>
+  extends InspectableStorageDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
   private eventIndex: number = 0;
@@ -45,7 +45,7 @@ export class BaseEventStore<TEnv extends Env = Env>
   protected storage: DurableObjectStorage;
 
   constructor(protected objectState: DurableObjectState, protected env: TEnv) {
-    super();
+    super(objectState);
     this.storage = objectState.storage;
   }
 

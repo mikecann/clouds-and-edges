@@ -24,4 +24,6 @@ bindings = [
 
   {name = "UsersProjection", class_name = "UsersProjection"},
   {name = "ProposalsProjection", class_name = "ProposalsProjection"},
+
+  {name = "ProposalJoiningProcess", class_name = "ProposalJoiningProcess"},
 ]

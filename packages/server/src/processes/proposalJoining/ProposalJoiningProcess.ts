@@ -4,7 +4,7 @@ import { RPCApiHandler, ProcessDurableObject } from "@project/workers-es";
 import { system } from "../../system";
 import { proposalJoiningEventHandlers } from "./eventHandlers";
 
-type API = Processes["proposalJoined"];
+type API = Processes["proposalJoining"];
 
 export class ProposalJoiningProcess extends ProcessDurableObject<Env> {
   constructor(objectState: DurableObjectState, env: any) {

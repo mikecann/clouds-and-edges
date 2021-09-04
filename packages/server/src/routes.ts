@@ -1,7 +1,7 @@
 import { Router } from "itty-router";
-import { API } from "@project/shared";
+import { AggregateKinds, API, ProcessKinds, ProjectionKinds } from "@project/shared";
 import { executeCommand, addRpcRoutes } from "@project/workers-es";
-import { ensure, wait } from "@project/essentials";
+import { ensure, matchKind, wait } from "@project/essentials";
 import { Env } from "./env";
 import { system } from "./system";
 
@@ -19,9 +19,19 @@ addRpcRoutes<API, Env>({
       await wait(100);
       return system.getProjection("users", env).findUserById(input);
     },
-    "projection.admin": async (input, env) => {
-      return system.getProjection(input.projection, env)[input.operation](input.payload);
+
+    // Todo: put this in es-worker
+    "admin.queryStorage": async ({ identifier, input }, env) => {
+      return matchKind(identifier, {
+        projection: ({ name }) =>
+          system.getProjection(name as ProjectionKinds, env).queryStorage(input),
+        aggregate: ({ name, id }) =>
+          system.getAggregate(name as AggregateKinds, env, id).queryStorage(input),
+        process: ({ name }) => system.getProcess(name as any, env).queryStorage(input),
+        eventStore: () => system.getEventStore(env).queryStorage(input),
+      });
     },
+
     "projections.proposals.getProposals": async (input, env, userId) => {
       return system.getProjection("proposals", env).getProposals({ userId: ensure(userId) });
     },

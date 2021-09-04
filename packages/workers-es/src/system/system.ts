@@ -11,6 +11,8 @@ type Projections = Record<string, new (...args: any[]) => ProjectionDurableObjec
 type Processes = Record<string, new (...args: any[]) => ProcessDurableObject>;
 type EventStore = new (...args: any[]) => BaseEventStore;
 
+type NamespaceCategories = keyof ESSystemDefinition["namespaces"];
+
 export interface ESSystemDefinition<
   TAggregates extends Aggregates = Aggregates,
   TProjections extends Projections = Projections,
@@ -46,33 +48,39 @@ export const createSystem = <
       `Could not find namespace '${name}' from the env, ensure you have typed it correctly`
     );
 
-  const getAggregateNamespaceName = (name: keyof TAggregates): string =>
+  const getNamespaceName = <TCategory extends NamespaceCategories>(
+    category: TCategory,
+    name: ESSystemDefinition["namespaces"][TCategory]
+  ): string =>
     ensure(
-      namespaces.aggregates[name].name,
+      (namespaces[category] as any)[name],
       `Unknown aggregate '${name}' make sure you have mapped it in your system`
-    );
+    ).name;
 
-  const getProjectionNamespaceName = (name: keyof TProjections): string =>
-    ensure(
-      namespaces.projections[name].name,
-      `Unknown projection '${name}' make sure you have mapped it in your system`
+  const getAggregateNamespaceName = (name: keyof TAggregates) =>
+    getNamespaceName("aggregates", name as any);
+
+  const getStub = <TCategory extends NamespaceCategories>(
+    category: TCategory,
+    name: keyof TCategory,
+    env: Env,
+    aggregateId?: string
+  ): DurableObjectStub => {
+    const namespaceName = getNamespaceName(category, name as any);
+    const namespace = getNamespace(namespaceName, env);
+    return namespace.get(
+      aggregateId ? namespace.idFromString(aggregateId) : namespace.idFromName(version)
     );
+  };
 
   const getAggregateStub = (
     name: keyof TAggregates,
     env: Env,
     aggregateId: string
-  ): DurableObjectStub => {
-    const namespaceName = getAggregateNamespaceName(name);
-    const namespace = getNamespace(namespaceName, env);
-    return namespace.get(namespace.idFromString(aggregateId));
-  };
+  ): DurableObjectStub => getStub("aggregates", name as any, env, aggregateId);
 
-  const getProjectionStub = (name: keyof TProjections, env: Env): DurableObjectStub => {
-    const namespaceName = getProjectionNamespaceName(name);
-    const namespace = getNamespace(namespaceName, env);
-    return namespace.get(namespace.idFromName(version));
-  };
+  const getProjectionStub = (name: keyof TProjections, env: Env): DurableObjectStub =>
+    getStub("projections", name as any, env);
 
   const getEventStoreStub = (env: Env): DurableObjectStub => {
     const namespace = getNamespace(namespaces.events.name, env);
@@ -92,7 +100,7 @@ export const createSystem = <
   ): InstanceType<TAggregates[T]> =>
     createDurableObjectRPCProxy(
       namespaces.aggregates[name],
-      getAggregateStub(name, env, aggregateId)
+      getStub("aggregates", name as any, env, aggregateId)
     ) as InstanceType<TAggregates[T]>;
 
   const getProjection = <T extends keyof TProjections>(
@@ -104,6 +112,12 @@ export const createSystem = <
       getProjectionStub(name, env)
     ) as InstanceType<TProjections[T]>;
 
+  const getProcess = <T extends keyof TProcesses>(name: T, env: Env): InstanceType<TProcesses[T]> =>
+    createDurableObjectRPCProxy(
+      namespaces.processes[name],
+      getStub("processes", name as any, env)
+    ) as InstanceType<TProcesses[T]>;
+
   return {
     getNamespace,
     getAggregateNamespaceName,
@@ -111,6 +125,7 @@ export const createSystem = <
     getEventStoreStub,
     getEventStore,
     getProjection,
+    getProcess,
     getAggregate,
   };
 };
@@ -127,6 +142,7 @@ export interface System<
   getAggregateStub: (name: keyof TAggregates, env: Env, aggregateId: string) => DurableObjectStub;
   getEventStore: (env: Env) => InstanceType<TEventStore>;
   getProjection: <T extends keyof TProjections>(name: T, env: Env) => InstanceType<TProjections[T]>;
+  getProcess: <T extends keyof TProcesses>(name: T, env: Env) => InstanceType<TProcesses[T]>;
   getAggregate: <T extends keyof TAggregates>(
     name: T,
     env: Env,
