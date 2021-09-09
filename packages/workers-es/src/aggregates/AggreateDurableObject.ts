@@ -19,10 +19,7 @@ export type AggreateDurableObjectAPI = {
 
 type API = AggreateDurableObjectAPI;
 
-export class AggreateDurableObject<
-    TState extends Record<string, any> = Record<string, any>,
-    TEnv extends Env = Env
-  >
+export class AggreateDurableObject<TState extends unknown = unknown, TEnv extends Env = Env>
   extends InspectableStorageDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
@@ -35,8 +32,8 @@ export class AggreateDurableObject<
     protected env: TEnv,
     protected system: System,
     protected aggregate: string,
-    protected commands: AggregateCommandHandlers<TState>,
-    protected reducers: AggregateReducers<TState>
+    protected commands: AggregateCommandHandlers<TState, any, any>,
+    protected reducers: AggregateReducers<TState, any>
   ) {
     super(objectState);
     this.storage = objectState.storage;

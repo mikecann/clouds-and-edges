@@ -1,18 +1,15 @@
 import { Env } from "./env";
 import { router } from "./routes";
-import {system} from './system';
 
-// Todo: theres a better way of doing this by exporting these from the system but 
+// Todo: theres a better way of doing this by exporting these from the system but
 // I cant quite work it out right now
 export { UserAggregate } from "./aggregates/user/UserAggregate";
-export { ProposalAggregate } from "./aggregates/proposal/ProposalAggregate";
 export { MatchAggregate } from "./aggregates/match/MatchAggregate";
 export { UsersProjection } from "./projections/users/UsersProjection";
 export { ProposalsProjection } from "./projections/proposals/ProposalsProjection";
 export { MatchesProjection } from "./projections/matches/MatchesProjection";
 export { ProposalJoiningProcess } from "./processes/proposalJoining/ProposalJoiningProcess";
 export { EventStore } from "./EventStore";
-
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

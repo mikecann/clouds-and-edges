@@ -13,7 +13,6 @@ export type API = {
     };
     output: QueryStorageAPI["output"];
   };
-  "projections.proposals.getProposals": Projections["proposals"]["getProposals"];
   "event-store.events": {
     input: {};
     output: {

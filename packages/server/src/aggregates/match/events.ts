@@ -3,9 +3,21 @@ import { MatchSettings } from "@project/shared";
 export interface MatchCreated {
   kind: "match-created";
   payload: {
-    players: [string, string];
+    createdByUserId: string;
     settings: MatchSettings;
   };
 }
 
-export type MatchEvent = MatchCreated;
+export interface MatchJoined {
+  kind: "match-joined";
+  payload: {
+    userId: string;
+  };
+}
+
+export interface MatchCancelled {
+  kind: "match-cancelled";
+  payload: {};
+}
+
+export type MatchEvent = MatchCreated | MatchJoined | MatchCancelled;

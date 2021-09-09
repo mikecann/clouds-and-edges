@@ -15,7 +15,10 @@ export interface ProposalProjection {
 export interface MatchProjection {
   id: Id;
   settings: MatchSettings;
-  players: string[];
+  createdByUserId: string;
+  joinedByUserId?: string;
+  status: "not-started" | "playing" | "finished";
+  winnerId?: string;
 }
 
 export type Projections = {

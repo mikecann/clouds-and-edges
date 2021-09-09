@@ -3,6 +3,8 @@ import { MatchSettings } from "@project/shared";
 export interface MatchAggregateState {
   id?: string;
   createdAt?: number;
-  players?: [string, string];
+  cancelledAt?: number;
+  createdByUserId?: string;
+  opponentUserId?: string;
   settings?: MatchSettings;
 }

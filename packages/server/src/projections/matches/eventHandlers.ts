@@ -1,32 +1,43 @@
 import { ProjectionEventHandlers } from "@project/workers-es";
 import { Events } from "../../events";
-import { ensure, getLogger } from "@project/essentials";
-import { MatchProjection, ProposalProjection } from "@project/shared";
+import { getLogger } from "@project/essentials";
+import { MatchesProjectionRepo } from "./createMatchesProjectionRepo";
 
 const logger = getLogger(`UsersProjection-handlers`);
 
-export const getHandlers = (storage: DurableObjectStorage): ProjectionEventHandlers<Events> => ({
+export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandlers<Events> => ({
   "match-created": async ({
     event: {
       aggregateId,
-      payload: { players, settings },
+      payload: { createdByUserId, settings },
     },
   }) => {
-    logger.debug(`MatchProjection match-created`);
-
-    await storage.put<MatchProjection>(`match:${aggregateId}`, {
+    await repo.put({
       id: aggregateId,
       settings: settings,
-      players,
+      createdByUserId,
+      status: "not-started",
     });
+  },
 
-    // const userMatches = await storage.get<string[] | undefined>(`user:${createdByUserId}`);
-    //
-    // await storage.put<string[]>(
-    //   `user:${createdByUserId}`,
-    //   userProposals ? [...userProposals, aggregateId] : [aggregateId]
-    // );
+  "match-joined": async ({
+    event: {
+      aggregateId,
+      payload: { userId },
+    },
+  }) => {
+    await repo.update(aggregateId, {
+      joinedByUserId: userId,
+      status: "playing",
+    });
+  },
 
-    logger.debug(`MatchProjection stored`);
+  "match-cancelled": async ({
+    event: {
+      aggregateId,
+      payload: {},
+    },
+  }) => {
+    await repo.remove(aggregateId);
   },
 });

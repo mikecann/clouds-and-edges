@@ -1,12 +1,24 @@
 import { MatchSettings } from "@project/shared";
 
-interface Create {
-  kind: `create`;
+interface Base {
   aggregate: `match`;
+}
+
+interface Create extends Base {
+  kind: `create`;
   payload: {
-    players: [string, string];
     settings: MatchSettings;
   };
 }
 
-export type MatchCommand = Create;
+interface Cancel extends Base {
+  kind: `cancel`;
+  payload: {};
+}
+
+interface Join extends Base {
+  kind: `join`;
+  payload: {};
+}
+
+export type MatchCommand = Create | Cancel | Join;
