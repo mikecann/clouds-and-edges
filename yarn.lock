@@ -2889,6 +2889,16 @@
     formdata-node "^2.4.0"
     web-streams-polyfill "^3.0.1"
 
+"@mrbbot/node-fetch@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@mrbbot/node-fetch/-/node-fetch-4.5.0.tgz#3b0e184cf4f22781f9de1950fa3b57be7fff7cb8"
+  integrity sha512-EuFTbohMH/dzWXy4PRTM/bn1fqmOkyiCHfXzioA9lYV/xRAnUKjIvaRiA0h4YQ6ZSPvgTGzvZi7O+Ro66xDN5A==
+  dependencies:
+    "@cloudflare/workers-types" "^2.2.2"
+    busboy "^0.3.1"
+    formdata-node "^2.4.0"
+    web-streams-polyfill "^3.0.1"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -7547,6 +7557,11 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+event-target-shim@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-6.0.2.tgz#ea5348c3618ee8b62ff1d344f01908ee2b8a2b71"
+  integrity sha512-8q3LsZjRezbFZ2PN+uP+Q7pnHUMmAOziU2vA2OwoFaKIXxlxl38IylhSSgUorWu/rf4er67w0ikBqjBFk/pomA==
+
 eventemitter3@^4.0.4:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
@@ -8033,7 +8048,7 @@ format@^0.2.0:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formdata-node@^2.4.0:
+formdata-node@^2.4.0, formdata-node@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/formdata-node/-/formdata-node-2.5.0.tgz#b84a70f4f76b1511f7fc960fa3082ca050820117"
   integrity sha512-JFSNLq34u2Tqc6F034x5aaK3ksIfrDBMPie8b4KYx2/pVDLxWFXDly52dsvHjZ+A0LGHTZb/w4HBZVdgN74RTw==
@@ -10317,6 +10332,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+kleur@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.4.tgz#8c202987d7e577766d039a8cd461934c01cda04d"
+  integrity sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==
+
 klona@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
@@ -10972,6 +10992,39 @@ miniflare@^1.3.3:
     typeson "^6.1.0"
     typeson-registry "^1.0.0-alpha.39"
     web-streams-polyfill "^3.0.1"
+    ws "^7.5.0"
+    yargs "^16.2.0"
+    youch "^2.2.2"
+
+miniflare@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-1.4.0.tgz#305c5a675e41fc3f015fc920bb87ac1b50d789c1"
+  integrity sha512-jmxwA/+E8dGb80+AJyjgb6isT2ojIk852Jl1qpacDpIAkWOPKoq1VshxLtiMsotheoAuZKQCQQrjJnTMOrAFiw==
+  dependencies:
+    "@iarna/toml" "^2.2.5"
+    "@mrbbot/node-fetch" "^4.5.0"
+    "@peculiar/webcrypto" "^1.1.4"
+    chokidar "^3.5.1"
+    cjstoesm "^1.1.4"
+    dotenv "^8.2.0"
+    env-paths "^2.2.1"
+    event-target-shim "^6.0.2"
+    formdata-node "^2.5.0"
+    html-rewriter-wasm "^0.3.2"
+    http-cache-semantics "^4.1.0"
+    ioredis "^4.27.6"
+    kleur "^4.1.4"
+    node-cron "^2.0.3"
+    picomatch "^2.3.0"
+    sanitize-filename "^1.6.3"
+    selfsigned "^1.10.11"
+    semiver "^1.1.0"
+    source-map-support "^0.5.19"
+    tslib "^2.3.0"
+    typescript "^4.3.4"
+    typeson "^6.1.0"
+    typeson-registry "^1.0.0-alpha.39"
+    web-streams-polyfill "^3.1.0"
     ws "^7.5.0"
     yargs "^16.2.0"
     youch "^2.2.2"
@@ -12103,7 +12156,7 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.2.3:
+picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.2.3, picomatch@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
@@ -13547,6 +13600,11 @@ selfsigned@^1.10.11:
   integrity sha512-aVmbPOfViZqOZPgRBT0+3u4yZFHpmnIghLMlAcb5/xhp5ZtB/RVnKhz5vl2M32CLXAqR4kha9zfhNg0Lf/sxKA==
   dependencies:
     node-forge "^0.10.0"
+
+semiver@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/semiver/-/semiver-1.1.0.tgz#9c97fb02c21c7ce4fcf1b73e2c7a24324bdddd5f"
+  integrity sha512-QNI2ChmuioGC1/xjyYwyZYADILWyW6AmS1UH6gDj/SFUUUS4MBAWs/7mxnkRPc/F4iHezDP+O8t0dO8WHiEOdg==
 
 "semver@2 || 3 || 4 || 5", semver@^5.4.1, semver@^5.5.0, semver@^5.6.0, semver@^5.7.1:
   version "5.7.1"
@@ -15356,6 +15414,11 @@ web-streams-polyfill@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.1.0.tgz#86f983b4f44745502b0d8563d9ef3afc609d4465"
   integrity sha512-wO9r1YnYe7kFBLHyyVEhV1H8VRWoNiNnuP+v/HUUmSTaRF8F93Kmd3JMrETx0f11GXxRek6OcL2QtjFIdc5WYw==
+
+web-streams-polyfill@^3.1.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.1.1.tgz#1516f2d4ea8f1bdbfed15eb65cb2df87098c8364"
+  integrity sha512-Czi3fG883e96T4DLEPRvufrF2ydhOOW1+1a6c3gNjH2aIh50DNFBdfwh2AKoOf1rXvpvavAoA11Qdq9+BKjE0Q==
 
 webcrypto-core@^1.2.0:
   version "1.2.0"

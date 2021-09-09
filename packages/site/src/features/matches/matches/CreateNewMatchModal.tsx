@@ -12,29 +12,24 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { MatchProposalSize } from "@project/shared";
 import { useState } from "react";
+import { CreateMatchSize } from "@project/shared";
 
 interface Props {
   isOpen: boolean;
   isLoading: boolean;
   onClose: () => any;
-  onPropose: (size: MatchProposalSize) => any;
+  onPropose: (size: CreateMatchSize) => any;
 }
 
-export const ProposeNewMatchModal: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  onPropose,
-  isLoading,
-}) => {
-  const [size, setSize] = useState<MatchProposalSize>(`small`);
+export const CreateNewMatchModal: React.FC<Props> = ({ isOpen, onClose, onPropose, isLoading }) => {
+  const [size, setSize] = useState<CreateMatchSize>(`small`);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Propose New Match</ModalHeader>
+        <ModalHeader>Create New Match</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack alignItems={"left"}>

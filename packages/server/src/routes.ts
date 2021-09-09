@@ -31,9 +31,11 @@ addRpcRoutes<API, Env>({
         eventStore: () => system.getEventStore(env).queryStorage(input),
       });
     },
-
-    "projections.proposals.getProposals": async (input, env, userId) => {
-      return system.getProjection("proposals", env).getProposals({ userId: ensure(userId) });
+    "projections.matches.getMatches": async (input, env, userId) => {
+      return system.getProjection("matches", env).getMatches({ userId: ensure(userId) });
+    },
+    "projections.openMatches.getOpenMatches": async (input, env, userId) => {
+      return system.getProjection("openMatches", env).getOpenMatches({ userId: ensure(userId) });
     },
     "event-store.events": async (input, env) => {
       return system.getEventStore(env).getEvents({});

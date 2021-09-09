@@ -6,8 +6,8 @@ import { router } from "./routes";
 export { UserAggregate } from "./aggregates/user/UserAggregate";
 export { MatchAggregate } from "./aggregates/match/MatchAggregate";
 export { UsersProjection } from "./projections/users/UsersProjection";
-export { ProposalsProjection } from "./projections/proposals/ProposalsProjection";
 export { MatchesProjection } from "./projections/matches/MatchesProjection";
+export { OpenMatchesProjection } from "./projections/openMatches/OpenMatchesProjection";
 export { ProposalJoiningProcess } from "./processes/proposalJoining/ProposalJoiningProcess";
 export { EventStore } from "./EventStore";
 

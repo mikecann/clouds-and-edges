@@ -14,7 +14,7 @@ export function createSimpleDB<
   TIndices extends Record<keyof TEntity, null>
 >({ indices, storage }: Options<TEntity, TIndices>) {
   const find = async (id: string): Promise<TEntity | undefined> =>
-    await storage.get<TEntity>(`__entity:${id}`);
+    await storage.get<TEntity>(`&entity:${id}`);
 
   const get = async (id: string): Promise<TEntity> => ensure(await find(id));
 
@@ -27,7 +27,7 @@ export function createSimpleDB<
   };
 
   const put = async (entity: TEntity) => {
-    await storage.put(`__entity:${entity.id}`, entity);
+    await storage.put(`&entity:${entity.id}`, entity);
     await updateIndices(entity);
   };
 
@@ -46,6 +46,8 @@ export function createSimpleDB<
     const entries = await storage.list({ prefix: `${index}:${value}`, ...options });
     return Promise.all(Object.values(entries).map(get));
   };
+
+  // todo: remove
 
   return { find, get, put, update, query };
 }

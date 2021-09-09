@@ -1,13 +1,15 @@
 import { Env } from "../../env";
-import { MatchProjection, Projections } from "@project/shared";
+import { Projections } from "@project/shared";
 import { RPCApiHandler, RPCHandler, ProjectionDurableObject } from "@project/workers-es";
 import { getHandlers } from "./eventHandlers";
 import { system } from "../../system";
-import { createMatchesProjectionRepo } from "./createMatchesProjectionRepo";
+import { createMatchesProjectionRepo, MatchesProjectionRepo } from "./createMatchesProjectionRepo";
 
 type API = Projections["matches"];
 
 export class MatchesProjection extends ProjectionDurableObject<Env> implements RPCApiHandler<API> {
+  private repo: MatchesProjectionRepo;
+
   constructor(objectState: DurableObjectState, env: Env) {
     super(
       objectState,
@@ -16,15 +18,13 @@ export class MatchesProjection extends ProjectionDurableObject<Env> implements R
       system,
       "match"
     );
+
+    this.repo = createMatchesProjectionRepo(objectState.storage);
   }
 
   getMatches: RPCHandler<API, "getMatches"> = async ({ userId }) => {
     this.logger.debug(`handling query`, userId);
-    const contents = await this.storage.list<MatchProjection>({
-      prefix: `match:`,
-      limit: 10,
-    });
-    this.logger.debug(`lookup response`, contents);
+    const contents = await this.repo.getUserMatches(userId);
     return [...contents.values()];
   };
 }

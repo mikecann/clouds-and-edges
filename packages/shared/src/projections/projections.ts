@@ -6,12 +6,6 @@ export interface UserProjection {
   name: string;
 }
 
-export interface ProposalProjection {
-  id: Id;
-  settings: MatchSettings;
-  createdByUserId: string;
-}
-
 export interface MatchProjection {
   id: Id;
   settings: MatchSettings;
@@ -19,6 +13,12 @@ export interface MatchProjection {
   joinedByUserId?: string;
   status: "not-started" | "playing" | "finished";
   winnerId?: string;
+}
+
+export interface OpenMatchProjection {
+  id: Id;
+  settings: MatchSettings;
+  createdByUserId: string;
 }
 
 export type Projections = {
@@ -32,22 +32,18 @@ export type Projections = {
       };
     };
   };
-  proposals: {
-    getProposals: {
-      input: {
-        userId: string;
-      };
-      output: {
-        proposals: ProposalProjection[];
-      };
-    };
-  };
   matches: {
     getMatches: {
       input: {
         userId: string;
       };
       output: MatchProjection[];
+    };
+  };
+  openMatches: {
+    getOpenMatches: {
+      input: {};
+      output: OpenMatchProjection[];
     };
   };
 };

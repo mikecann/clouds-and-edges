@@ -4,11 +4,9 @@ import { useAppState } from "../../state/appState";
 import { performRPCOperation } from "../../api/performRPCOperation";
 import { ensure } from "@project/essentials";
 
-export const useProposals = () => {
+export const useMatches = () => {
   const [{ userId }] = useAppState();
-  return useQuery<APIOperationOutput<"projections.proposals.getProposals">, Error>(
-    `proposals`,
-    () =>
-      performRPCOperation("projections.proposals.getProposals", userId)({ userId: ensure(userId) })
+  return useQuery<APIOperationOutput<"projections.matches.getMatches">, Error>(`matches`, () =>
+    performRPCOperation("projections.matches.getMatches", userId)({ userId: ensure(userId) })
   );
 };

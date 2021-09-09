@@ -1,21 +1,21 @@
 import * as React from "react";
-import { ProposalProjection } from "@project/shared";
 import { Button, Text, VStack } from "@chakra-ui/react";
+import { OpenMatchProjection } from "@project/shared";
 
 interface Props {
-  proposal: ProposalProjection;
+  match: OpenMatchProjection;
   onCancel?: () => any;
   onJoin?: () => any;
   isLoading: boolean;
 }
 
-export const ProposalCard: React.FC<Props> = ({ proposal, onCancel, onJoin, isLoading }) => {
+export const OpenMatchCard: React.FC<Props> = ({ match, onCancel, onJoin, isLoading }) => {
   return (
     <VStack backgroundColor={"rgba(0,0,0,0.2)"} borderRadius={6} padding={5}>
-      <Text as={"h4"}>Id: {proposal.id}</Text>
-      <Text as={"h4"}>Proposed By: {proposal.createdByUserId}</Text>
+      <Text as={"h4"}>Id: {match.id}</Text>
+      <Text as={"h4"}>Proposed By: {match.createdByUserId}</Text>
       <Text as={"h4"}>
-        Size: {proposal.settings.gridSize.width}x{proposal.settings.gridSize.height}
+        Size: {match.settings.gridSize.width}x{match.settings.gridSize.height}
       </Text>
       {onJoin ? (
         <Button isLoading={isLoading} isDisabled={isLoading} onClick={onJoin} colorScheme={"blue"}>

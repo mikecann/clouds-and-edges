@@ -3,6 +3,8 @@ import { ensure } from "@project/essentials";
 
 type UserIndex = Record<string, null>; // not sure if we can use a Set in DurableObjectStorage or not
 
+// Todo, we should use the simpleDb for this
+
 export const createMatchesProjectionRepo = (storage: DurableObjectStorage) => {
   const getUserIndex = async (userId: string): Promise<UserIndex> =>
     (await storage.get<UserIndex>(`user:${userId}`)) ?? {};
@@ -44,7 +46,7 @@ export const createMatchesProjectionRepo = (storage: DurableObjectStorage) => {
 
   const remove = async (matchId: string) => {
     const match = await get(matchId);
-    await storage.delete(matchId);
+    await storage.delete(`match:${matchId}`);
     await removeMatchFromIndex(match.createdByUserId, match.id);
     if (match.joinedByUserId) await removeMatchFromIndex(match.joinedByUserId, match.id);
   };

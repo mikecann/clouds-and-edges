@@ -15,7 +15,7 @@ type StoredProposal = {
 
 export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands> = {
   handlers: {
-    "proposal-created": async ({
+    /* "proposal-created": async ({
       event: {
         aggregateId,
         payload: { createdByUserId, settings },
@@ -72,6 +72,8 @@ export const proposalJoiningEventHandlers: ProcessEventHandlers<Events, Commands
     "proposal-matchmade": async ({ event: { aggregateId }, storage }) => {
       await storage.delete(`proposal:${aggregateId}`);
     },
+    
+    */
   },
 
   effects: {

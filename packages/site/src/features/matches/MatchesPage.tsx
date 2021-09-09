@@ -1,30 +1,35 @@
 import * as React from "react";
 import { SidebarPage } from "../page/SidebarPage";
 import { Button, Heading, VStack } from "@chakra-ui/react";
-import { ConnectedProposeNewMatchModal } from "./proposing/ConnectedProposeNewMatchModal";
 import { useState } from "react";
-import { ConnectedProposalCards } from "./proposing/ConnectedProposalCards";
+import { ConnectedMatchCards } from "./matches/ConnectedMatchCards";
+import { ConnectedCreateNewMatchModal } from "./matches/ConnectedCreateNewMatchModal";
+import { ConnectedOpenMatches } from "./openMatches/ConnectedOpenMatches";
 
 interface Props {}
 
 export const MatchesPage: React.FC<Props> = ({}) => {
-  const [isProposeNewMatchOpen, setIsProposeNewMatchOpen] = useState(false);
+  const [isCreateMatchModalOpen, setIsCreateMatchModalOpen] = useState(false);
 
   return (
     <SidebarPage>
-      <VStack>
-        <Heading>Proposals</Heading>
-        <Button onClick={() => setIsProposeNewMatchOpen(true)}>Propose New Match</Button>
-        <ConnectedProposalCards />
+      <VStack spacing={`50px`}>
+        <VStack>
+          <Heading>My Matches</Heading>
+          <Button onClick={() => setIsCreateMatchModalOpen(true)}>New Match</Button>
+          <ConnectedMatchCards />
+        </VStack>
+
+        <VStack>
+          <Heading>Open Matches</Heading>
+          <ConnectedOpenMatches />
+        </VStack>
       </VStack>
-      <ConnectedProposeNewMatchModal
-        isOpen={isProposeNewMatchOpen}
-        onClose={() => setIsProposeNewMatchOpen(false)}
+
+      <ConnectedCreateNewMatchModal
+        isOpen={isCreateMatchModalOpen}
+        onClose={() => setIsCreateMatchModalOpen(false)}
       />
-      <VStack>
-        <Heading>Matches</Heading>
-        {/*<ConnectedProposalCards />*/}
-      </VStack>
     </SidebarPage>
   );
 };

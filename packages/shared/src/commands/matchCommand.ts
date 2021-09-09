@@ -1,4 +1,4 @@
-import { MatchSettings } from "@project/shared";
+import { CreateMatchSize } from "../events/match";
 
 interface Base {
   aggregate: `match`;
@@ -7,7 +7,7 @@ interface Base {
 interface Create extends Base {
   kind: `create`;
   payload: {
-    settings: MatchSettings;
+    size: CreateMatchSize;
   };
 }
 

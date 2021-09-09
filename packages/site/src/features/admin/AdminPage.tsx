@@ -26,13 +26,13 @@ export const AdminPage: React.FC<Props> = ({}) => {
             </SectionContainer>
           </WrapItem>
           <WrapItem>
-            <SectionContainer title={"Proposals Projection"}>
-              <ConnectedProjectionInfo projection={"proposals"} />
+            <SectionContainer title={"Matches Projection"}>
+              <ConnectedProjectionInfo projection={"matches"} />
             </SectionContainer>
           </WrapItem>
           <WrapItem>
-            <SectionContainer title={"Matches Projection"}>
-              <ConnectedProjectionInfo projection={"matches"} />
+            <SectionContainer title={"Open Matches Projection"}>
+              <ConnectedProjectionInfo projection={"openMatches"} />
             </SectionContainer>
           </WrapItem>
           <WrapItem>

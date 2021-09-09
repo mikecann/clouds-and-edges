@@ -6,6 +6,8 @@ import { AggregateKinds } from "../aggregates/aggregates";
 
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
+  "projections.matches.getMatches": Projections["matches"]["getMatches"];
+  "projections.openMatches.getOpenMatches": Projections["openMatches"]["getOpenMatches"];
   "admin.queryStorage": {
     input: {
       identifier: DurableObjectIdentifier;

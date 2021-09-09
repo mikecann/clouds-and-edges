@@ -3,14 +3,15 @@ import { wait } from "@project/essentials";
 import { useCommand } from "../../api/useCommand";
 import { useGenericErrorHandler } from "../../api/useGenericErrorHandler";
 
-export const useCancelProposal = (proposalId: string) => {
+export const useCancelMatch = (proposalId: string) => {
   const queryClient = useQueryClient();
   const onError = useGenericErrorHandler();
-  return useMutation(useCommand("proposal", "cancel", proposalId), {
-    onSuccess: async ({}) => {
+  return useMutation(useCommand("match", "cancel", proposalId), {
+    onSettled: async () => {
       // Wait a sec then grab the new me
       await wait(200);
-      await queryClient.invalidateQueries(`proposals`);
+      await queryClient.invalidateQueries(`matches`);
+      await queryClient.invalidateQueries(`openMatches`);
     },
     onError,
   });
