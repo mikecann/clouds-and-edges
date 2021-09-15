@@ -8,6 +8,7 @@ import { MyProfilePage } from "../me/MyProfilePage";
 import { AdminPage } from "../admin/AdminPage";
 import { useAppStatePersistance } from "../state/useAppStatePersistance";
 import { MatchesPage } from "../matches/MatchesPage";
+import { MatchPage } from "../match/MatchPage";
 
 interface Props {}
 
@@ -28,6 +29,11 @@ export const Router: React.FC<Props> = ({}) => {
         <Route path="/matches">
           <AuthRequired>
             <MatchesPage />
+          </AuthRequired>
+        </Route>
+        <Route path="/match/:matchId">
+          <AuthRequired>
+            <MatchPage />
           </AuthRequired>
         </Route>
         <Route path="/me">
