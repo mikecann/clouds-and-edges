@@ -7,3 +7,7 @@ export const iife = <T>(fn: () => T): T => fn();
 export function leftFillNum(num: number, targetLength: number) {
   return num.toString().padStart(targetLength, "0");
 }
+
+export function narray(count: number) {
+  return [...Array(Math.floor(count)).keys()];
+}

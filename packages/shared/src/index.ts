@@ -8,6 +8,7 @@ export * from "./commands/commands";
 export * from "./commands/matchCommand";
 export * from "./commands/userCommand";
 export * from "./events/match";
+export * from "./modal/game";
 export * from "./modal/id";
 export * from "./processes/processes";
 export * from "./projections/projections";

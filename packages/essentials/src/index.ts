@@ -11,5 +11,6 @@ export * from "./utils/ensure";
 export * from "./utils/id";
 export * from "./utils/misc";
 export * from "./utils/object";
+export * from "./utils/point2D";
 export * from "./utils/random";
 export * from "./utils/response";
