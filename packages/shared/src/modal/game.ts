@@ -1,12 +1,25 @@
-import { Dimensions2d, MatchSettings } from "../events/match";
+import { Dimensions2d, MatchSettings } from "./match";
 import { ensure, equals, narray, Point2D } from "@project/essentials";
 
-export type LineState = `filled` | `empty`;
+export interface FilledLine {
+  kind: "filled";
+  filledBy: PlayerId;
+}
+
+export interface EmptyLine {
+  kind: "empty";
+}
+
+export type LineSide = keyof CellState["lines"];
+
+export type LineState = FilledLine | EmptyLine;
 
 export type PlayerId = string;
 
 interface PlayerState {
   id: PlayerId;
+  color: string;
+  avatarEmoji: string;
 }
 
 export interface CellState {
@@ -32,13 +45,26 @@ export const getCellAt = (game: GameState, pos: Point2D): CellState =>
 export const getPlayer = (game: GameState, id: string): PlayerState =>
   ensure(game.players.find((p) => p.id == id));
 
-const produceCellState = (point2D: Point2D, overrides?: CellState): CellState => ({
+export const producePlayerState = (options: { id: string; color?: string }): PlayerState => ({
+  color: "red",
+  avatarEmoji: ":)",
+  ...options,
+});
+
+export const produceEmptyLineState = (): EmptyLine => ({ kind: "empty" });
+
+export const produceFilledLineState = (filledBy: PlayerId): FilledLine => ({
+  kind: "filled",
+  filledBy,
+});
+
+export const produceCellState = (point2D: Point2D, overrides?: CellState): CellState => ({
   position: point2D,
   lines: {
-    top: "empty",
-    right: "empty",
-    bottom: "empty",
-    left: "empty",
+    top: produceEmptyLineState(),
+    right: produceEmptyLineState(),
+    bottom: produceEmptyLineState(),
+    left: produceEmptyLineState(),
   },
   ...overrides,
 });

@@ -1,5 +1,5 @@
+import { MatchSettings } from "src/modal/match";
 import { Id } from "../modal/id";
-import { MatchSettings } from "../events/match";
 
 export interface UserProjection {
   id: Id;

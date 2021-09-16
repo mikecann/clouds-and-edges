@@ -36,6 +36,19 @@ export const commands: AggregateCommandHandlers<MatchAggregateState, MatchComman
     if (!state.createdAt) throw new Error(`cannot cancel, match not created`);
     if (state.cancelledAt) throw new Error(`cannot cancel, match already cancelled`);
     if (state.opponentUserId) throw new Error(`cannot cancel, someone already joined`);
+    if (userId != state.createdByUserId) throw new Error(`cannot cancel, you are not the owner`);
+
+    return {
+      kind: `match-cancelled`,
+      payload: {},
+    };
+  },
+  "take-turn": (state, { payload: { cell, line }, userId, timestamp }) => {
+    if (!state.createdAt) throw new Error(`cannot take turn, match not created`);
+    if (state.cancelledAt) throw new Error(`cannot take turn, match cancelled`);
+    if (!state.opponentUserId) throw new Error(`cannot take turn, no opponent has joined yet`);
+    if (userId != state.opponentUserId && userId != state.createdByUserId)
+      throw new Error(`cannot take turn when you are not a player in the match`);
 
     return {
       kind: `match-cancelled`,

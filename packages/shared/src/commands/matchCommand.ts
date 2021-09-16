@@ -1,4 +1,6 @@
-import { CreateMatchSize } from "../events/match";
+import { Point2D } from "@project/essentials";
+import { CreateMatchSize } from "../modal/match";
+import { LineSide } from "../modal/game";
 
 interface Base {
   aggregate: `match`;
@@ -21,4 +23,12 @@ interface Join extends Base {
   payload: {};
 }
 
-export type MatchCommand = Create | Cancel | Join;
+interface TakeTurn extends Base {
+  kind: `take-turn`;
+  payload: {
+    cell: Point2D;
+    line: LineSide;
+  };
+}
+
+export type MatchCommand = Create | Cancel | Join | TakeTurn;

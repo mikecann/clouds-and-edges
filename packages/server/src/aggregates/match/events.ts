@@ -1,4 +1,5 @@
-import { MatchSettings } from "@project/shared";
+import { Point2D } from "@project/essentials";
+import { LineSide, MatchSettings } from "@project/shared";
 
 export interface MatchCreated {
   kind: "match-created";
@@ -20,4 +21,13 @@ export interface MatchCancelled {
   payload: {};
 }
 
-export type MatchEvent = MatchCreated | MatchJoined | MatchCancelled;
+export interface MatchTurnTakenCancelled {
+  kind: "match-turn-taken";
+  payload: {
+    playerId: string;
+    cell: Point2D;
+    line: LineSide;
+  };
+}
+
+export type MatchEvent = MatchCreated | MatchJoined | MatchCancelled | MatchTurnTakenCancelled;

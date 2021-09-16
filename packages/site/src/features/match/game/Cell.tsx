@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Box } from "@chakra-ui/react";
-import { CellState, Dimensions2d, GameState } from "@project/shared";
+import { Box, Center } from "@chakra-ui/react";
+import { CellState, Dimensions2d, GameState, getPlayer, LineSide } from "@project/shared";
 import { Line } from "./Line";
 
 interface Props {
   cell: CellState;
   game: GameState;
+  onFillLine: (line: LineSide) => unknown;
 }
 
 export const cellSize: Dimensions2d = {
@@ -15,26 +16,44 @@ export const cellSize: Dimensions2d = {
 
 const lineSize = 15;
 
-export const Cell: React.FC<Props> = ({ cell }) => {
+export const Cell: React.FC<Props> = ({ cell, game, onFillLine }) => {
   const { position, owner, lines } = cell;
+
+  const ownerPlayer = owner ? getPlayer(game, owner) : undefined;
 
   return (
     <Box
       width={`${cellSize.width}px`}
       height={`${cellSize.height}px`}
-      backgroundColor={`tomato`}
+      border={`1px dashed #333`}
       position={`relative`}
     >
+      {ownerPlayer && (
+        <Box width={`100%`} height={`100%`} position="relative">
+          <Box
+            width={`100%`}
+            height={`100%`}
+            backgroundColor={ownerPlayer.color}
+            opacity={0.5}
+          ></Box>
+          <Center position="absolute" top={0} left={0} width={`100%`} height={`100%`}>
+            {ownerPlayer.avatarEmoji}
+          </Center>
+        </Box>
+      )}
+
       {/*Top*/}
       {position.y == 0 && (
         <Line
           width={`${cellSize.width}px`}
           height={`${lineSize}px`}
           position={`absolute`}
-          backgroundColor={`green`}
           top={`-${lineSize / 2}px`}
           left={0}
           zIndex={1}
+          line={lines.top}
+          game={game}
+          onFill={() => onFillLine("top")}
         />
       )}
 
@@ -43,10 +62,12 @@ export const Cell: React.FC<Props> = ({ cell }) => {
         width={`${cellSize.width}px`}
         height={`${lineSize}px`}
         position={`absolute`}
-        backgroundColor={`blue`}
         bottom={`-${lineSize / 2}px`}
         left={0}
         zIndex={1}
+        line={lines.bottom}
+        game={game}
+        onFill={() => onFillLine("bottom")}
       />
 
       {/*Left*/}
@@ -55,10 +76,12 @@ export const Cell: React.FC<Props> = ({ cell }) => {
           width={`${lineSize}px`}
           height={`${cellSize.width}px`}
           position={`absolute`}
-          backgroundColor={`pink`}
           left={`-${lineSize / 2}px`}
           top={0}
           zIndex={1}
+          line={lines.left}
+          game={game}
+          onFill={() => onFillLine("left")}
         />
       )}
 
@@ -67,10 +90,12 @@ export const Cell: React.FC<Props> = ({ cell }) => {
         width={`${lineSize}px`}
         height={`${cellSize.width}px`}
         position={`absolute`}
-        backgroundColor={`yellow`}
         right={`-${lineSize / 2}px`}
         top={0}
         zIndex={1}
+        line={lines.right}
+        game={game}
+        onFill={() => onFillLine("right")}
       />
     </Box>
   );

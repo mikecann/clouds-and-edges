@@ -15,6 +15,11 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
     cancelledAt: timestamp,
   }),
   "match-joined": (state, { payload: { userId } }) => ({
+    ...state,
     opponentUserId: userId,
+  }),
+  "match-turn-taken": (state, { payload: { cell, line, playerId } }) => ({
+    ...state,
+    winnerId: calculateWinner,
   }),
 };
