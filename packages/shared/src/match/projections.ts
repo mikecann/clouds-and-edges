@@ -1,10 +1,6 @@
-import { MatchSettings } from "src/modal/match";
 import { Id } from "../modal/id";
-
-export interface UserProjection {
-  id: Id;
-  name: string;
-}
+import { MatchSettings } from "./match";
+import { GameState } from "../modal/game";
 
 export interface MatchProjection {
   id: Id;
@@ -13,6 +9,7 @@ export interface MatchProjection {
   joinedByUserId?: string;
   status: "not-started" | "playing" | "finished";
   winnerId?: string;
+  game?: GameState;
 }
 
 export interface OpenMatchProjection {
@@ -21,23 +18,19 @@ export interface OpenMatchProjection {
   createdByUserId: string;
 }
 
-export type Projections = {
-  users: {
-    findUserById: {
-      input: {
-        id: string;
-      };
-      output: {
-        user?: UserProjection | null;
-      };
-    };
-  };
+export interface MatchesProjections {
   matches: {
     getMatches: {
       input: {
         userId: string;
       };
       output: MatchProjection[];
+    };
+    getMatch: {
+      input: {
+        id: string;
+      };
+      output: MatchProjection;
     };
   };
   openMatches: {
@@ -46,6 +39,4 @@ export type Projections = {
       output: OpenMatchProjection[];
     };
   };
-};
-
-export type ProjectionKinds = keyof Projections;
+}

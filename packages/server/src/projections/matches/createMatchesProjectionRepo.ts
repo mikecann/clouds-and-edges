@@ -36,12 +36,13 @@ export const createMatchesProjectionRepo = (storage: DurableObjectStorage) => {
     await addMatchToIndex(match.createdByUserId, match.id);
   };
 
-  const update = async (matchId: string, toUpdate: Partial<MatchProjection>) => {
+  const update = async (matchId: string, updateFn: (match: MatchProjection) => MatchProjection) => {
     const match = await get(matchId);
-    await put({ ...match, ...toUpdate });
+    const updated = updateFn(match);
+    await put(updated);
 
     // If we are adding the person that joined then we must update the index too
-    if (toUpdate.joinedByUserId) await addMatchToIndex(toUpdate.joinedByUserId, match.id);
+    if (updated.joinedByUserId) await addMatchToIndex(updated.joinedByUserId, match.id);
   };
 
   const remove = async (matchId: string) => {

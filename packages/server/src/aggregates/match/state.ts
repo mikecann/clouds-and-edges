@@ -1,4 +1,5 @@
-import { MatchSettings } from "@project/shared";
+import { CellState, GameState, MatchSettings } from "@project/shared";
+import { MatchFinished } from "./events";
 
 export interface MatchAggregateState {
   id?: string;
@@ -7,4 +8,5 @@ export interface MatchAggregateState {
   createdByUserId?: string;
   opponentUserId?: string;
   settings?: MatchSettings;
+  winnderId?: string;
 }

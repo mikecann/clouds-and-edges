@@ -1,6 +1,6 @@
 import { Point2D } from "@project/essentials";
-import { CreateMatchSize } from "../modal/match";
-import { LineSide } from "../modal/game";
+import { CreateMatchSize } from "./match";
+import { LineSide } from "../modal/line";
 
 interface Base {
   aggregate: `match`;
@@ -31,4 +31,11 @@ interface TakeTurn extends Base {
   };
 }
 
-export type MatchCommand = Create | Cancel | Join | TakeTurn;
+interface Finish extends Base {
+  kind: `finish`;
+  payload: {
+    winner: string;
+  };
+}
+
+export type MatchCommands = Create | Cancel | Join | TakeTurn | Finish;

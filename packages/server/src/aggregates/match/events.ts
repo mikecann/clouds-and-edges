@@ -21,7 +21,7 @@ export interface MatchCancelled {
   payload: {};
 }
 
-export interface MatchTurnTakenCancelled {
+export interface MatchTurnTaken {
   kind: "match-turn-taken";
   payload: {
     playerId: string;
@@ -30,4 +30,16 @@ export interface MatchTurnTakenCancelled {
   };
 }
 
-export type MatchEvent = MatchCreated | MatchJoined | MatchCancelled | MatchTurnTakenCancelled;
+export interface MatchFinished {
+  kind: "match-finished";
+  payload: {
+    winner: string;
+  };
+}
+
+export type MatchEvent =
+  | MatchCreated
+  | MatchJoined
+  | MatchCancelled
+  | MatchTurnTaken
+  | MatchFinished;

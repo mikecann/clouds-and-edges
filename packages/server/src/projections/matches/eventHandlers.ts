@@ -1,9 +1,14 @@
 import { ProjectionEventHandlers } from "@project/workers-es";
 import { Events } from "../../events";
-import { getLogger } from "@project/essentials";
 import { MatchesProjectionRepo } from "./createMatchesProjectionRepo";
-
-const logger = getLogger(`UsersProjection-handlers`);
+import {
+  getCellAt,
+  produceCellStates,
+  produceFilledLineState,
+  producePlayerState,
+} from "@project/shared";
+import { produce } from "immer";
+import { ensure } from "@project/essentials";
 
 export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandlers<Events> => ({
   "match-created": async ({
@@ -26,10 +31,63 @@ export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandler
       payload: { userId },
     },
   }) => {
-    await repo.update(aggregateId, {
+    await repo.update(aggregateId, (match) => ({
+      ...match,
       joinedByUserId: userId,
       status: "playing",
+
+      // We now have two players so can create the game state
+      game: {
+        settings: match.settings,
+        players: [
+          producePlayerState({
+            id: match.createdByUserId,
+            color: "red",
+          }),
+          producePlayerState({
+            id: userId,
+            color: "blue",
+          }),
+        ],
+        cells: produceCellStates(match.settings.gridSize),
+      },
+    }));
+  },
+
+  "match-turn-taken": async ({
+    event: {
+      aggregateId,
+      payload: { line, cell, playerId },
+    },
+  }) => {
+    await repo.update(aggregateId, (match) => {
+      const game = ensure(match.game);
+
+      // produce(ensure(match.game), (draft) => {
+      //   getCellAt(draft, cell).lines[line] = produceFilledLineState(playerId);
+      // }),
+
+      // For now just locally mutating the game because immer doesnt play nice with Workers :(
+      getCellAt(game, cell).lines[line] = produceFilledLineState(playerId);
+
+      return {
+        ...match,
+        game,
+      };
     });
+  },
+
+  "match-finished": async ({
+    event: {
+      aggregateId,
+      payload: { winner },
+    },
+  }) => {
+    await repo.update(aggregateId, (match) => ({
+      ...match,
+      status: "finished",
+      winnerId: winner,
+    }));
   },
 
   "match-cancelled": async ({

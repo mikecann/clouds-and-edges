@@ -34,6 +34,9 @@ addRpcRoutes<API, Env>({
     "projections.matches.getMatches": async (input, env, userId) => {
       return system.getProjection("matches", env).getMatches({ userId: ensure(userId) });
     },
+    "projections.matches.getMatch": async (input, env, userId) => {
+      return system.getProjection("matches", env).getMatch({ id: input.id });
+    },
     "projections.openMatches.getOpenMatches": async (input, env, userId) => {
       return system.getProjection("openMatches", env).getOpenMatches({ userId: ensure(userId) });
     },

@@ -20,6 +20,9 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
   }),
   "match-turn-taken": (state, { payload: { cell, line, playerId } }) => ({
     ...state,
-    winnerId: calculateWinner,
+  }),
+  "match-finished": (state, { payload: { winner } }) => ({
+    ...state,
+    winnderId: winner,
   }),
 };

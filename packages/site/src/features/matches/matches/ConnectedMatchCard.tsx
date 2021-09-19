@@ -17,10 +17,11 @@ export const ConnectedMatchCard: React.FC<Props> = ({ match }) => {
   const history = useHistory();
 
   const isCreatedByMe = match.createdByUserId == userId;
+  const isJoinedByMe = match.joinedByUserId == userId;
   const isStarted = match.status != "not-started";
   const canJoin = !isCreatedByMe && !isStarted;
   const canCancel = isCreatedByMe && !isStarted;
-  const canOpen = isCreatedByMe && isStarted;
+  const canOpen = (isCreatedByMe || isJoinedByMe) && isStarted;
 
   return (
     <MatchCard

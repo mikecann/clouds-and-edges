@@ -14,4 +14,4 @@ interface SetName {
   };
 }
 
-export type UserCommand = Create | SetName;
+export type UserCommands = Create | SetName;

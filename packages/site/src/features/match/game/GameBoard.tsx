@@ -14,7 +14,10 @@ export const GameBoard: React.FC<Props> = ({ game, onTakeTurn }) => {
 
   return (
     <Box>
-      <SimpleGrid columns={3} width={`${settings.gridSize.width * cellSize.width}px`}>
+      <SimpleGrid
+        columns={settings.gridSize.width}
+        width={`${settings.gridSize.width * cellSize.width}px`}
+      >
         {narray(settings.gridSize.height)
           .map((y) =>
             narray(settings.gridSize.width).map((x) => (

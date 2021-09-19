@@ -1,6 +1,5 @@
 import { config } from "../config/config";
-import { APIOperations } from "@project/shared/dist/api/api";
-import { APIOperationInput, APIOperationOutput } from "@project/shared";
+import { APIOperations , APIOperationInput, APIOperationOutput } from "@project/shared";
 
 export const performRPCOperation =
   <TOperation extends APIOperations>(operation: TOperation, authToken?: string) =>

@@ -1,8 +1,7 @@
 import { useQuery } from "react-query";
 import { performRPCOperation } from "../api/performRPCOperation";
 import { useAppState } from "../state/appState";
-import { QueryStorageAPI } from "@project/workers-es";
-import { DurableObjectIdentifier } from "@project/workers-es";
+import { QueryStorageAPI , DurableObjectIdentifier } from "@project/workers-es";
 
 interface Options {
   identifier: DurableObjectIdentifier;

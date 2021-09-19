@@ -16,6 +16,7 @@
     "barrel": "lerna run barrel --stream",
     "site": "cd packages/site && yarn run",
     "server": "cd packages/server && yarn run",
+    "shared": "cd packages/shared && yarn run",
     "workers-es": "cd packages/workers-es && yarn run",
     "essentials": "cd packages/essentials && yarn run",
     "site-worker": "cd packages/site-worker && yarn run"

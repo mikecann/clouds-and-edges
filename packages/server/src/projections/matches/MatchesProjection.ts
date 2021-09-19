@@ -23,8 +23,10 @@ export class MatchesProjection extends ProjectionDurableObject<Env> implements R
   }
 
   getMatches: RPCHandler<API, "getMatches"> = async ({ userId }) => {
-    this.logger.debug(`handling query`, userId);
-    const contents = await this.repo.getUserMatches(userId);
-    return [...contents.values()];
+    return await this.repo.getUserMatches(userId);
+  };
+
+  getMatch: RPCHandler<API, "getMatch"> = async ({ id }) => {
+    return await this.repo.get(id);
   };
 }
