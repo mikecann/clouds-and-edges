@@ -1,6 +1,6 @@
 import { AggregateCommandHandlers } from "@project/workers-es";
 import { MatchAggregateState } from "./state";
-import { createMatchSizeToDimensions, MatchCommands } from "@project/shared";
+import { createMatchSizeToDimensions, getCell, MatchCommands } from "@project/shared";
 import { MatchEvent } from "./events";
 
 /**
@@ -43,12 +43,19 @@ export const commands: AggregateCommandHandlers<MatchAggregateState, MatchComman
       payload: {},
     };
   },
-  "take-turn": (state, { payload: { cell, line }, userId, timestamp }) => {
+  "take-turn": (state, { payload, userId, timestamp }) => {
     if (!state.createdAt) throw new Error(`cannot take turn, match not created`);
     if (state.cancelledAt) throw new Error(`cannot take turn, match cancelled`);
     if (!state.opponentUserId) throw new Error(`cannot take turn, no opponent has joined yet`);
     if (userId != state.opponentUserId && userId != state.createdByUserId)
       throw new Error(`cannot take turn when you are not a player in the match`);
+
+    if (state.nextPlayerToTakeTurn != userId) throw new Error(`not your turn`);
+
+    const cell = getCell(state.cells ?? [], payload.cell, userId);
+    const line = cell.lines[payload.line];
+
+    if (line.kind == "filled") throw new Error(`line already filled`);
 
     return {
       kind: `match-turn-taken`,
@@ -57,17 +64,6 @@ export const commands: AggregateCommandHandlers<MatchAggregateState, MatchComman
         line,
         playerId: userId,
       },
-    };
-  },
-  finish: (state, { payload: { winner }, userId, timestamp }) => {
-    if (!state.createdAt) throw new Error(`match not created`);
-    if (state.cancelledAt) throw new Error(`match cancelled`);
-    if (!state.opponentUserId) throw new Error(`no opponent`);
-    if (state.winnderId) throw new Error(`match already finished`);
-
-    return {
-      kind: `match-finished`,
-      payload: { winner },
     };
   },
 };

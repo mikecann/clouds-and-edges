@@ -15,5 +15,7 @@ export * from "./modal/game";
 export * from "./modal/id";
 export * from "./modal/line";
 export * from "./modal/player";
+export * from "./modal/score";
+export * from "./modal/updateCellsFromTurn";
 export * from "./user/commands";
 export * from "./user/projections";

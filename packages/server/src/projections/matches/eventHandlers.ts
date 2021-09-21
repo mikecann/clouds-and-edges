@@ -68,7 +68,7 @@ export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandler
       // }),
 
       // For now just locally mutating the game because immer doesnt play nice with Workers :(
-      getCellAt(game, cell).lines[line] = produceFilledLineState(playerId);
+      getCellAt(game.cells, cell).lines[line] = produceFilledLineState(playerId);
 
       return {
         ...match,

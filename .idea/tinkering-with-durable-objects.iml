@@ -6,6 +6,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/packages/workers-es/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/shared/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

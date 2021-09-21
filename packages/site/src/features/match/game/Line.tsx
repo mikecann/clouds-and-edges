@@ -22,7 +22,7 @@ export const Line: React.FC<Props> = ({ line, game, onFill, ...rest }) => {
     ),
     filled: (line) => (
       <Box
-        backgroundColor={getPlayer(game, line.filledBy).color}
+        backgroundColor={getPlayer(game.players, line.filledBy).color}
         borderRadius={`4px`}
         {...rest}
       ></Box>

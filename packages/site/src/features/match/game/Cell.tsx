@@ -19,7 +19,7 @@ const lineSize = 15;
 export const Cell: React.FC<Props> = ({ cell, game, onFillLine }) => {
   const { position, owner, lines } = cell;
 
-  const ownerPlayer = owner ? getPlayer(game, owner) : undefined;
+  const ownerPlayer = owner ? getPlayer(game.players, owner) : undefined;
 
   return (
     <Box

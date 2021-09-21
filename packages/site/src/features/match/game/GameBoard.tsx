@@ -22,8 +22,9 @@ export const GameBoard: React.FC<Props> = ({ game, onTakeTurn }) => {
           .map((y) =>
             narray(settings.gridSize.width).map((x) => (
               <Cell
+                key={`${x},${y}`}
                 game={game}
-                cell={getCellAt(game, { x, y })}
+                cell={getCellAt(game.cells, { x, y })}
                 onFillLine={(line) => onTakeTurn({ x, y }, line)}
               />
             ))
