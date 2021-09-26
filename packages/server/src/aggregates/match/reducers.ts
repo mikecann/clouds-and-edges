@@ -11,6 +11,7 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
     settings: payload.settings,
     status: "not-started",
     players: [],
+    lines: [],
   }),
   "match-cancelled": ({ state, timestamp }) => ({
     ...state,
@@ -31,6 +32,8 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
   }),
   "match-turn-taken": ({ state, payload }) => ({
     ...state,
+    nextPlayerToTakeTurn: payload.nextPlayerToTakeTurn,
+    lines: [...state.lines, payload.line],
   }),
   "match-finished": ({ state, payload }) => ({
     ...state,

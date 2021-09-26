@@ -1,15 +1,13 @@
 import { Id } from "../modal/id";
 import { MatchSettings } from "./match";
-import { LineDirection } from "../modal/line";
+import { Line, LineDirection } from "../modal/line";
 import { PlayerId, Player } from "../modal/player";
 import { Dot } from "../modal/dot";
 
 export type MatchStatus = "not-started" | "cancelled" | "playing" | "finished";
 
 export interface PlayerTurn {
-  from: Dot;
-  player: PlayerId;
-  direction: LineDirection;
+  line: Line;
   timestamp: number;
 }
 

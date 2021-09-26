@@ -1,5 +1,5 @@
 import { Point2D } from "@project/essentials";
-import { LineDirection, MatchSettings, Player } from "@project/shared";
+import { Line, LineDirection, MatchSettings, Player, PlayerId } from "@project/shared";
 
 export interface MatchCreated {
   kind: "match-created";
@@ -37,9 +37,8 @@ export interface MatchCancelled {
 export interface MatchTurnTaken {
   kind: "match-turn-taken";
   payload: {
-    playerId: string;
-    from: Point2D;
-    direction: LineDirection;
+    line: Line;
+    nextPlayerToTakeTurn: PlayerId;
   };
 }
 

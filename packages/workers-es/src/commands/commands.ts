@@ -1,9 +1,13 @@
-export type AggregateCommandHandler<TState, TPayload, TEvents extends Kindable> = (context: {
+export type AggregateCommandHandler<
+  TState = unknown,
+  TPayload = unknown,
+  TEvents extends Kindable = Kindable
+> = (context: {
   state: TState;
   timestamp: number;
   userId: string;
   payload: TPayload;
-}) => TEvents;
+}) => TEvents | TEvents[];
 
 type Kindable = { kind: string; payload: unknown };
 

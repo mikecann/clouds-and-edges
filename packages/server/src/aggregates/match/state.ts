@@ -7,7 +7,7 @@ export interface MatchAggregateState {
   createdByUserId?: string;
   players: Player[];
   settings?: MatchSettings;
-  lines?: Line[];
+  lines: Line[];
   status: MatchStatus;
   nextPlayerToTakeTurn?: PlayerId;
   winner?: PlayerId;

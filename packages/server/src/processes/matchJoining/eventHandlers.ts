@@ -48,16 +48,6 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
           avatar: user.avatar,
         },
       });
-
-      // Then we start the match
-      await effects.executeCommand({
-        aggregate: "match",
-        kind: "start",
-        payload: {
-          // The person that joined can go first because they are probably not AFK
-          firstPlayerToTakeATurn: event.payload.userId,
-        },
-      });
     },
   },
   effects: {

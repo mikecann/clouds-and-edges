@@ -59,49 +59,50 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
     });
 
     // First we grabe the handler for the command
-    const commandHandler: AggregateCommandHandler<TState, any, any> = getInObj(
-      this.commands,
-      input.command
-    );
+    const commandHandler: AggregateCommandHandler<TState> = getInObj(this.commands, input.command);
 
     // Then we execute the command which returns an event (or throws an error)
-    const addEventInput = commandHandler({
+    const eventOrEvents = commandHandler({
       state: this.state,
       userId: input.userId,
       timestamp,
       payload: input.payload,
     });
 
-    const addEventToStore = async () => {
-      // We then add that event to the store
-      await this.system.getEventStore(this.env).addEvent({
-        aggregate: this.aggregate,
-        aggregateId: this.aggregateId,
-        kind: addEventInput.kind,
-        payload: addEventInput.payload,
-        timestamp,
-      });
+    const events = Array.isArray(eventOrEvents) ? eventOrEvents : [eventOrEvents];
+
+    const addEventsToStore = async () => {
+      for (const event of events)
+        await this.system.getEventStore(this.env).addEvent({
+          aggregate: this.aggregate,
+          aggregateId: this.aggregateId,
+          kind: event.kind,
+          payload: event.payload,
+          timestamp,
+        });
     };
 
     const updateLocalState = async () => {
-      const reducer: AggregateReducer<TState, any> = getInObj(this.reducers, addEventInput.kind);
+      for (const event of events) {
+        const reducer: AggregateReducer<TState> = getInObj(this.reducers, event.kind);
 
-      const reducedState = reducer({
-        state: this.state,
-        timestamp,
-        aggregateId: this.aggregateId,
-        payload: addEventInput.payload,
-      });
+        const reducedState = reducer({
+          state: this.state,
+          timestamp,
+          aggregateId: this.aggregateId,
+          payload: event.payload,
+        });
 
-      this.state = reducedState;
-      await this.storage.put("state", reducedState);
+        this.state = reducedState;
+        await this.storage.put("state", reducedState);
 
-      this.logger.debug(`reducedState stored`, reducedState);
+        this.logger.debug(`reducedState stored`, reducedState);
+      }
     };
 
     // At the same time we add the event to the store and update the local state
     await updateLocalState();
-    await addEventToStore();
+    await addEventsToStore();
 
     this.logger.debug(`execution finished`);
 

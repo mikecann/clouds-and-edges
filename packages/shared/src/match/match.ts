@@ -7,6 +7,7 @@ export interface Dimensions2d {
 
 export interface MatchSettings {
   gridSize: Dimensions2d;
+  maxPlayers: 2;
 }
 
 export type CreateMatchSize = "small" | "medium" | "large";

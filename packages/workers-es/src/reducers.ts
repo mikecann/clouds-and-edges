@@ -1,13 +1,15 @@
-export type AggregateReducer<TState, TPayload> = (context: {
+export type AggregateReducer<TState = unknown, TPayload = unknown> = (context: {
   state: TState;
   aggregateId: string;
   payload: TPayload;
   timestamp: number;
 }) => TState;
 
+type Kindable = { kind: string; payload: unknown };
+
 export type AggregateReducers<
-  TState = any,
-  TEvents extends { kind: string; payload: unknown } = any
+  TState = unknown,
+  TEvents extends Kindable = Kindable
 > = {
   [P in TEvents["kind"]]: AggregateReducer<
     TState,

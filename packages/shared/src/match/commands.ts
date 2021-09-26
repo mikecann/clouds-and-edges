@@ -51,11 +51,4 @@ interface TakeTurn extends Base {
   };
 }
 
-interface Finish extends Base {
-  kind: `finish`;
-  payload: {
-    winner: PlayerId;
-  };
-}
-
-export type MatchCommands = Create | Cancel | JoinRequest | Join | Start | TakeTurn | Finish;
+export type MatchCommands = Create | Cancel | JoinRequest | Join | Start | TakeTurn;
