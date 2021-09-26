@@ -1,6 +1,6 @@
 import { Result } from "@project/essentials";
 import { Projections } from "./projections";
-import { DurableObjectIdentifier, QueryStorageAPI , StoredEvent } from "@project/workers-es";
+import { DurableObjectIdentifier, QueryStorageAPI, StoredEvent } from "@project/workers-es";
 import { AggregateKinds } from "./aggregates";
 
 export type API = {
@@ -14,6 +14,13 @@ export type API = {
       input: QueryStorageAPI["input"];
     };
     output: QueryStorageAPI["output"];
+  };
+  "admin.rebuild": {
+    input: {
+      identifier: DurableObjectIdentifier;
+      input: {};
+    };
+    output: {};
   };
   "event-store.events": {
     input: {};

@@ -1,5 +1,5 @@
 import { Point2D } from "@project/essentials";
-import { LineSide, MatchSettings } from "@project/shared";
+import { LineDirection, MatchSettings, Player } from "@project/shared";
 
 export interface MatchCreated {
   kind: "match-created";
@@ -8,11 +8,24 @@ export interface MatchCreated {
     settings: MatchSettings;
   };
 }
+export interface MatchJoinRequested {
+  kind: "match-join-requested";
+  payload: {
+    userId: string;
+  };
+}
 
 export interface MatchJoined {
   kind: "match-joined";
   payload: {
-    userId: string;
+    player: Player;
+  };
+}
+
+export interface MatchStarted {
+  kind: "match-started";
+  payload: {
+    firstPlayerToTakeATurn: string;
   };
 }
 
@@ -25,8 +38,8 @@ export interface MatchTurnTaken {
   kind: "match-turn-taken";
   payload: {
     playerId: string;
-    cell: Point2D;
-    line: LineSide;
+    from: Point2D;
+    direction: LineDirection;
   };
 }
 
@@ -39,7 +52,9 @@ export interface MatchFinished {
 
 export type MatchEvent =
   | MatchCreated
+  | MatchJoinRequested
   | MatchJoined
+  | MatchStarted
   | MatchCancelled
   | MatchTurnTaken
   | MatchFinished;

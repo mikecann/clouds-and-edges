@@ -1,7 +1,11 @@
+import { CreateMatchSize } from "@project/shared";
+
 export interface UserCreated {
   kind: "user-created";
   payload: {
     name: string;
+    avatar: string;
+    color: string;
   };
 }
 
@@ -12,4 +16,12 @@ export interface UserNameSet {
   };
 }
 
-export type UserEvent = UserCreated | UserNameSet;
+export interface UserCreateMatchRequested {
+  kind: "user-create-match-requested";
+  payload: {
+    userId: string;
+    size: CreateMatchSize;
+  };
+}
+
+export type UserEvent = UserCreated | UserNameSet | UserCreateMatchRequested;

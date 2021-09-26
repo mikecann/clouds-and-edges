@@ -1,19 +1,20 @@
 import { ensure } from "@project/essentials";
-import { GameState } from "./game";
 
 export type PlayerId = string;
 
-export interface PlayerState {
+export interface Player {
   id: PlayerId;
+  name: string;
   color: string;
-  avatarEmoji: string;
+  avatar: string;
 }
 
-export const producePlayerState = (options: { id: string; color?: string }): PlayerState => ({
+export const producePlayerState = (options: { id: string; color?: string }): Player => ({
   color: "red",
-  avatarEmoji: ":)",
+  name: "",
+  avatar: ":)",
   ...options,
 });
 
-export const getPlayer = (players: PlayerState[], id: string): PlayerState =>
+export const getPlayer = (players: Player[], id: string): Player =>
   ensure(players.find((p) => p.id == id));

@@ -1,13 +1,14 @@
-import { CellState, MatchSettings, PlayerId, PlayerState } from "@project/shared";
+import { Line, MatchSettings, PlayerId, Player, MatchStatus } from "@project/shared";
 
 export interface MatchAggregateState {
   id?: string;
   createdAt?: number;
   cancelledAt?: number;
   createdByUserId?: string;
-  opponentUserId?: string;
+  players: Player[];
   settings?: MatchSettings;
-  cells?: CellState[];
+  lines?: Line[];
+  status: MatchStatus;
   nextPlayerToTakeTurn?: PlayerId;
   winner?: PlayerId;
 }

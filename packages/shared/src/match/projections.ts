@@ -1,15 +1,28 @@
 import { Id } from "../modal/id";
 import { MatchSettings } from "./match";
-import { GameState } from "../modal/game";
+import { LineDirection } from "../modal/line";
+import { PlayerId, Player } from "../modal/player";
+import { Dot } from "../modal/dot";
+
+export type MatchStatus = "not-started" | "cancelled" | "playing" | "finished";
+
+export interface PlayerTurn {
+  from: Dot;
+  player: PlayerId;
+  direction: LineDirection;
+  timestamp: number;
+}
 
 export interface MatchProjection {
   id: Id;
   settings: MatchSettings;
-  createdByUserId: string;
-  joinedByUserId?: string;
-  status: "not-started" | "playing" | "finished";
-  winnerId?: string;
-  game?: GameState;
+  createdAt: number;
+  createdByUserId: PlayerId;
+  nextPlayerToTakeTurn: PlayerId;
+  turns: PlayerTurn[];
+  players: Player[];
+  status: MatchStatus;
+  winner?: PlayerId;
 }
 
 export interface OpenMatchProjection {

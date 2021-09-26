@@ -31,6 +31,21 @@ addRpcRoutes<API, Env>({
         eventStore: () => system.getEventStore(env).queryStorage(input),
       });
     },
+    // Todo: put this in es-worker
+    "admin.rebuild": async ({ identifier, input }, env) => {
+      return matchKind(identifier, {
+        projection: ({ name }) => system.getProjection(name as ProjectionKinds, env).rebuild(input),
+        aggregate: ({ name, id }) => {
+          throw new Error(`Cannot rebuild an aggregate`);
+        },
+        process: ({ name }) => {
+          throw new Error(`Not implemented`);
+        },
+        eventStore: () => {
+          throw new Error(`Cannot rebuild the event store`);
+        },
+      });
+    },
     "projections.matches.getMatches": async (input, env, userId) => {
       return system.getProjection("matches", env).getMatches({ userId: ensure(userId) });
     },

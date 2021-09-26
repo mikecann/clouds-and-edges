@@ -2,10 +2,10 @@ import { createSystem } from "@project/workers-es";
 import { UserAggregate } from "./aggregates/user/UserAggregate";
 import { MatchAggregate } from "./aggregates/match/MatchAggregate";
 import { UsersProjection } from "./projections/users/UsersProjection";
-import { ProposalJoiningProcess } from "./processes/proposalJoining/ProposalJoiningProcess";
 import { EventStore } from "./EventStore";
 import { MatchesProjection } from "./projections/matches/MatchesProjection";
 import { OpenMatchesProjection } from "./projections/openMatches/OpenMatchesProjection";
+import { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
 
 export const system = createSystem({
   namespaces: {
@@ -21,7 +21,7 @@ export const system = createSystem({
     },
 
     processes: {
-      proposalJoining: ProposalJoiningProcess,
+      matchJoining: MatchJoiningProcess,
     },
 
     events: EventStore,

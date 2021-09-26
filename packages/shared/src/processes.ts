@@ -1,5 +1,6 @@
 export type Processes = {
-  proposalJoining: {};
+  matchJoining: {};
+  turnTaking: {};
 };
 
 export type ProcessKinds = keyof Processes;

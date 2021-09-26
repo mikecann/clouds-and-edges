@@ -1,22 +1,32 @@
+import { Dot } from "./dot";
 import { PlayerId } from "./player";
-import { CellState } from "./cell";
+import { equals, Point2D } from "@project/essentials";
+import { findCellCornerForDot } from "./cell";
 
-export interface FilledLine {
-  kind: "filled";
-  filledBy: PlayerId;
+export type LineDirection = "right" | "down";
+
+export interface Line {
+  from: Dot;
+  direction: LineDirection;
+  owner: PlayerId;
 }
 
-export interface EmptyLine {
-  kind: "empty";
-}
+export const isLineAroundCell = (line: Line, cellPos: Point2D) => {
+  const from = findCellCornerForDot(line.from, cellPos);
 
-export type LineSide = keyof CellState["lines"];
+  if (from == "top-left") return true;
+  if (from == "top-right" && line.direction == "down") return true;
+  if (from == "bottom-left" && line.direction == "right") return true;
 
-export type LineState = FilledLine | EmptyLine;
+  return false;
+};
 
-export const produceEmptyLineState = (): EmptyLine => ({ kind: "empty" });
+export const getLinesAroundCell = (lines: Line[], cellPos: Point2D) =>
+  lines.filter((l) => isLineAroundCell(l, cellPos));
 
-export const produceFilledLineState = (filledBy: PlayerId): FilledLine => ({
-  kind: "filled",
-  filledBy,
-});
+export const findLineOwner = (
+  lines: Line[],
+  from: Dot,
+  direction: LineDirection
+): PlayerId | undefined =>
+  lines.find((l) => equals(l.from, from) && l.direction == direction)?.owner;

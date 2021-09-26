@@ -8,7 +8,7 @@ export { MatchAggregate } from "./aggregates/match/MatchAggregate";
 export { UsersProjection } from "./projections/users/UsersProjection";
 export { MatchesProjection } from "./projections/matches/MatchesProjection";
 export { OpenMatchesProjection } from "./projections/openMatches/OpenMatchesProjection";
-export { ProposalJoiningProcess } from "./processes/proposalJoining/ProposalJoiningProcess";
+export { ProposalJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
 export { EventStore } from "./EventStore";
 
 export default {

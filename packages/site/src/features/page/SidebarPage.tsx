@@ -8,7 +8,7 @@ export const SidebarPage: React.FC<Props> = ({ children }) => {
   return (
     <div style={{ minHeight: "100vh", overflow: "hidden" }}>
       <ConnectedDashboardSidebar />
-      <VStack marginLeft={120} paddingTop={5} overflowX={"hidden"}>
+      <VStack marginLeft={120} overflowX={"hidden"}>
         {children}
       </VStack>
     </div>

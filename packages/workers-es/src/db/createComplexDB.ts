@@ -9,7 +9,7 @@ interface Options<TEntity extends Entity, TIndices extends Record<keyof TEntity,
   indices: TIndices;
 }
 
-export function createSimpleDB<
+export function createComplexDB<
   TEntity extends Entity,
   TIndices extends Record<keyof TEntity, null>
 >({ indices, storage }: Options<TEntity, TIndices>) {

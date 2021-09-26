@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Button, Text, VStack } from "@chakra-ui/react";
 import { MatchProjection } from "@project/shared";
+import { IdIcon } from "../../misc/IdIcon";
 
 interface Props {
   match: MatchProjection;
@@ -13,7 +14,6 @@ interface Props {
 export const MatchCard: React.FC<Props> = ({ match, onCancel, onJoin, onOpen, isLoading }) => {
   return (
     <VStack backgroundColor={"rgba(0,0,0,0.2)"} borderRadius={6} padding={5}>
-      <Text as={"h4"}>Id: {match.id}</Text>
       <Text as={"h4"}>Proposed By: {match.createdByUserId}</Text>
       <Text as={"h4"}>Joined By: {match.joinedByUserId}</Text>
       <Text as={"h4"}>

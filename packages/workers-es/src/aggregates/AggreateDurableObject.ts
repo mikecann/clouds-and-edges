@@ -65,7 +65,8 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
     );
 
     // Then we execute the command which returns an event (or throws an error)
-    const addEventInput = commandHandler(this.state, {
+    const addEventInput = commandHandler({
+      state: this.state,
       userId: input.userId,
       timestamp,
       payload: input.payload,
@@ -85,7 +86,8 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
     const updateLocalState = async () => {
       const reducer: AggregateReducer<TState, any> = getInObj(this.reducers, addEventInput.kind);
 
-      const reducedState = reducer(this.state, {
+      const reducedState = reducer({
+        state: this.state,
         timestamp,
         aggregateId: this.aggregateId,
         payload: addEventInput.payload,

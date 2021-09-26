@@ -38,3 +38,5 @@ yarn site storybook
 - What happenes to the stored state if you dont reference it for a while?
 - Issues are that the projections might have to use a different DB to support more powerful queries
 - Make better use of react query keys according to that site
+- probably xstate would be better for aggregates
+- processes are not atomic so theres room for state corruption in there

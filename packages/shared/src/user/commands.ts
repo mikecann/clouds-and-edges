@@ -1,17 +1,28 @@
-interface Create {
+import { CreateMatchSize } from "../match/match";
+
+interface Base {
+  aggregate: `user`;
+}
+
+interface Create extends Base {
   kind: `create`;
-  aggregate: `user`;
   payload: {
     name: string;
   };
 }
 
-interface SetName {
+interface SetName extends Base {
   kind: `set-name`;
-  aggregate: `user`;
   payload: {
     name: string;
   };
 }
 
-export type UserCommands = Create | SetName;
+interface CreateMatchRequest extends Base {
+  kind: `create-match-request`;
+  payload: {
+    size: CreateMatchSize;
+  };
+}
+
+export type UserCommands = Create | SetName | CreateMatchRequest;

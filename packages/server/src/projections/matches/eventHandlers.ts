@@ -2,13 +2,12 @@ import { ProjectionEventHandlers } from "@project/workers-es";
 import { Events } from "../../events";
 import { MatchesProjectionRepo } from "./createMatchesProjectionRepo";
 import {
-  getCellAt,
-  produceCellStates,
-  produceFilledLineState,
-  producePlayerState,
+  calculateWinner,
+  computeCellStates,
+  doesAddingLineFinishACell,
+  Line,
 } from "@project/shared";
-import { produce } from "immer";
-import { ensure } from "@project/essentials";
+import { ensure, iife } from "@project/essentials";
 
 export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandlers<Events> => ({
   "match-created": async ({
@@ -21,7 +20,8 @@ export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandler
       id: aggregateId,
       settings: settings,
       createdByUserId,
-      status: "not-started",
+      lines: [],
+      nextPlayerToTakeTurn: createdByUserId,
     });
   },
 
@@ -34,60 +34,43 @@ export const getHandlers = (repo: MatchesProjectionRepo): ProjectionEventHandler
     await repo.update(aggregateId, (match) => ({
       ...match,
       joinedByUserId: userId,
-      status: "playing",
-
-      // We now have two players so can create the game state
-      game: {
-        settings: match.settings,
-        players: [
-          producePlayerState({
-            id: match.createdByUserId,
-            color: "red",
-          }),
-          producePlayerState({
-            id: userId,
-            color: "blue",
-          }),
-        ],
-        cells: produceCellStates(match.settings.gridSize),
-      },
     }));
   },
 
-  "match-turn-taken": async ({
-    event: {
-      aggregateId,
-      payload: { line, cell, playerId },
-    },
-  }) => {
-    await repo.update(aggregateId, (match) => {
-      const game = ensure(match.game);
+  // Todo: theres lots of duplication here with the aggregate
+  "match-turn-taken": async ({ event: { aggregateId, payload } }) => {
+    const state = await repo.get(aggregateId);
 
-      // produce(ensure(match.game), (draft) => {
-      //   getCellAt(draft, cell).lines[line] = produceFilledLineState(playerId);
-      // }),
+    const newLine: Line = {
+      from: payload.from,
+      direction: payload.direction,
+      owner: payload.playerId,
+    };
 
-      // For now just locally mutating the game because immer doesnt play nice with Workers :(
-      getCellAt(game.cells, cell).lines[line] = produceFilledLineState(playerId);
+    const linesBefore = state.lines;
+    const settings = ensure(state.settings);
 
-      return {
-        ...match,
-        game,
-      };
+    const nextPlayerToTakeTurn = iife(() => {
+      if (doesAddingLineFinishACell({ newLine, lines: linesBefore, settings }))
+        return state.nextPlayerToTakeTurn;
+
+      // Return the alternate player
+      return payload.playerId == state.createdByUserId
+        ? ensure(state.joinedByUserId)
+        : state.createdByUserId;
     });
-  },
 
-  "match-finished": async ({
-    event: {
-      aggregateId,
-      payload: { winner },
-    },
-  }) => {
-    await repo.update(aggregateId, (match) => ({
-      ...match,
-      status: "finished",
-      winnerId: winner,
-    }));
+    const newLines = [...linesBefore, newLine];
+
+    const winner = calculateWinner(computeCellStates({ settings, lines: newLines }));
+    console.log(`WINNER`, winner);
+
+    await repo.put({
+      ...state,
+      lines: newLines,
+      nextPlayerToTakeTurn,
+      winner,
+    });
   },
 
   "match-cancelled": async ({

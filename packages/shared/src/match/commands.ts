@@ -1,6 +1,7 @@
-import { Point2D } from "@project/essentials";
 import { CreateMatchSize } from "./match";
-import { LineSide } from "../modal/line";
+import { Dot } from "../modal/dot";
+import { LineDirection } from "../modal/line";
+import { PlayerId } from "../modal/player";
 
 interface Base {
   aggregate: `match`;
@@ -9,6 +10,7 @@ interface Base {
 interface Create extends Base {
   kind: `create`;
   payload: {
+    createdByUserId: string;
     size: CreateMatchSize;
   };
 }
@@ -18,17 +20,42 @@ interface Cancel extends Base {
   payload: {};
 }
 
+interface JoinRequest extends Base {
+  kind: `join-request`;
+  payload: {};
+}
+
 interface Join extends Base {
   kind: `join`;
-  payload: {};
+  payload: {
+    userId: string;
+    name: string;
+    avatar: string;
+    color: string;
+  };
+}
+
+interface Start extends Base {
+  kind: `start`;
+  payload: {
+    firstPlayerToTakeATurn: PlayerId;
+  };
 }
 
 interface TakeTurn extends Base {
   kind: `take-turn`;
   payload: {
-    cell: Point2D;
-    line: LineSide;
+    from: Dot;
+    direction: LineDirection;
+    playerId: PlayerId;
   };
 }
 
-export type MatchCommands = Create | Cancel | Join | TakeTurn;
+interface Finish extends Base {
+  kind: `finish`;
+  payload: {
+    winner: PlayerId;
+  };
+}
+
+export type MatchCommands = Create | Cancel | JoinRequest | Join | Start | TakeTurn | Finish;

@@ -19,7 +19,6 @@ export type ProcessEventHandler<
 > = (context: {
   event: StoredEvent<Extract<TEvents, { kind: P }>>;
   effects: ProcessSideEffects<TCommands> & TSideEffects;
-  storage: TStorage;
 }) => Promise<void> | void;
 
 export type ProcessEventHandlers<

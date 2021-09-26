@@ -1,7 +1,9 @@
-export type AggregateReducer<TState, TPayload> = (
-  state: TState,
-  context: { aggregateId: string; payload: TPayload; timestamp: number }
-) => TState;
+export type AggregateReducer<TState, TPayload> = (context: {
+  state: TState;
+  aggregateId: string;
+  payload: TPayload;
+  timestamp: number;
+}) => TState;
 
 export type AggregateReducers<
   TState = any,
