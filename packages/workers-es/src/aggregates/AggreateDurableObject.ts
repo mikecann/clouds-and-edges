@@ -33,7 +33,7 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
     protected system: System,
     protected aggregate: string,
     protected commands: AggregateCommandHandlers<any, any, any>,
-    protected reducers: AggregateReducers<any>
+    protected reducers: AggregateReducers
   ) {
     super(objectState);
     this.storage = objectState.storage;

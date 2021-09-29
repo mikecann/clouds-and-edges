@@ -4,8 +4,8 @@ import { MatchAggregate } from "./aggregates/match/MatchAggregate";
 import { UsersProjection } from "./projections/users/UsersProjection";
 import { EventStore } from "./EventStore";
 import { MatchesProjection } from "./projections/matches/MatchesProjection";
-import { OpenMatchesProjection } from "./projections/openMatches/OpenMatchesProjection";
 import { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
+import { MatchCreationProcess } from "./main";
 
 export const system = createSystem({
   namespaces: {
@@ -17,11 +17,11 @@ export const system = createSystem({
     projections: {
       users: UsersProjection,
       matches: MatchesProjection,
-      openMatches: OpenMatchesProjection,
     },
 
     processes: {
       matchJoining: MatchJoiningProcess,
+      matchCreation: MatchCreationProcess,
     },
 
     events: EventStore,

@@ -31,10 +31,12 @@ export interface OpenMatchProjection {
 
 export interface MatchesProjections {
   matches: {
-    getMatches: {
-      input: {
-        userId: string;
-      };
+    getOpen: {
+      input: {};
+      output: MatchProjection[];
+    };
+    getForPlayer: {
+      input: { playerId: string };
       output: MatchProjection[];
     };
     getMatch: {
@@ -42,12 +44,6 @@ export interface MatchesProjections {
         id: string;
       };
       output: MatchProjection;
-    };
-  };
-  openMatches: {
-    getOpenMatches: {
-      input: {};
-      output: OpenMatchProjection[];
     };
   };
 }

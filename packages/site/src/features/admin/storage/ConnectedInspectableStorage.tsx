@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQueryStorage } from "../useQueryStorage";
 import { InspectableStorage } from "./InspectableStorage";
-import { DurableObjectIdentifier } from "@project/workers-es/dist";
+import { DurableObjectIdentifier } from "@project/workers-es";
 
 interface Props {
   identifier: DurableObjectIdentifier;

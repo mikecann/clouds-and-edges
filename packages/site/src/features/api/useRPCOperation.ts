@@ -1,4 +1,4 @@
-import { APIOperations } from "@project/shared/dist";
+import { APIOperations } from "@project/shared";
 import { useAppState } from "../state/appState";
 import { performRPCOperation } from "./performRPCOperation";
 

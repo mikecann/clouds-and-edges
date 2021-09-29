@@ -3,6 +3,7 @@ import { MatchSettings } from "../match/match";
 import { Line } from "./line";
 
 const settings: MatchSettings = {
+  maxPlayers: 2,
   gridSize: {
     width: 3,
     height: 3,

@@ -6,6 +6,6 @@ import { system } from "../../system";
 
 export class UserAggregate extends AggreateDurableObject {
   constructor(objectState: DurableObjectState, env: Env) {
-    super(objectState, env, system, "user", commands, reducers);
+    super(objectState, env, system, "user", commands, reducers as any);
   }
 }

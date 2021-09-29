@@ -18,6 +18,7 @@ const props: React.ComponentProps<typeof GameBoard> = {
     cells: produceCellStates({ width: 3, height: 3 }),
     players: [playerA, playerB],
     settings: {
+      maxPlayers: 2,
       gridSize: {
         width: 3,
         height: 3,

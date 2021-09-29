@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 import { getPlayer, LineDirection, PlayerId, Player } from "@project/shared";
 import { matchKind, Point2D } from "@project/essentials";
-import { GameState } from "./GameBoard";
+import { GameState } from "./GameState";
 
 interface Props extends BoxProps {
   from: Point2D;

@@ -47,7 +47,6 @@ interface TakeTurn extends Base {
   payload: {
     from: Dot;
     direction: LineDirection;
-    playerId: PlayerId;
   };
 }
 

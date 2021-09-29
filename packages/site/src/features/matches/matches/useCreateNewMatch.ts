@@ -4,7 +4,7 @@ import { useCommand } from "../../api/useCommand";
 
 export const useCreateNewMatch = () => {
   const queryClient = useQueryClient();
-  return useMutation(useCommand("match", "create"), {
+  return useMutation(useCommand("user", "create-match-request"), {
     onSettled: async () => {
       // Wait a sec then grab the new me
       await wait(200);

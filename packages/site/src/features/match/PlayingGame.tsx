@@ -7,7 +7,6 @@ import { useTakeTurn } from "../matches/matches/useTakeTurn";
 import { useMe } from "../api/useMe";
 import { PlayerPanel } from "./PlayerPanel";
 import { Announcement } from "./Announcement";
-import { IdIcon } from "../misc/IdIcon";
 
 interface Props {
   match: MatchProjection;
@@ -18,7 +17,6 @@ export const PlayingGame: React.FC<Props> = ({ match }) => {
   const { data: me } = useMe();
 
   if (!me) return null;
-  if (!match.joinedByUserId) return null;
 
   const isMyTurn = match.nextPlayerToTakeTurn == me.id;
   const isFinished = match.winner != undefined;

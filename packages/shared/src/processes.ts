@@ -1,6 +1,6 @@
 export type Processes = {
   matchJoining: {};
-  turnTaking: {};
+  matchCreation: {};
 };
 
 export type ProcessKinds = keyof Processes;

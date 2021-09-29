@@ -1,11 +1,15 @@
+import { Id, MatchProjection } from "@project/shared";
 import { createSimpleDb } from "@project/workers-es";
-import { MatchesProjection } from "src/main";
 
 type Entities = {
-  match: MatchesProjection;
-  ref: {
-    id: string;
+  match: MatchProjection;
+  open: {
+    id: Id;
   };
+  player: {
+    id: Id;
+    matches: Id[];
+  }
 };
 
 export const createDb = (storage: DurableObjectStorage) => createSimpleDb<Entities>({ storage });

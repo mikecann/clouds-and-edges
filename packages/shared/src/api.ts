@@ -2,12 +2,16 @@ import { Result } from "@project/essentials";
 import { Projections } from "./projections";
 import { DurableObjectIdentifier, QueryStorageAPI, StoredEvent } from "@project/workers-es";
 import { AggregateKinds } from "./aggregates";
+import { MatchProjection } from "./match/projections";
 
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
-  "projections.matches.getMatches": Projections["matches"]["getMatches"];
+  "projections.matches.getMine": {
+    input: {};
+    output: MatchProjection[];
+  };
   "projections.matches.getMatch": Projections["matches"]["getMatch"];
-  "projections.openMatches.getOpenMatches": Projections["openMatches"]["getOpenMatches"];
+  "projections.matches.getOpen": Projections["matches"]["getOpen"];
   "admin.queryStorage": {
     input: {
       identifier: DurableObjectIdentifier;

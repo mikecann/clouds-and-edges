@@ -2,8 +2,8 @@ import * as React from "react";
 import { Box, BoxProps, Center } from "@chakra-ui/react";
 import { getPlayer, LineDirection, Dot, findLineOwner } from "@project/shared";
 import { LineView } from "./LineView";
-import { GameState } from "./GameBoard";
 import { cellSize } from "./CellView";
+import { GameState } from "./GameState";
 
 interface Props extends BoxProps {
   game: GameState;

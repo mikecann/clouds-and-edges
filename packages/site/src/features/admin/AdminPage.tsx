@@ -31,30 +31,15 @@ export const AdminPage: React.FC<Props> = ({}) => {
             </SectionContainer>
           </WrapItem>
           <WrapItem>
-            <SectionContainer title={"Open Matches Projection"}>
-              <ConnectedProjectionInfo projection={"openMatches"} />
+            <SectionContainer title={"Match Creation Process"}>
+              <ConnectedProcessInfo process={"matchCreation"} />
             </SectionContainer>
           </WrapItem>
           <WrapItem>
-            <SectionContainer title={"Proposal Joined Process"}>
-              <ConnectedProcessInfo process={"proposalJoining"} />
+            <SectionContainer title={"Match Joining Process"}>
+              <ConnectedProcessInfo process={"matchJoining"} />
             </SectionContainer>
           </WrapItem>
-          {/*<WrapItem>*/}
-          {/*  <Center w="180px" h="80px" bg="green.200">*/}
-          {/*    Box 2*/}
-          {/*  </Center>*/}
-          {/*</WrapItem>*/}
-          {/*<WrapItem>*/}
-          {/*  <Center w="180px" h="80px" bg="tomato">*/}
-          {/*    Box 3*/}
-          {/*  </Center>*/}
-          {/*</WrapItem>*/}
-          {/*<WrapItem>*/}
-          {/*  <Center w="180px" h="80px" bg="blue.200">*/}
-          {/*    Box 4*/}
-          {/*  </Center>*/}
-          {/*</WrapItem>*/}
         </Wrap>
       </VStack>
     </SidebarPage>

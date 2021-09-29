@@ -5,10 +5,13 @@ import { router } from "./routes";
 // I cant quite work it out right now
 export { UserAggregate } from "./aggregates/user/UserAggregate";
 export { MatchAggregate } from "./aggregates/match/MatchAggregate";
+
 export { UsersProjection } from "./projections/users/UsersProjection";
 export { MatchesProjection } from "./projections/matches/MatchesProjection";
-export { OpenMatchesProjection } from "./projections/openMatches/OpenMatchesProjection";
-export { ProposalJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
+
+export { MatchCreationProcess } from "./processes/matchCreation/MatchCreationProcess";
+export { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
+
 export { EventStore } from "./EventStore";
 
 export default {

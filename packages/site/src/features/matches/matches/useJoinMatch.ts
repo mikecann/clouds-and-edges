@@ -3,10 +3,10 @@ import { wait } from "@project/essentials";
 import { useCommand } from "../../api/useCommand";
 import { useGenericErrorHandler } from "../../api/useGenericErrorHandler";
 
-export const useJoinMatch = (proposalId: string) => {
+export const useRequestJoinMatch = (proposalId: string) => {
   const queryClient = useQueryClient();
   const onError = useGenericErrorHandler();
-  return useMutation(useCommand("match", "join", proposalId), {
+  return useMutation(useCommand("match", "join-request", proposalId), {
     onSettled: async () => {
       // Wait a sec then grab the new me
       await wait(200);

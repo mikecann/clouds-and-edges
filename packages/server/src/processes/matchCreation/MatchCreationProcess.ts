@@ -5,7 +5,7 @@ import { system } from "../../system";
 import { getHandlers } from "./eventHandlers";
 import { createDb } from "./db";
 
-type API = Processes["turnTaking"];
+type API = Processes["matchCreation"];
 
 export class MatchCreationProcess extends ProcessDurableObject<Env> {
   constructor(objectState: DurableObjectState, env: any) {

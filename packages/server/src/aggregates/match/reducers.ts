@@ -39,33 +39,4 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
     ...state,
     status: "finished",
   }),
-  // "match-turn-taken": ({ state, payload }) => {
-  //   const newLine: Line = {
-  //     from: payload.from,
-  //     direction: payload.direction,
-  //     owner: payload.playerId,
-  //   };
-  //
-  //   const linesBefore = state.lines ?? [];
-  //   const settings = ensure(state.settings);
-  //
-  //   const nextPlayerToTakeTurn = iife(() => {
-  //     if (doesAddingLineFinishACell({ newLine, lines: linesBefore, settings }))
-  //       return state.nextPlayerToTakeTurn;
-  //
-  //     // Return the alternate player
-  //     return payload.playerId == state.createdByUserId
-  //       ? state.opponentUserId
-  //       : state.createdByUserId;
-  //   });
-  //
-  //   const newLines = [...linesBefore, newLine];
-  //
-  //   return {
-  //     ...state,
-  //     lines: newLines,
-  //     winner: calculateWinner(computeCellStates({ settings, lines: newLines })),
-  //     nextPlayerToTakeTurn,
-  //   };
-  // },
 };

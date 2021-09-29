@@ -6,6 +6,6 @@ import { system } from "../../system";
 
 export class MatchAggregate extends AggreateDurableObject {
   constructor(objectState: DurableObjectState, env: Env) {
-    super(objectState, env, system, "match", commands, reducers);
+    super(objectState, env, system, "match", commands, reducers as any);
   }
 }

@@ -46,14 +46,14 @@ addRpcRoutes<API, Env>({
         },
       });
     },
-    "projections.matches.getMatches": async (input, env, userId) => {
-      return system.getProjection("matches", env).getMatches({ userId: ensure(userId) });
+    "projections.matches.getMine": async (input, env, userId) => {
+      return system.getProjection("matches", env).getForPlayer({ playerId: ensure(userId) });
     },
     "projections.matches.getMatch": async (input, env, userId) => {
       return system.getProjection("matches", env).getMatch({ id: input.id });
     },
-    "projections.openMatches.getOpenMatches": async (input, env, userId) => {
-      return system.getProjection("openMatches", env).getOpenMatches({ userId: ensure(userId) });
+    "projections.matches.getOpen": async (input, env, userId) => {
+      return system.getProjection("matches", env).getOpen({ userId: ensure(userId) });
     },
     "event-store.events": async (input, env) => {
       return system.getEventStore(env).getEvents({});

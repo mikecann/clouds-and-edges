@@ -6,7 +6,7 @@ import { ensure } from "@project/essentials";
 
 export const useMatches = () => {
   const [{ userId }] = useAppState();
-  return useQuery<APIOperationOutput<"projections.matches.getMatches">, Error>(`matches`, () =>
-    performRPCOperation("projections.matches.getMatches", userId)({ userId: ensure(userId) })
+  return useQuery<APIOperationOutput<"projections.matches.getMine">, Error>(`matches`, () =>
+    performRPCOperation("projections.matches.getMine", userId)({ })
   );
 };

@@ -5,8 +5,7 @@ import { performRPCOperation } from "../../api/performRPCOperation";
 
 export const useOpenMatches = () => {
   const [{ userId }] = useAppState();
-  return useQuery<APIOperationOutput<"projections.openMatches.getOpenMatches">, Error>(
-    `openMatches`,
-    () => performRPCOperation("projections.openMatches.getOpenMatches", userId)({})
+  return useQuery<APIOperationOutput<"projections.matches.getOpen">, Error>(`openMatches`, () =>
+    performRPCOperation("projections.matches.getOpen", userId)({})
   );
 };
