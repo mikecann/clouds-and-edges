@@ -54,7 +54,7 @@ export const createSystem = <
   ): string =>
     ensure(
       (namespaces[category] as any)[name],
-      `Unknown aggregate '${name}' make sure you have mapped it in your system`
+      `Unknown ${category} '${name}' make sure you have mapped it in your system (e.g. namespaces.${category}.${name})`
     ).name;
 
   const getAggregateNamespaceName = (name: keyof TAggregates) =>

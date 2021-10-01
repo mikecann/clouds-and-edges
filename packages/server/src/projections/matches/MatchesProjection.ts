@@ -20,7 +20,9 @@ export class MatchesProjection extends ProjectionDurableObject<Env> implements R
   };
 
   getOpen: RPCHandler<API, "getOpen"> = async ({}) => {
-    const ids = await this.db.list("open", { prefix: "" }).then((map) => [...map.keys()]);
+    const ids = await this.db
+      .list("open", { prefix: "" })
+      .then((map) => [...map.keys()].map((k) => k.replace(`open:`, ``)));
     return await Promise.all(ids.map((id) => this.db.get("match", id)));
   };
 

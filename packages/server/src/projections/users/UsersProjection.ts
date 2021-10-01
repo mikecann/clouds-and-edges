@@ -13,8 +13,6 @@ export class UsersProjection extends ProjectionDurableObject<Env> implements RPC
 
   findUserById: RPCHandler<API, "findUserById"> = async ({ id }) => {
     this.logger.debug(`handling query`, id);
-    const all = await this.storage.list();
-    this.logger.debug(`ALLLLLL`, all);
     const val = await this.storage.get(`user:${id}`);
     this.logger.debug(`lookup response`, val);
     return {

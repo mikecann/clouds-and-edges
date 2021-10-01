@@ -17,6 +17,7 @@ export const MatchCard: React.FC<Props> = ({ match, onCancel, onJoin, onOpen, is
       <Text as={"h4"}>
         Size: {match.settings.gridSize.width}x{match.settings.gridSize.height}
       </Text>
+      <Text>Status: {match.status}</Text>
       {onOpen ? (
         <Button isLoading={isLoading} isDisabled={isLoading} onClick={onOpen} colorScheme={"blue"}>
           Open

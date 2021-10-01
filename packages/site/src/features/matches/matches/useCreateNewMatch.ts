@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from "react-query";
 import { wait } from "@project/essentials";
 import { useCommand } from "../../api/useCommand";
+import { useAppState } from "../../state/appState";
 
 export const useCreateNewMatch = () => {
   const queryClient = useQueryClient();
-  return useMutation(useCommand("user", "create-match-request"), {
+  const [{ userId }] = useAppState();
+  return useMutation(useCommand("user", "create-match-request", userId), {
     onSettled: async () => {
       // Wait a sec then grab the new me
       await wait(200);

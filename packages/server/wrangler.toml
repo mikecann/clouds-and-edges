@@ -23,7 +23,7 @@ bindings = [
 
   {name = "UsersProjection", class_name = "UsersProjection"},
   {name = "MatchesProjection", class_name = "MatchesProjection"},
-  {name = "OpenMatchesProjection", class_name = "OpenMatchesProjection"},
 
-  {name = "ProposalJoiningProcess", class_name = "ProposalJoiningProcess"},
+  {name = "MatchCreationProcess", class_name = "MatchCreationProcess"},
+  {name = "MatchJoiningProcess", class_name = "MatchJoiningProcess"},
 ]

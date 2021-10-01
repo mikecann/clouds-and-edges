@@ -1,19 +1,13 @@
 import * as React from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, BoxProps, Heading } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends BoxProps {
   title: string;
 }
 
-export const SectionContainer: React.FC<Props> = ({ title, children }) => {
+export const SectionContainer: React.FC<Props> = ({ title, children, ...rest }) => {
   return (
-    <Box
-      minWidth={300}
-      backgroundColor={"rgba(0,0,0,0.2)"}
-      borderRadius={6}
-      padding={5}
-      minHeight={300}
-    >
+    <Box minWidth={300} backgroundColor={"rgba(0,0,0,0.2)"} borderRadius={6} padding={5} {...rest}>
       <Heading
         fontSize="xl"
         backgroundColor={"rgba(0,0,0,0.2)"}

@@ -17,11 +17,11 @@ import { ensure, equals, iife } from "@project/essentials";
  * I think this would be better as a state machine using xstate
  */
 export const commands: AggregateCommandHandlers<MatchAggregateState, MatchCommands, MatchEvent> = {
-  create: ({ state, payload: { size }, userId, timestamp }) => {
+  create: ({ state, payload: { size, createdByUserId }, userId, timestamp }) => {
     return {
       kind: `match-created`,
       payload: {
-        createdByUserId: userId,
+        createdByUserId,
         settings: {
           gridSize: createMatchSizeToDimensions(size),
           maxPlayers: 2, // it is possible for this game to have more than 2 players but to keep it simple we are going to limit it to 2
@@ -40,32 +40,33 @@ export const commands: AggregateCommandHandlers<MatchAggregateState, MatchComman
   },
   join: ({ state, payload, userId, timestamp }) => {
     const maxPlayers = ensure(state.settings).maxPlayers;
-    if (state.players.length >= maxPlayers)
-      throw new Error(`max players reached`);
+    if (state.players.length >= maxPlayers) throw new Error(`max players reached`);
 
-    const events: MatchEvent[] = [{
-      kind: `match-joined`,
-      payload: {
-        player: {
-          id: payload.userId,
-          avatar: payload.avatar,
-          color: payload.color,
-          name: payload.name,
+    const events: MatchEvent[] = [
+      {
+        kind: `match-joined`,
+        payload: {
+          player: {
+            id: payload.userId,
+            avatar: payload.avatar,
+            color: payload.color,
+            name: payload.name,
+          },
         },
       },
-    }]
+    ];
 
     // If we add this player then we should auto-start the match
-    if (state.players.length == maxPlayers -1)
+    if (state.players.length == maxPlayers - 1)
       events.push({
         kind: "match-started",
         payload: {
           // The person that was last to join is first to start as they shouldnt be AFK
-          firstPlayerToTakeATurn: payload.userId
-        }
-      })
- 
-    return events
+          firstPlayerToTakeATurn: payload.userId,
+        },
+      });
+
+    return events;
   },
   start: ({ userId, payload }) => {
     // todo: various checks against state

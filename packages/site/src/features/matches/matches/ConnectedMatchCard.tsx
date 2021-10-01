@@ -16,12 +16,15 @@ export const ConnectedMatchCard: React.FC<Props> = ({ match }) => {
   const [{ userId }] = useAppState();
   const history = useHistory();
 
+  console.log(match);
+
   const isCreatedByMe = match.createdByUserId == userId;
   const isJoinedByMe = match.players.some((p) => p.id == userId);
-  const isStarted = match.status == "playing";
-  const canJoin = !isCreatedByMe && !isStarted;
-  const canCancel = isCreatedByMe && !isStarted;
-  const canOpen = (isCreatedByMe || isJoinedByMe) && isStarted;
+
+  const canJoin = !isCreatedByMe && !isJoinedByMe && match.status == "not-started";
+  const canCancel = isCreatedByMe && match.status == "not-started";
+  const canOpen =
+    ((isCreatedByMe || isJoinedByMe) && match.status == "playing") || match.status == "finished";
 
   return (
     <MatchCard

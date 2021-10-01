@@ -28,6 +28,7 @@ export const reducers: AggregateReducers<MatchAggregateState, MatchEvent> = {
   "match-started": ({ state, payload }) => ({
     ...state,
     status: "playing",
+    nextPlayerToTakeTurn: payload.firstPlayerToTakeATurn,
     lines: [],
   }),
   "match-turn-taken": ({ state, payload }) => ({

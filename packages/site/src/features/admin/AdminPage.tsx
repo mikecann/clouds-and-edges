@@ -1,46 +1,61 @@
 import * as React from "react";
 import { SidebarPage } from "../page/SidebarPage";
-import { Center, Heading, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Center,
+  Heading,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  VStack,
+  Tab,
+  Wrap,
+  WrapItem,
+  HStack,
+} from "@chakra-ui/react";
 import { SectionContainer } from "./SectionContainer";
 import { ConnectedEventsAdminLog } from "./events/ConnectedEventsAdminLog";
-import { ConnectedProjectionInfo } from "./projections/ConnectedProjectionInfo";
-import { ConnectedProcessInfo } from "./processes/ConnectedProcessInfo";
+import { ConnectedProjectionAdmin } from "./projections/ConnectedProjectionAdmin";
+import { ConnectedProcessAdmin } from "./processes/ConnectedProcessAdmin";
+import { ProcessesAdmin } from "./processes/ProcessesAdmin";
+import { AggregatesAdmin } from "./aggregates/AggregatesAdmin";
+import { ProjectionsAdmin } from "./projections/ProjectionsAdmin";
 
 interface Props {}
 
 export const AdminPage: React.FC<Props> = ({}) => {
   return (
     <SidebarPage>
-      <VStack>
+      <VStack width={"100%"} paddingLeft={10} paddingRight={10}>
         <Heading as={"h1"}>Admin Page</Heading>
         <Text marginBottom={5}>Some information on the state of the system</Text>
-        <Wrap>
-          <WrapItem>
-            <SectionContainer title={"Event Log"}>
-              <ConnectedEventsAdminLog />
-            </SectionContainer>
-          </WrapItem>
-          <WrapItem>
-            <SectionContainer title={"Users Projection"}>
-              <ConnectedProjectionInfo projection={"users"} />
-            </SectionContainer>
-          </WrapItem>
-          <WrapItem>
-            <SectionContainer title={"Matches Projection"}>
-              <ConnectedProjectionInfo projection={"matches"} />
-            </SectionContainer>
-          </WrapItem>
-          <WrapItem>
-            <SectionContainer title={"Match Creation Process"}>
-              <ConnectedProcessInfo process={"matchCreation"} />
-            </SectionContainer>
-          </WrapItem>
-          <WrapItem>
-            <SectionContainer title={"Match Joining Process"}>
-              <ConnectedProcessInfo process={"matchJoining"} />
-            </SectionContainer>
-          </WrapItem>
-        </Wrap>
+
+        <Tabs width={"100%"} isLazy>
+          <TabList>
+            <Tab>Events</Tab>
+            <Tab>Aggregates</Tab>
+            <Tab>Processes</Tab>
+            <Tab>Projections</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <SectionContainer title={"Event Log"}>
+                <ConnectedEventsAdminLog />
+              </SectionContainer>
+            </TabPanel>
+            <TabPanel>
+              <AggregatesAdmin />
+            </TabPanel>
+            <TabPanel>
+              <ProcessesAdmin />
+            </TabPanel>
+            <TabPanel>
+              <ProjectionsAdmin />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </VStack>
     </SidebarPage>
   );

@@ -7,7 +7,7 @@ export interface Env {
 
   UsersProjection: DurableObjectNamespace;
   MatchesProjection: DurableObjectNamespace;
-  OpenMatchesProjection: DurableObjectNamespace;
 
-  ProposalJoiningProcess: DurableObjectNamespace;
+  MatchCreationProcess: DurableObjectNamespace;
+  MatchJoiningProcess: DurableObjectNamespace;
 }

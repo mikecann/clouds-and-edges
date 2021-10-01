@@ -2,6 +2,7 @@ import { getLogger, iife } from "@project/essentials";
 import { Env } from "../env";
 import { Command } from "./commands";
 import { System } from "../system/system";
+import { CommandExecutionResponse } from "../aggregates/AggreateDurableObject";
 
 interface Options {
   command: Command;
@@ -12,7 +13,12 @@ interface Options {
 
 const logger = getLogger(`executeCommand`);
 
-export const executeCommand = async ({ env, command, userId, system }: Options) => {
+export const executeCommand = async ({
+  env,
+  command,
+  userId,
+  system,
+}: Options): Promise<CommandExecutionResponse> => {
   logger.debug(`Executing command`, {
     command,
     userId,

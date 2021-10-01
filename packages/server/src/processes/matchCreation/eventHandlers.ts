@@ -38,7 +38,7 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
       if (user.activeMatches > 3) return;
 
       // First we create the match
-      await effects.executeCommand({
+      const response = await effects.executeCommand({
         aggregate: "match",
         kind: "create",
         payload: {
@@ -51,10 +51,11 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
       await effects.executeCommand({
         aggregate: "match",
         kind: "join",
+        aggregateId: response.aggregateId,
         payload: {
           userId: user.id,
           name: user.name,
-          color: user.color,
+          color: `#d5aae9`, // user.color,
           avatar: user.avatar,
         },
       });

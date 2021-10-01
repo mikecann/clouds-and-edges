@@ -6,6 +6,10 @@ import { Env } from "../env";
 import { System } from "../system/system";
 import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
 
+export type CommandExecutionResponse = {
+  aggregateId: string;
+};
+
 export type AggreateDurableObjectAPI = {
   execute: {
     input: {
@@ -13,7 +17,7 @@ export type AggreateDurableObjectAPI = {
       command: string;
       payload: unknown;
     };
-    output: {};
+    output: CommandExecutionResponse;
   };
 };
 
@@ -106,6 +110,8 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
 
     this.logger.debug(`execution finished`);
 
-    return {};
+    return {
+      aggregateId: this.aggregateId,
+    };
   };
 }

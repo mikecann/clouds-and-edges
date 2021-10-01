@@ -1,13 +1,9 @@
 import * as React from "react";
 import { Box, Heading, VStack } from "@chakra-ui/react";
-import { IdIcon } from "../misc/IdIcon";
-import { MatchProjection } from "@project/shared";
 
-interface Props {
-  match: MatchProjection;
-}
+interface Props {}
 
-export const NoOpponent: React.FC<Props> = ({ match }) => {
+export const NotStarted: React.FC<Props> = ({}) => {
   return (
     <VStack>
       <Heading>Match Not Started</Heading>

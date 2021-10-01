@@ -1,11 +1,13 @@
-import { Command, EventInput, StoredEvent } from "@project/workers-es";
+import { Command, CommandExecutionResponse, EventInput, StoredEvent } from "@project/workers-es";
 
 export interface ProcessAdminState {
   status: `not-built` | `building` | `built`;
 }
 
 type ProcessSideEffects<TCommands extends Command> = {
-  executeCommand: (command: TCommands) => Promise<unknown>;
+  executeCommand: (
+    command: TCommands & { aggregateId?: string }
+  ) => Promise<CommandExecutionResponse>;
 };
 
 type Storage = DurableObjectStorage;

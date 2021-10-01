@@ -5,7 +5,7 @@ import { UsersProjection } from "./projections/users/UsersProjection";
 import { EventStore } from "./EventStore";
 import { MatchesProjection } from "./projections/matches/MatchesProjection";
 import { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
-import { MatchCreationProcess } from "./main";
+import { MatchCreationProcess } from "./processes/matchCreation/MatchCreationProcess";
 
 export const system = createSystem({
   namespaces: {

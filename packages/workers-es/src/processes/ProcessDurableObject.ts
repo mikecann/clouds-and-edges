@@ -1,4 +1,3 @@
-import { RPCDurableObject } from "../durableObjects/RPCDurableObject";
 import { findInObj, getLogger, Logger } from "@project/essentials";
 import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { StoredEvent } from "../events/events";
@@ -56,11 +55,11 @@ export class ProcessDurableObject<TEnv = Env>
   }
 
   onEvent: RPCHandler<API, "onEvent"> = async ({ event }) => {
-    this.logger.debug(`handling event`, event);
+    this.logger.debug(`handling event '${event.kind}'`);
 
-    const handler: ProcessEventHandler = findInObj(this.handlers, event.kind);
+    const handler: ProcessEventHandler = findInObj(this.handlers.handlers, event.kind);
     if (!handler) {
-      this.logger.debug(`Process unable to handle event '${event.kind}'`);
+      this.logger.debug(`No handler found for event '${event.kind}'`);
       return {};
     }
 

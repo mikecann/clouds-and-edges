@@ -2,11 +2,11 @@ import { UserAggregateState } from "./state";
 import { UserEvent } from "./events";
 import { AggregateCommandHandlers } from "@project/workers-es";
 import { UserCommands } from "@project/shared";
-import { emojis, ensure, randomOne, someNiceColors } from "@project/essentials";
+import { emojis, randomOne, someNiceColors } from "@project/essentials";
 
 export const commands: AggregateCommandHandlers<UserAggregateState, UserCommands, UserEvent> = {
   create: ({ state, payload }) => {
-    ensure(state.createdAt, `user not created`);
+    if (state.createdAt) throw new Error(`user already created`);
     return {
       kind: `user-created`,
       payload: {
@@ -17,7 +17,7 @@ export const commands: AggregateCommandHandlers<UserAggregateState, UserCommands
     };
   },
   "set-name": ({ state, payload }) => {
-    ensure(state.createdAt, `user not created`);
+    if (!state.createdAt) throw new Error(`user not created`);
     return {
       kind: `user-name-set`,
       payload: {
@@ -26,7 +26,7 @@ export const commands: AggregateCommandHandlers<UserAggregateState, UserCommands
     };
   },
   "create-match-request": ({ state, payload, userId }) => {
-    ensure(state.createdAt, `user not created`);
+    if (!state.createdAt) throw new Error(`user not created`);
     return {
       kind: `user-create-match-requested`,
       payload: {

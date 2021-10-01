@@ -41,10 +41,11 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
       await effects.executeCommand({
         aggregate: "match",
         kind: "join",
+        aggregateId: event.aggregateId,
         payload: {
           userId: user.id,
           name: user.name,
-          color: user.color,
+          color: `#D7F2CE`, // user.color,
           avatar: user.avatar,
         },
       });
