@@ -27,7 +27,7 @@ interface Props {}
 export const AdminPage: React.FC<Props> = ({}) => {
   return (
     <SidebarPage>
-      <VStack width={"100%"} paddingLeft={10} paddingRight={10}>
+      <VStack width={"100%"} padding={5}>
         <Heading as={"h1"}>Admin Page</Heading>
         <Text marginBottom={5}>Some information on the state of the system</Text>
 

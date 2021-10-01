@@ -3,7 +3,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import ReactJson from "react-json-view";
 
 interface Props {
-  data: Record<string, unknown>;
+  data: [key: string, value: any][];
 }
 
 export const KeyValueTable: React.FC<Props> = ({ data }) => {
@@ -16,7 +16,7 @@ export const KeyValueTable: React.FC<Props> = ({ data }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {Object.entries(data).map(([key, value]) => (
+        {data.map(([key, value]) => (
           <Tr key={key}>
             <Td maxWidth={200} textOverflow={"ellipsis"}>
               {key}
@@ -24,7 +24,7 @@ export const KeyValueTable: React.FC<Props> = ({ data }) => {
             <Td maxWidth={400}>
               <ReactJson
                 theme={"ocean"}
-                src={value as any}
+                src={value}
                 collapseStringsAfterLength={80}
                 enableClipboard={false}
                 displayDataTypes={false}

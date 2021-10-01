@@ -1,20 +1,15 @@
 import * as React from "react";
-import { Accordion } from "@chakra-ui/react";
-import { LogEntry } from "./LogEntry";
 import { StoredEvent } from "@project/workers-es";
+import { KeyValueTable } from "../storage/KeyValueTable";
 
 export interface EventsAdminLogProps {
   events: StoredEvent[];
 }
 
 export const EventsAdminLog: React.FC<EventsAdminLogProps> = ({ events }) => {
-  return (
-    <Accordion maxHeight={600} overflowY={"auto"}>
-      {events
-        .sort((a, b) => a.timestamp - b.timestamp)
-        .map((event) => (
-          <LogEntry key={event.id} event={event} />
-        ))}
-    </Accordion>
-  );
+  const kv = events
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .map((event) => [event.id, event] as const);
+
+  return <KeyValueTable data={kv as any} />;
 };

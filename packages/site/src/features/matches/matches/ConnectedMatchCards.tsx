@@ -9,7 +9,7 @@ export const ConnectedMatchCards: React.FC<Props> = ({}) => {
   const { data: matches } = useMatches();
 
   return (
-    <Wrap spacing={20}>
+    <Wrap spacing={10}>
       {matches?.map((m) => (
         <WrapItem key={m.id}>
           <ConnectedMatchCard match={m} />

@@ -23,16 +23,12 @@ export interface MatchProjection {
   winner?: PlayerId;
 }
 
-export interface OpenMatchProjection {
-  id: Id;
-  settings: MatchSettings;
-  createdByUserId: string;
-}
-
 export interface MatchesProjections {
   matches: {
     getOpen: {
-      input: {};
+      input: {
+        excludePlayer?: PlayerId;
+      };
       output: MatchProjection[];
     };
     getForPlayer: {

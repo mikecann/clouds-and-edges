@@ -1,38 +1,47 @@
 import * as React from "react";
-import { Button, Text, VStack } from "@chakra-ui/react";
-import { MatchProjection } from "@project/shared";
+import { Badge, Button, Text, VStack, Box, Avatar, HStack, Tooltip } from "@chakra-ui/react";
+import { MatchProjection, MatchSettings, MatchStatus, Player } from "@project/shared";
+import { matchLiteral } from "variant";
 
 interface Props {
   match: MatchProjection;
-  onCancel?: () => any;
-  onJoin?: () => any;
-  onOpen?: () => any;
-  isLoading: boolean;
+  meId: string;
+  actions?: React.ReactNode;
 }
 
-export const MatchCard: React.FC<Props> = ({ match, onCancel, onJoin, onOpen, isLoading }) => {
+export const MatchCard: React.FC<Props> = ({ match, meId, actions }) => {
   return (
-    <VStack backgroundColor={"rgba(0,0,0,0.2)"} borderRadius={6} padding={5}>
-      <Text as={"h4"}>Players: {match.players.map((p) => p.name).join(", ")}</Text>
+    <VStack backgroundColor={"gray.900"} borderRadius={6} padding={5}>
+      <HStack spacing={-5}>
+        {match.players.map((p) => (
+          <Tooltip label={p.name}>
+            <Avatar
+              icon={<Box>{p.avatar}</Box>}
+              border={`2px solid rgba(255,255,255,0.5)`}
+            ></Avatar>
+          </Tooltip>
+        ))}
+      </HStack>
       <Text as={"h4"}>
-        Size: {match.settings.gridSize.width}x{match.settings.gridSize.height}
+        {match.settings.gridSize.width}x{match.settings.gridSize.height}
       </Text>
-      <Text>Status: {match.status}</Text>
-      {onOpen ? (
-        <Button isLoading={isLoading} isDisabled={isLoading} onClick={onOpen} colorScheme={"blue"}>
-          Open
-        </Button>
-      ) : null}
-      {onJoin ? (
-        <Button isLoading={isLoading} isDisabled={isLoading} onClick={onJoin} colorScheme={"blue"}>
-          Join
-        </Button>
-      ) : null}
-      {onCancel ? (
-        <Button isLoading={isLoading} isDisabled={isLoading} onClick={onCancel}>
-          Cancel
-        </Button>
-      ) : null}
+      <Text>
+        {matchLiteral(match.status, {
+          "not-started": () => <Badge colorScheme="blue">Not Started</Badge>,
+          playing: () => {
+            const meIsPlayer = match.players.some((p) => p.id == meId);
+            if (!meIsPlayer) return <Badge colorScheme="purple">Playing</Badge>;
+
+            const isMyTurn = match.nextPlayerToTakeTurn == meId;
+            if (isMyTurn) return <Badge colorScheme="green">Your Turn</Badge>;
+
+            return <Badge colorScheme="yellow">Their Turn</Badge>;
+          },
+          cancelled: () => <Badge colorScheme="red">Cancelled</Badge>,
+          finished: () => <Badge colorScheme="olive">Finished</Badge>,
+        })}
+      </Text>
+      {actions}
     </VStack>
   );
 };

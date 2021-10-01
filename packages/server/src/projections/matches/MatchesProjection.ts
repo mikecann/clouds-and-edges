@@ -19,11 +19,14 @@ export class MatchesProjection extends ProjectionDurableObject<Env> implements R
     return await this.db.get("match", id);
   };
 
-  getOpen: RPCHandler<API, "getOpen"> = async ({}) => {
+  getOpen: RPCHandler<API, "getOpen"> = async ({ excludePlayer }) => {
     const ids = await this.db
       .list("open", { prefix: "" })
       .then((map) => [...map.keys()].map((k) => k.replace(`open:`, ``)));
-    return await Promise.all(ids.map((id) => this.db.get("match", id)));
+
+    const matches = await Promise.all(ids.map((id) => this.db.get("match", id)));
+
+    return matches.filter((m) => m.players.some((p) => p.id == excludePlayer) == false);
   };
 
   getForPlayer: RPCHandler<API, "getForPlayer"> = async ({ playerId }) => {

@@ -26,7 +26,7 @@ export const InspectableStorage: React.FC<Props> = ({ contents }) => {
         <InputLeftElement pointerEvents="none" children={<ImSearch color="gray.300" />} />
         <Input type="tel" placeholder="Query" />
       </InputGroup>
-      <KeyValueTable data={contents} />
+      <KeyValueTable data={Object.entries(contents)} />
     </VStack>
   );
 };

@@ -53,7 +53,7 @@ addRpcRoutes<API, Env>({
       return system.getProjection("matches", env).getMatch({ id: input.id });
     },
     "projections.matches.getOpen": async (input, env, userId) => {
-      return system.getProjection("matches", env).getOpen({ userId: ensure(userId) });
+      return system.getProjection("matches", env).getOpen({ excludePlayer: input.excludePlayer });
     },
     "event-store.events": async (input, env) => {
       return system.getEventStore(env).getEvents({});

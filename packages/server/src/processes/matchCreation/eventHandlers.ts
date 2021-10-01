@@ -18,7 +18,6 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
         name: event.payload.name,
         activeMatches: 0,
         avatar: event.payload.avatar,
-        color: event.payload.color,
       });
     },
 

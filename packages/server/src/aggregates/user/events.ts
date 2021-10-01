@@ -5,7 +5,6 @@ export interface UserCreated {
   payload: {
     name: string;
     avatar: string;
-    color: string;
   };
 }
 

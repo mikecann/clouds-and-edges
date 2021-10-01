@@ -5,6 +5,7 @@ import { useRequestJoinMatch } from "./useJoinMatch";
 import { MatchProjection } from "@project/shared";
 import { MatchCard } from "./MatchCard";
 import { useHistory } from "react-router-dom";
+import { MyMatchCard } from "./MyMatchCard";
 
 interface Props {
   match: MatchProjection;
@@ -16,7 +17,7 @@ export const ConnectedMatchCard: React.FC<Props> = ({ match }) => {
   const [{ userId }] = useAppState();
   const history = useHistory();
 
-  console.log(match);
+  if (!userId) return null;
 
   const isCreatedByMe = match.createdByUserId == userId;
   const isJoinedByMe = match.players.some((p) => p.id == userId);
@@ -27,7 +28,8 @@ export const ConnectedMatchCard: React.FC<Props> = ({ match }) => {
     ((isCreatedByMe || isJoinedByMe) && match.status == "playing") || match.status == "finished";
 
   return (
-    <MatchCard
+    <MyMatchCard
+      meId={userId}
       isLoading={isCancelling || isJoining}
       match={match}
       onCancel={canCancel ? () => onCancel({}) : undefined}

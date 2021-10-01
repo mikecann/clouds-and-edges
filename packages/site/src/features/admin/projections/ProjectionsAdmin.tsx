@@ -14,10 +14,10 @@ export const ProjectionsAdmin: React.FC<Props> = ({}) => {
       </TabList>
 
       <TabPanels>
-        <TabPanel>
+        <TabPanel paddingTop={0} paddingBottom={0}>
           <ConnectedProjectionAdmin projection={"users"} />
         </TabPanel>
-        <TabPanel>
+        <TabPanel paddingTop={0} paddingBottom={0}>
           <ConnectedProjectionAdmin projection={"matches"} />
         </TabPanel>
       </TabPanels>

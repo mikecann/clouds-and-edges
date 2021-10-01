@@ -10,6 +10,7 @@ export const getHandlers = (storage: DurableObjectStorage): ProjectionEventHandl
     await storage.put(`user:${aggregateId}`, {
       id: aggregateId,
       name: (payload as any).name,
+      avatar: payload.avatar,
     });
     logger.debug(`UsersProjection stored`);
   },

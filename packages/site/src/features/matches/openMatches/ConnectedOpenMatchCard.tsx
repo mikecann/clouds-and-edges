@@ -1,12 +1,12 @@
+import { MatchProjection } from "@project/shared";
 import * as React from "react";
 import { useAppState } from "../../state/appState";
-import { OpenMatchProjection } from "@project/shared";
 import { useCancelMatch } from "../matches/useCancelMatch";
 import { useRequestJoinMatch } from "../matches/useJoinMatch";
 import { OpenMatchCard } from "./OpenMatchCard";
 
 interface Props {
-  match: OpenMatchProjection;
+  match: MatchProjection;
 }
 
 export const ConnectedOpenMatchCard: React.FC<Props> = ({ match }) => {
@@ -14,8 +14,11 @@ export const ConnectedOpenMatchCard: React.FC<Props> = ({ match }) => {
   const { mutate: join, isLoading: isJoining } = useRequestJoinMatch(match.id);
   const [{ userId }] = useAppState();
 
+  if (!userId) return null;
+
   return (
     <OpenMatchCard
+      meId={userId}
       isLoading={isCancelling || isJoining}
       match={match}
       onCancel={match.createdByUserId == userId ? () => cancel({}) : undefined}

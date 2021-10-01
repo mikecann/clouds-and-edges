@@ -14,10 +14,10 @@ export const ProcessesAdmin: React.FC<Props> = ({}) => {
       </TabList>
 
       <TabPanels>
-        <TabPanel>
+        <TabPanel paddingTop={0} paddingBottom={0}>
           <ConnectedProcessAdmin process={"matchCreation"} />
         </TabPanel>
-        <TabPanel>
+        <TabPanel paddingTop={0} paddingBottom={0}>
           <ConnectedProcessAdmin process={"matchJoining"} />
         </TabPanel>
       </TabPanels>

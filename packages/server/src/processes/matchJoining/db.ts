@@ -5,7 +5,6 @@ type Entities = {
     id: string;
     name: string;
     activeMatches: number;
-    color: string;
     avatar: string;
   };
   match: {

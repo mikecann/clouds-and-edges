@@ -8,6 +8,7 @@ export const reducers: AggregateReducers<UserAggregateState, UserEvent> = {
     id: aggregateId,
     createdAt: timestamp,
     name: payload.name,
+    avatar: payload.avatar,
   }),
   "user-name-set": ({ state }) => ({
     ...state,
