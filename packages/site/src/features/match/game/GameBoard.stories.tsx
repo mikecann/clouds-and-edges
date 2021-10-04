@@ -3,6 +3,7 @@ import { Meta } from "@storybook/react";
 import { GameBoard } from "./GameBoard";
 import { produceCellStates, producePlayerState } from "@project/shared";
 import { produce } from "immer";
+import { Box } from "@chakra-ui/react";
 
 export default {
   title: "GameBoard",

@@ -26,8 +26,8 @@ export const SignupPage: React.FC<Props> = ({}) => {
       verticalAlign="center"
     >
       <Vertical horizontalAlign="center" style={{ width: 300 }} spacing={10}>
-        <Logo />
-        <Heading as="h1">TikTacFlare</Heading>
+        <Logo animation={"App-logo-spin infinite 2s ease"} />
+        <Heading as="h1">Clouds & Edges</Heading>
         <Input placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
         <Button
           isLoading={signupMutation.isLoading}

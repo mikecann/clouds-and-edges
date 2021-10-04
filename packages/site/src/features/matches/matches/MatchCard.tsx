@@ -14,7 +14,7 @@ export const MatchCard: React.FC<Props> = ({ match, meId, actions }) => {
     <VStack backgroundColor={"gray.900"} borderRadius={6} padding={5}>
       <HStack spacing={-5}>
         {match.players.map((p) => (
-          <Tooltip label={p.name}>
+          <Tooltip key={p.id} label={p.name}>
             <Avatar
               icon={<Box>{p.avatar}</Box>}
               border={`2px solid rgba(255,255,255,0.5)`}

@@ -4,6 +4,8 @@ import { getPlayer, LineDirection, Dot, findLineOwner } from "@project/shared";
 import { LineView } from "./LineView";
 import { cellSize } from "./CellView";
 import { GameState } from "./GameState";
+import { Logo } from "../../logo/Logo";
+import { CloudflareLogo } from "../../logo/CloudflareLogo";
 
 interface Props extends BoxProps {
   game: GameState;
@@ -53,13 +55,15 @@ export const DotView: React.FC<Props> = ({ dot, game, onFillLine, ...rest }) => 
 
       <Box
         position={`absolute`}
-        top={`-12px`}
-        left={`-12px`}
+        top={`-25px`}
+        left={`-25px`}
         borderRadius={`50%`}
-        width={`24px`}
-        height={`24px`}
-        backgroundColor={`tomato`}
-      />
+        width={`50px`}
+        height={`50px`}
+        //backgroundColor={`tomato`}
+      >
+        <CloudflareLogo width={`50px`} height={`50px`} />
+      </Box>
     </Box>
   );
 };
