@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, BoxProps, Heading } from "@chakra-ui/react";
+import { Box, BoxProps, Heading, VStack } from "@chakra-ui/react";
 
 interface Props extends BoxProps {
   title: string;
@@ -7,16 +7,16 @@ interface Props extends BoxProps {
 
 export const SectionContainer: React.FC<Props> = ({ title, children, ...rest }) => {
   return (
-    <Box minWidth={300} backgroundColor={"rgba(0,0,0,0.2)"} borderRadius={6} padding={5} {...rest}>
-      <Heading
-        fontSize="xl"
-        backgroundColor={"rgba(0,0,0,0.2)"}
-        padding={2}
-        borderRadius={10}
-        paddingLeft={5}
-      >
-        {title}
-      </Heading>
+    <VStack
+      minWidth={300}
+      spacing={5}
+      alignItems={"flex-start"}
+      border="1px solid rgba(255,255,255,0.1)"
+      borderRadius="5px"
+      padding={5}
+      {...rest}
+    >
+      <Heading fontSize="3xl">{title}</Heading>
       <Box
         backgroundColor={"gray.200.200"}
         height={"100%"}
@@ -27,6 +27,6 @@ export const SectionContainer: React.FC<Props> = ({ title, children, ...rest }) 
       >
         {children}
       </Box>
-    </Box>
+    </VStack>
   );
 };

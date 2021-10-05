@@ -8,7 +8,7 @@ interface Props {
 
 export const KeyValueTable: React.FC<Props> = ({ data }) => {
   return (
-    <Table variant="simple">
+    <Table variant="simple" size="sm" border="1px solid rgba(255,255,255,0.2)" borderRadius="4px">
       <Thead>
         <Tr>
           <Th>Key</Th>

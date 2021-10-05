@@ -8,6 +8,16 @@ interface Props {
 }
 
 export const ConnectedInspectableStorage: React.FC<Props> = ({ identifier }) => {
-  const { data: contents } = useQueryStorage({ input: {}, identifier });
-  return <InspectableStorage contents={contents ?? {}} />;
+  const [prefix, setPrefix] = React.useState("");
+  const [limit, setLimit] = React.useState<number>();
+  const [start, setStart] = React.useState<number>();
+  const { data: contents } = useQueryStorage({ input: { prefix, limit, start }, identifier });
+  return (
+    <InspectableStorage
+      contents={contents ?? {}}
+      onQueryChange={setPrefix}
+      onLimitChange={setLimit}
+      onStartChange={setStart}
+    />
+  );
 };

@@ -1,11 +1,14 @@
-import { Avatar, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Avatar, Tab, TabList, TabPanel, TabPanels, Tabs, Box } from "@chakra-ui/react";
 import { Stretch, StretchSpacer, Vertical } from "gls/lib";
 import * as React from "react";
+import { useMe } from "../api/useMe";
 import { SidebarButton } from "./SidebarButton";
 
 interface Props {}
 
 export const ConnectedDashboardSidebar: React.FC<Props> = ({}) => {
+  const { data: me } = useMe();
+
   return (
     <Vertical
       style={{
@@ -26,7 +29,7 @@ export const ConnectedDashboardSidebar: React.FC<Props> = ({}) => {
         </TabList>
       </Tabs> */}
       <SidebarButton to={"/me"}>
-        <Avatar />
+        <Avatar icon={<Box>{me?.avatar}</Box>} />
       </SidebarButton>
       <SidebarButton to={"/matches"}>Matches</SidebarButton>
       <StretchSpacer />
