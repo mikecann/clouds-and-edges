@@ -8,7 +8,6 @@ const logger = getLogger(`useMe`);
 
 export const useMe = () => {
   const [{ userId }] = useAppState();
-  //const signout = useSignout();
   return useQuery<UserProjection | null | undefined, Error>(`me`, async () => {
     const { user } = await performRPCOperation(
       "projections.users.findUserById",
@@ -16,10 +15,6 @@ export const useMe = () => {
     )({
       id: ensure(userId),
     });
-    // if (!user) {
-    //   logger.info(`could not get me with id '${userId}' from API so going to signout`);
-    //   signout();
-    // }
     return user;
   });
 };

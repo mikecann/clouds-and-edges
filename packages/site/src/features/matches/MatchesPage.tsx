@@ -14,6 +14,7 @@ export const MatchesPage: React.FC<Props> = ({}) => {
 
   return (
     <SidebarPage>
+
       <VStack spacing={`20px`} padding={10}>
         <Button
           colorScheme="green"

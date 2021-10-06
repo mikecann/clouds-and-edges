@@ -10,7 +10,9 @@
   "scripts": {
     "dev": "yarn compile --watch",
     "compile": "tsc --build",
-    "clean": "rimraf **/dist **/tsconfig.tsbuildinfo **/yarn-error.log **/yarn.lock",
+    "clean:ts": "rimraf **/dist **/.mf **/tsconfig.tsbuildinfo",
+    "clean:deps": "rimraf **/node_modules **/yarn-error.log **/yarn.lock",
+    "clean:full": "yarn clean:deps && yarn clean:ts",
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
     "barrel": "lerna run barrel --stream",

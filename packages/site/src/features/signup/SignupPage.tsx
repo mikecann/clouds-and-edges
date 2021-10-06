@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Button, Heading, Input } from "@chakra-ui/react";
-import { Vertical } from "gls";
+import { Button, Heading, Input, VStack } from "@chakra-ui/react";
 import { Logo } from "../logo/Logo";
 import { useSignup } from "../api/useSignup";
 import { useIsAuthenticated } from "../state/useIsAuthenticated";
@@ -20,12 +19,8 @@ export const SignupPage: React.FC<Props> = ({}) => {
   }, [isAuthed]);
 
   return (
-    <Vertical
-      style={{ width: "100vw", height: "100vh" }}
-      horizontalAlign="center"
-      verticalAlign="center"
-    >
-      <Vertical horizontalAlign="center" style={{ width: 300 }} spacing={10}>
+    <VStack width="100vw" height="100vh" alignItems="center" justifyContent="center">
+      <VStack justifyContent="center" width="400px" spacing={5} borderRadius={"10px"} padding={10}>
         <Logo animation={"App-logo-spin infinite 2s ease"} />
         <Heading as="h1">Clouds & Edges</Heading>
         <Input placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -37,7 +32,7 @@ export const SignupPage: React.FC<Props> = ({}) => {
         >
           Signup
         </Button>
-      </Vertical>
-    </Vertical>
+      </VStack>
+    </VStack>
   );
 };

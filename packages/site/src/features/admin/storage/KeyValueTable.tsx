@@ -28,14 +28,18 @@ export const KeyValueTable: React.FC<Props> = ({ data }) => {
               <Text isTruncated={true}>{key}</Text>
             </Td>
             <Td>
-              <ReactJson
-                theme={"ocean"}
-                src={value ?? {}}
-                collapseStringsAfterLength={80}
-                enableClipboard={false}
-                displayDataTypes={false}
-                displayObjectSize={false}
-              />
+              {typeof value == "object" ? (
+                <ReactJson
+                  theme={"ocean"}
+                  src={value ?? {}}
+                  collapseStringsAfterLength={80}
+                  enableClipboard={false}
+                  displayDataTypes={false}
+                  displayObjectSize={false}
+                />
+              ) : (
+                <Text isTruncated={true}>{value}</Text>
+              )}
             </Td>
           </Tr>
         ))}

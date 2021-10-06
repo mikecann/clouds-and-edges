@@ -1,7 +1,6 @@
 import * as React from "react";
 import { EditableControls } from "./EditableControls";
-import { Editable, EditableInput, EditablePreview, EditableProps } from "@chakra-ui/react";
-import { Horizontal } from "gls";
+import { Editable, EditableInput, EditablePreview, EditableProps, HStack } from "@chakra-ui/react";
 
 interface Props extends EditableProps {}
 
@@ -14,11 +13,11 @@ export const EditableText: React.FC<Props> = ({ ...rest }) => {
       isPreviewFocusable={false}
       {...rest}
     >
-      <Horizontal verticalAlign={"center"} spacing={10}>
+      <HStack justifyContent={"center"} spacing={10}>
         <EditablePreview />
         <EditableInput />
         <EditableControls />
-      </Horizontal>
+      </HStack>
     </Editable>
   );
 };
