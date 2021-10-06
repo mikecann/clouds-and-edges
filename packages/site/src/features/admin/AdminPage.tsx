@@ -40,18 +40,18 @@ export const AdminPage: React.FC<Props> = ({}) => {
           </TabList>
 
           <TabPanels>
-            <TabPanel>
+            <TabPanel paddingLeft={0} paddingRight={0}>
               <SectionContainer title={"Event Log"}>
                 <ConnectedEventsAdminLog />
               </SectionContainer>
             </TabPanel>
-            <TabPanel>
+            <TabPanel paddingLeft={0} paddingRight={0}>
               <AggregatesAdmin />
             </TabPanel>
-            <TabPanel>
+            <TabPanel paddingLeft={0} paddingRight={0}>
               <ProcessesAdmin />
             </TabPanel>
-            <TabPanel>
+            <TabPanel paddingLeft={0} paddingRight={0}>
               <ProjectionsAdmin />
             </TabPanel>
           </TabPanels>

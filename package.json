@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "tinkering-with-durable-objects",
+  "name": "clouds-and-edges",
   "version": "1.0.0",
   "workspaces": [
     "packages/*"
   ],
-  "description": "Tinkering with some durable objects",
+  "description": "A Serverless Databaseless Event-Sourced Game",
   "module": "./dist/index.mjs",
   "scripts": {
     "dev": "yarn compile --watch",

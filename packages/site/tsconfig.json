@@ -12,9 +12,14 @@
     "experimentalDecorators": true,
     "paths": {
       "@project/essentials": ["../essentials/src/index.ts"],
-      "@project/shared": ["../shared/src/index.ts"]
+      "@project/shared": ["../shared/src/index.ts"],
+      "@project/workers-es": ["../workers-es/src/index.ts"]
     }
   },
   "include": ["src/**/*"],
-  "references": [{ "path": "../essentials/tsconfig.json" }, { "path": "../shared/tsconfig.json" }]
+  "references": [
+    { "path": "../essentials/tsconfig.json" },
+    { "path": "../shared/tsconfig.json" },
+    { "path": "../workers-es/tsconfig.json" }
+  ]
 }

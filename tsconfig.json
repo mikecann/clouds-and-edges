@@ -13,6 +13,7 @@
     "pretty": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
+    "disableSourceOfProjectReferenceRedirect": true,
     "importHelpers": true,
     "isolatedModules": true,
     "noEmitHelpers": true,

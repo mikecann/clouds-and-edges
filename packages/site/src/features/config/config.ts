@@ -1,4 +1,4 @@
 export const config = {
-  //SERVER_ROOT: `https://tinkering-with-durable-objects-server.mikeysee.workers.dev`,
+  //SERVER_ROOT: `https://clouds-and-edges-server.mikeysee.workers.dev`,
   SERVER_ROOT: `http://localhost:8777`,
 };

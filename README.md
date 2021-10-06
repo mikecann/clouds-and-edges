@@ -1,6 +1,8 @@
-# Tinkering With Durable Objects
+<a href="docs/images/logo.png"><img src="docs/images/logo.png"></a>
 
-Some experiments with Cloudflare's Durable Objects
+# Clouds And Edges
+
+A serverless & databaseless event-sourced game powered by Cloudflare's Workers and Durable Objects.
 
 ## Getting Started
 

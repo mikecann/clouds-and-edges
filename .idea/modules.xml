@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tinkering-with-durable-objects.iml" filepath="$PROJECT_DIR$/.idea/tinkering-with-durable-objects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/clouds-and-edges.iml" filepath="$PROJECT_DIR$/.idea/clouds-and-edges.iml" />
     </modules>
   </component>
 </project>

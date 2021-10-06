@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
 import ReactJson from "react-json-view";
 
 interface Props {
@@ -8,7 +8,13 @@ interface Props {
 
 export const KeyValueTable: React.FC<Props> = ({ data }) => {
   return (
-    <Table variant="simple" size="sm" border="1px solid rgba(255,255,255,0.2)" borderRadius="4px">
+    <Table
+      variant="simple"
+      size="sm"
+      border="1px solid rgba(255,255,255,0.2)"
+      borderRadius="4px"
+      width="100%"
+    >
       <Thead>
         <Tr>
           <Th>Key</Th>
@@ -18,18 +24,17 @@ export const KeyValueTable: React.FC<Props> = ({ data }) => {
       <Tbody>
         {data.map(([key, value]) => (
           <Tr key={key}>
-            <Td maxWidth={200} textOverflow={"ellipsis"}>
-              {key}
+            <Td>
+              <Text isTruncated={true}>{key}</Text>
             </Td>
-            <Td maxWidth={400}>
+            <Td>
               <ReactJson
                 theme={"ocean"}
-                src={value}
+                src={value ?? {}}
                 collapseStringsAfterLength={80}
                 enableClipboard={false}
                 displayDataTypes={false}
                 displayObjectSize={false}
-                collapsed={true}
               />
             </Td>
           </Tr>

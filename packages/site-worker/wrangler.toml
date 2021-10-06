@@ -1,4 +1,4 @@
-name = "tinkering-with-durable-objects-site"
+name = "clouds-and-edges-site"
 type = "webpack"
 route = ''
 zone_id = ''
