@@ -15,7 +15,7 @@ export * from "./utils/id";
 export * from "./utils/misc";
 export * from "./utils/object";
 export * from "./utils/point2D";
+export * from "./utils/prng";
 export * from "./utils/rand";
 export * from "./utils/random";
 export * from "./utils/response";
-export * from "./utils/prng";

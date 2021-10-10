@@ -4,8 +4,5 @@
     "noEmit": true,
     "module": "CommonJS"
   },
-  "include": ["**/*.ts"],
-  "references": [
-    { "path": "../../build-tools/tsconfig.json" }
-  ]
+  "include": ["**/*.ts"]
 }
