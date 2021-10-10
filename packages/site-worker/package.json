@@ -3,14 +3,15 @@
   "name": "@project/site-worker",
   "type": "module",
   "version": "1.0.0",
-  "description": "A template for kick starting a Cloudflare Workers project",
+  "description": "The worker that hosts the site",
   "main": "index.js",
-  "author": "Ashley Lewis <ashleymichal@gmail.com>",
+  "author": "Mike Cann <mike.cann@gmail.com>",
   "license": "MIT",
   "scripts": {
     "deploy": "wrangler publish"
   },
   "dependencies": {
+    "@project/site": "*",
     "@cloudflare/kv-asset-handler": "~0.1.2",
     "miniflare": "^1.3.3"
   }

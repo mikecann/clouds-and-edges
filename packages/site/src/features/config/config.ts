@@ -1,4 +1,8 @@
 export const config = {
-  //SERVER_ROOT: `https://clouds-and-edges-server.mikeysee.workers.dev`,
-  SERVER_ROOT: `http://localhost:8777`,
+  SERVER_ROOT: import.meta.env.VITE_SERVER_ROOT ?? `http://localhost:8777`,
+  MODE: import.meta.env.MODE,
+  DEV: import.meta.env.DEV,
+  SSR: import.meta.env.SSR,
+  PROD: import.meta.env.PROD,
+  BASE_URL: import.meta.env.BASE_URL,
 };

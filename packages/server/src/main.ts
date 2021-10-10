@@ -14,6 +14,8 @@ export { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProces
 
 export { EventStore } from "./events/EventStore";
 
+// We want to randomise the seed
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     try {

@@ -14,7 +14,7 @@ export const generateId = (rng = getRandom(), size = 21) => {
   let i = size;
   while (i--) {
     // `| 0` is more compact and faster than `Math.floor()`.
-    id += urlAlphabet[(rng.nextNumber() * 64) | 0];
+    id += urlAlphabet[(rng * 64) | 0];
   }
   return id;
 };

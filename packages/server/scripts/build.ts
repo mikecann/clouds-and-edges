@@ -24,9 +24,9 @@ async function bootstrap() {
           },
         }
       : undefined,
-    // banner: {
-    //   js: constructServerBannerEnvInjection(getBTEnvVarsForBannerInjection()),
-    // },
+    banner: {
+      js: `const process = { env: { SEED_RNG: "true" }  };`,
+    },
   });
 
   console.log(`build complete`);

@@ -84,7 +84,7 @@ export const createSystem = <
 
   const getEventStoreStub = (env: Env): DurableObjectStub => {
     const namespace = getNamespace(namespaces.events.name, env);
-    return namespace.get(namespace.idFromString(version));
+    return namespace.get(namespace.idFromName(version));
   };
 
   const getEventStore = (env: Env): InstanceType<TEventStore> =>

@@ -8,7 +8,7 @@ import { system } from "./system";
 export const router = Router();
 
 router.get("/", async () => {
-  return new Response("Hello, World!");
+  return new Response("Hello from Clouds and Edges!");
 });
 
 addRpcRoutes<API, Env>({

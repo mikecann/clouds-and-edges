@@ -18,3 +18,4 @@ export * from "./utils/point2D";
 export * from "./utils/rand";
 export * from "./utils/random";
 export * from "./utils/response";
+export * from "./utils/prng";

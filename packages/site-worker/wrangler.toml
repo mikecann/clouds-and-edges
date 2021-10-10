@@ -1,4 +1,4 @@
-name = "clouds-and-edges-site"
+name = "clouds-and-edges-site-dev"
 type = "webpack"
 route = ''
 zone_id = ''
@@ -8,3 +8,6 @@ workers_dev = true
 [site]
 bucket = "../site/dist" 
 entry-point = "."
+
+[env.main]
+name = "clouds-and-edges-site"

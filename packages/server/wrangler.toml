@@ -1,4 +1,6 @@
-name = "clouds-and-edges-server"
+compatibility_date = "2021-10-10"
+
+name = "clouds-and-edges-server-dev"
 type = "javascript"
 account_id = ""
 workers_dev = true
@@ -27,3 +29,21 @@ bindings = [
   {name = "MatchCreationProcess", class_name = "MatchCreationProcess"},
   {name = "MatchJoiningProcess", class_name = "MatchJoiningProcess"},
 ]
+
+[[migrations]]
+tag = "v1"
+new_classes = [
+  "UserAggregate",
+  "MatchAggregate",
+
+  "EventStore",
+
+  "UsersProjection",
+  "MatchesProjection",
+
+  "MatchCreationProcess",
+  "MatchJoiningProcess"
+]
+
+[env.main]
+name = "clouds-and-edges-server"

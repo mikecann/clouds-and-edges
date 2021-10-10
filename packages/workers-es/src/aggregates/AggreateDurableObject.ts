@@ -56,12 +56,6 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
   execute: RPCHandler<API, "execute"> = async (input) => {
     const timestamp = Date.now();
 
-    this.logger.debug(`execution starting`, {
-      input,
-      aggregateId: this.aggregateId,
-      timestamp,
-    });
-
     // First we grabe the handler for the command
     const commandHandler: AggregateCommandHandler<TState> = getInObj(this.commands, input.command);
 
@@ -99,16 +93,12 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
 
         this.state = reducedState;
         await this.storage.put("state", reducedState);
-
-        this.logger.debug(`reducedState stored`, reducedState);
       }
     };
 
     // At the same time we add the event to the store and update the local state
     await updateLocalState();
     await addEventsToStore();
-
-    this.logger.debug(`execution finished`);
 
     return {
       aggregateId: this.aggregateId,

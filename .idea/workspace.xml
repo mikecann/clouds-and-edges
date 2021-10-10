@@ -2,35 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/server/src/events/EventStore.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/ids.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/build.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build-and-deploy-dev.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/essentials/src/utils/prng.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/essentials/src/utils/random.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site-worker/worker/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/EventStore.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/events/events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/essentials/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/id.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/id.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/rand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/rand.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/random.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/random.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/scripts/build.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/scripts/build.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/MatchCreationProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/MatchCreationProcess.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/eventHandlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchJoining/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchJoining/eventHandlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/matches/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/matches/eventHandlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/users/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/users/eventHandlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/MatchPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/MatchPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/game/CellView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/game/CellView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/ConnectedOpenMatches.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/ConnectedOpenMatches.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/wrangler.toml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/wrangler.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site-worker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site-worker/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site-worker/wrangler.toml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site-worker/wrangler.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/config/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +34,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Test" />
         <option value="Function" />
+        <option value="PowerShell File" />
+        <option value="Test" />
         <option value="TypeScript File" />
       </list>
     </option>
@@ -68,11 +63,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/packages/server/dist/main.mjs" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/site/src/features/api" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -100,7 +97,7 @@
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\user" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.iterateEventStore.test.ts">
+  <component name="RunManager" selected="Jest.works (1)">
     <configuration name="can handle multiple batches" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -124,6 +121,29 @@
       <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
       <method v="2" />
     </configuration>
+    <configuration name="random.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/essentials" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/packages/essentials/src/utils/random.test.ts" />
+      <method v="2" />
+    </configuration>
+    <configuration name="works (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/essentials" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/essentials/src/utils/random.test.ts" />
+      <test-names>
+        <test-name value="works" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="works for multiple events in the same batch" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -137,39 +157,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="works for one event" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
-      <test-names>
-        <test-name value="works for one event" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="works" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
-      <test-names>
-        <test-name value="works" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.works (1)" />
+        <item itemvalue="Jest.random.test.ts" />
         <item itemvalue="Jest.iterateEventStore.test.ts" />
         <item itemvalue="Jest.can handle multiple batches" />
         <item itemvalue="Jest.works for multiple events in the same batch" />
-        <item itemvalue="Jest.works for one event" />
-        <item itemvalue="Jest.works" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +176,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633759113894</updated>
       <workItem from="1633759115808" duration="1942000" />
-      <workItem from="1633761090716" duration="15526000" />
+      <workItem from="1633761090716" duration="25310000" />
     </task>
     <servers />
   </component>
@@ -200,6 +194,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
