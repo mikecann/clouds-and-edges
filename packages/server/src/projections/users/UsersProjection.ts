@@ -8,13 +8,11 @@ type API = Projections["users"];
 
 export class UsersProjection extends ProjectionDurableObject<Env> implements RPCApiHandler<API> {
   constructor(objectState: DurableObjectState, env: Env) {
-    super(objectState, getHandlers(objectState.storage), env, system, "user");
+    super(objectState, getHandlers(objectState.storage) as any, env, system);
   }
 
   findUserById: RPCHandler<API, "findUserById"> = async ({ id }) => {
-    this.logger.debug(`handling query`, id);
     const val = await this.storage.get(`user:${id}`);
-    this.logger.debug(`lookup response`, val);
     return {
       user: val ? (val as UserProjection) : null,
     };

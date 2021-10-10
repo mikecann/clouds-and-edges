@@ -1,16 +1,16 @@
 import * as React from "react";
-import { useMe } from "../api/useMe";
+import { useMe } from "./useMe";
 import { LoadingPage } from "../loading/LoadingPage";
 import { SidebarPage } from "../page/SidebarPage";
 import { ConnectedEditableUserName } from "./ConnectedEditableUserName";
 import { Avatar, Box, Button, Center, HStack, Text, VStack } from "@chakra-ui/react";
-import { useSignout } from "../api/useSignout";
+import { useSignout } from "../auth/useSignout";
 import { VscSignOut } from "react-icons/vsc";
 
 interface Props {}
 
 export const MyProfilePage: React.FC<Props> = ({}) => {
-  const { data: me } = useMe();
+  const { me } = useMe();
   const onSignout = useSignout();
 
   if (!me) return <LoadingPage />;

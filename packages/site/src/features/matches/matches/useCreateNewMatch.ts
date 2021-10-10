@@ -1,17 +1,19 @@
-import { useMutation, useQueryClient } from "react-query";
-import { wait } from "@project/essentials";
+import { useQueryClient } from "react-query";
 import { useCommand } from "../../api/useCommand";
 import { useAppState } from "../../state/appState";
 
 export const useCreateNewMatch = () => {
-  const queryClient = useQueryClient();
   const [{ userId }] = useAppState();
-  return useMutation(useCommand("user", "create-match-request", userId), {
-    onSettled: async () => {
-      // Wait a sec then grab the new me
-      await wait(200);
-      await queryClient.invalidateQueries(`matches`);
-      await queryClient.invalidateQueries(`openMatches`);
+  const queryClient = useQueryClient();
+  return useCommand({
+    aggregate: "user",
+    command: "create-match-request",
+    aggregateId: userId,
+    options: {
+      onSettled: async () => {
+        await queryClient.invalidateQueries(`matches`);
+        await queryClient.invalidateQueries(`openMatches`);
+      },
     },
   });
 };

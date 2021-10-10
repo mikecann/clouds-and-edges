@@ -14,6 +14,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Spacer,
+  Switch,
   Table,
   Tbody,
   Td,
@@ -32,6 +33,7 @@ export interface Props {
   onQueryChange: (query: string) => unknown;
   onLimitChange: (limit: number) => unknown;
   onStartChange: (start: string) => unknown;
+  onReverseChange: (reverse: boolean) => unknown;
   onReload: () => unknown;
   isLoading: boolean;
 }
@@ -41,16 +43,19 @@ export const InspectableStorage: React.FC<Props> = ({
   onQueryChange,
   onLimitChange,
   onStartChange,
+  onReverseChange,
   onReload,
   isLoading,
 }) => {
   const [query, setQuery] = useState("");
   const [limit, setLimit] = useState(100);
   const [start, setStart] = useState("");
+  const [reverse, setReverse] = useState(false);
 
   useDebounce(query, onQueryChange);
   useDebounce(limit, onLimitChange);
   useDebounce(start, onStartChange);
+  useDebounce(reverse, onReverseChange);
 
   return (
     <VStack width={"100%"} spacing={5} alignItems="flex-start">
@@ -87,7 +92,7 @@ export const InspectableStorage: React.FC<Props> = ({
             </NumberInput>
           </FormControl>
           <FormControl size="sm">
-            <FormLabel>Start</FormLabel>
+            <FormLabel>Start From Key</FormLabel>
             <InputGroup size="sm" width={200}>
               <InputLeftElement pointerEvents="none" children={<ImSearch color="gray.300" />} />
               <Input
@@ -97,6 +102,10 @@ export const InspectableStorage: React.FC<Props> = ({
                 onChange={(e) => setStart(e.currentTarget.value)}
               />
             </InputGroup>
+          </FormControl>
+          <FormControl size="sm">
+            <FormLabel>Reverse</FormLabel>
+            <Switch onChange={(e) => setReverse(e.target.checked)} />
           </FormControl>
         </HStack>
         <Spacer />

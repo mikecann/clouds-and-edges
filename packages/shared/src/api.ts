@@ -26,12 +26,6 @@ export type API = {
     };
     output: {};
   };
-  "event-store.events": {
-    input: {};
-    output: {
-      events: StoredEvent[];
-    };
-  };
   "auth.signup": {
     input: {
       name: string;

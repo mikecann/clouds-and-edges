@@ -1,10 +1,5 @@
-import { useMutation } from "react-query";
-import { useRPCOperation } from "../api/useRPCOperation";
-import { useGenericErrorHandler } from "../api/useGenericErrorHandler";
+import { useApiMutation } from "../api/useApiMutation";
 
 export const useAdminRebuild = () => {
-  const onError = useGenericErrorHandler();
-  return useMutation(useRPCOperation("admin.rebuild"), {
-    onError,
-  });
+  return useApiMutation("admin.rebuild");
 };

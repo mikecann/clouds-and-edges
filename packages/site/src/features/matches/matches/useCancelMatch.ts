@@ -1,18 +1,17 @@
-import { useMutation, useQueryClient } from "react-query";
-import { wait } from "@project/essentials";
+import { useQueryClient } from "react-query";
 import { useCommand } from "../../api/useCommand";
-import { useGenericErrorHandler } from "../../api/useGenericErrorHandler";
 
-export const useCancelMatch = (proposalId: string) => {
+export const useCancelMatch = (matchId: string) => {
   const queryClient = useQueryClient();
-  const onError = useGenericErrorHandler();
-  return useMutation(useCommand("match", "cancel", proposalId), {
-    onSettled: async () => {
-      // Wait a sec then grab the new me
-      await wait(200);
-      await queryClient.invalidateQueries(`matches`);
-      await queryClient.invalidateQueries(`openMatches`);
+  return useCommand({
+    aggregate: "match",
+    command: "cancel",
+    aggregateId: matchId,
+    options: {
+      onSettled: async () => {
+        await queryClient.invalidateQueries(`matches`);
+        await queryClient.invalidateQueries(`openMatches`);
+      },
     },
-    onError,
   });
 };

@@ -55,9 +55,6 @@ addRpcRoutes<API, Env>({
     "projections.matches.getOpen": async (input, env, userId) => {
       return system.getProjection("matches", env).getOpen({ excludePlayer: input.excludePlayer });
     },
-    "event-store.events": async (input, env) => {
-      return system.getEventStore(env).getEvents({});
-    },
     "auth.signup": async (input, env) => {
       const userId = env.UserAggregate.newUniqueId().toString();
 

@@ -24,6 +24,11 @@ export interface QueryStorageAPI {
      * The key from which to start from
      */
     start?: string;
+
+    /**
+     * Should reverse the results or not
+     */
+    reverse?: boolean;
   };
   output: Record<string, JSONType>;
 }
@@ -33,7 +38,7 @@ export const maxLimit = 100;
 
 export const queryStorage =
   ({ storage, logger }: Options): APIEndpointHandler<QueryStorageAPI> =>
-  async ({ prefix, start, limit = defaultLimit }) => {
+  async ({ prefix, start, limit = defaultLimit, reverse = false }) => {
     limit = Math.min(limit, maxLimit);
-    return await storage.list({ limit, prefix, start }).then(Object.fromEntries);
+    return await storage.list({ limit, prefix, start, reverse }).then(Object.fromEntries);
   };

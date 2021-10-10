@@ -44,3 +44,7 @@ yarn site storybook
 - processes are not atomic so theres room for state corruption in there
 - think about error retrys in processes, what if an event handler fails, do we retry?
 - need to rebuild aggregates too
+- Rebuilding Aggregates
+
+- Lexographic order on event store means problems for event store
+- event store currently has a limit or 9 

@@ -1,11 +1,9 @@
 import { useAppState } from "../state/appState";
-import { useMutation } from "react-query";
-import { performRPCOperation } from "./performRPCOperation";
+import { useApiMutation } from "../api/useApiMutation";
 
 export const useSignup = () => {
   const [, setState] = useAppState();
-  const [{ userId }] = useAppState();
-  return useMutation(performRPCOperation("auth.signup", userId), {
+  return useApiMutation("auth.signup", {
     onSuccess: async ({ userId }) => {
       setState((p) => ({ ...p, userId }));
     },

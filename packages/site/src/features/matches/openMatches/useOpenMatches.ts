@@ -1,11 +1,13 @@
-import { useQuery } from "react-query";
-import { APIOperationOutput } from "@project/shared";
 import { useAppState } from "../../state/appState";
-import { performRPCOperation } from "../../api/performRPCOperation";
+import { useApiQuery } from "../../api/useApiQuery";
 
 export const useOpenMatches = () => {
   const [{ userId }] = useAppState();
-  return useQuery<APIOperationOutput<"projections.matches.getOpen">, Error>(`openMatches`, () =>
-    performRPCOperation("projections.matches.getOpen", userId)({ excludePlayer: userId })
-  );
+  return useApiQuery({
+    endpoint: "projections.matches.getOpen",
+    key: `matches`,
+    input: {
+      excludePlayer: userId,
+    },
+  });
 };

@@ -10,8 +10,7 @@ const createObj = () => {
     new DurableObjectState(new DurableObjectId(""), storage),
     {},
     {},
-    {} as any,
-    "user"
+    {} as any
   );
 };
 

@@ -1,9 +1,5 @@
 import { Command, CommandExecutionResponse, EventInput, StoredEvent } from "@project/workers-es";
 
-export interface ProcessAdminState {
-  status: `not-built` | `building` | `built`;
-}
-
 type ProcessSideEffects<TCommands extends Command> = {
   executeCommand: (
     command: TCommands & { aggregateId?: string }
@@ -29,11 +25,9 @@ export type ProcessEventHandlers<
   TStorage extends Storage = Storage,
   TSideEffects extends Record<string, Function> = Record<string, Function>
 > = {
-  handlers: Partial<
-    {
-      [P in TEvents["kind"]]: ProcessEventHandler<TEvents, TCommands, TStorage, TSideEffects, P>;
-    }
-  >;
+  handlers: Partial<{
+    [P in TEvents["kind"]]: ProcessEventHandler<TEvents, TCommands, TStorage, TSideEffects, P>;
+  }>;
 
   effects: TSideEffects;
 };

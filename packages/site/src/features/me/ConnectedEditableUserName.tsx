@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EditableText } from "../editable/EditableText";
-import { useSetName } from "../api/useSetName";
+import { useSetName } from "./useSetName";
 
 interface Props {
   name: string;

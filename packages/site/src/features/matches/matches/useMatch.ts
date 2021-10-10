@@ -1,11 +1,9 @@
-import { useQuery } from "react-query";
-import { APIOperationOutput } from "@project/shared";
-import { useAppState } from "../../state/appState";
-import { performRPCOperation } from "../../api/performRPCOperation";
+import { useApiQuery } from "../../api/useApiQuery";
 
 export const useMatch = (id: string) => {
-  const [{ userId }] = useAppState();
-  return useQuery<APIOperationOutput<"projections.matches.getMatch">, Error>([`match`, id], () =>
-    performRPCOperation("projections.matches.getMatch", userId)({ id })
-  );
+  return useApiQuery({
+    endpoint: "projections.matches.getMatch",
+    key: [`match`, id],
+    input: { id },
+  });
 };

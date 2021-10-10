@@ -12,11 +12,11 @@ export const createDurableObjectRPCProxy = <TObject extends abstract new (...arg
         const endpoint = prop as string;
         const input = arguments[0];
 
-        logger.debug(`calling durable object '${obj.name}'`, {
-          stub,
-          endpoint,
-          input,
-        });
+        // logger.debug(`calling durable object '${obj.name}'`, {
+        //   stub,
+        //   endpoint,
+        //   input,
+        // });
 
         const response = await stub.fetch(`https://${stub.id}/${endpoint}`, {
           method: "POST",
@@ -27,7 +27,7 @@ export const createDurableObjectRPCProxy = <TObject extends abstract new (...arg
 
         const payload = await response.json();
 
-        logger.debug(`[${endpoint}] response`, payload);
+        //logger.debug(`[${endpoint}] response`, payload);
 
         return payload;
       };

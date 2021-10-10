@@ -3,7 +3,7 @@ import { MatchProjection } from "@project/shared";
 import { GameBoard } from "./game/GameBoard";
 import { constructGameState } from "./game/GameState";
 import { HStack, VStack } from "@chakra-ui/react";
-import { useMe } from "../api/useMe";
+import { useMe } from "../me/useMe";
 import { PlayerPanel } from "./PlayerPanel";
 import { Announcement } from "./Announcement";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Finished: React.FC<Props> = ({ match }) => {
-  const { data: me } = useMe();
+  const { me } = useMe();
 
   if (!me) return null;
 

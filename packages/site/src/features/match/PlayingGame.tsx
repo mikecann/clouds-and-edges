@@ -1,10 +1,10 @@
 import * as React from "react";
-import { calculateWinner, MatchProjection } from "@project/shared";
+import { MatchProjection } from "@project/shared";
 import { GameBoard } from "./game/GameBoard";
 import { constructGameState } from "./game/GameState";
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { HStack, VStack } from "@chakra-ui/react";
 import { useTakeTurn } from "../matches/matches/useTakeTurn";
-import { useMe } from "../api/useMe";
+import { useMe } from "../me/useMe";
 import { PlayerPanel } from "./PlayerPanel";
 import { Announcement } from "./Announcement";
 
@@ -14,7 +14,7 @@ interface Props {
 
 export const PlayingGame: React.FC<Props> = ({ match }) => {
   const { mutate: takeTurn } = useTakeTurn(match.id);
-  const { data: me } = useMe();
+  const { me } = useMe();
 
   if (!me) return null;
 

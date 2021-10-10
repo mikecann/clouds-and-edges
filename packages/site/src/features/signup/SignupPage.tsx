@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Heading, Input, VStack } from "@chakra-ui/react";
 import { Logo } from "../logo/Logo";
-import { useSignup } from "../api/useSignup";
+import { useSignup } from "../auth/useSignup";
 import { useIsAuthenticated } from "../state/useIsAuthenticated";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";

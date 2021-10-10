@@ -10,13 +10,13 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import * as React from "react";
-import { useMe } from "../api/useMe";
+import { useMe } from "../me/useMe";
 import { SidebarButton } from "./SidebarButton";
 
 interface Props {}
 
 export const ConnectedDashboardSidebar: React.FC<Props> = ({}) => {
-  const { data: me } = useMe();
+  const { me } = useMe();
 
   return (
     <VStack

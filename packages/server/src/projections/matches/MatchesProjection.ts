@@ -11,7 +11,7 @@ export class MatchesProjection extends ProjectionDurableObject<Env> implements R
   private db: Db;
 
   constructor(objectState: DurableObjectState, env: Env) {
-    super(objectState, getHandlers(createDb(objectState.storage)), env, system, "match");
+    super(objectState, getHandlers(createDb(objectState.storage)) as any, env, system);
     this.db = createDb(objectState.storage);
   }
 

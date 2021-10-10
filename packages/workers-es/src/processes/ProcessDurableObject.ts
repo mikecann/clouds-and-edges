@@ -1,107 +1,33 @@
-import { findInObj, getLogger, Logger } from "@project/essentials";
-import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
-import { StoredEvent } from "../events/events";
-import {
-  ProcessAdminState,
-  ProcessEventHandler,
-  ProcessEventHandlers,
-  processUserId,
-} from "./processes";
-import { executeCommand } from "../commands/executeCommand";
+import { RPCApiHandler } from "../durableObjects/rpc";
+import { ProcessEventHandlers } from "./processes";
 import { Env } from "../env";
 import { System } from "../system/system";
-import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
+import { handleProcessEvent } from "./handleProcessEvent";
+import {
+  ReadModalDurableObject,
+  ReadModalDurableObjectAPI,
+} from "../readModel/ReadModelDurableObject";
 
-export type ProcessDurableObjectAPI = {
-  onEvent: {
-    input: {
-      event: StoredEvent;
-    };
-    output: {};
-  };
-  rebuild: {
-    input: {};
-    output: {};
-  };
-};
-
-type API = ProcessDurableObjectAPI;
+export type ProcessDurableObjectAPI = ReadModalDurableObjectAPI;
 
 export class ProcessDurableObject<TEnv = Env>
-  extends InspectableStorageDurableObject<TEnv>
-  implements RPCApiHandler<API>
+  extends ReadModalDurableObject<TEnv>
+  implements RPCApiHandler<ProcessDurableObjectAPI>
 {
-  protected logger: Logger;
-  protected storage: DurableObjectStorage;
-
-  protected adminState: ProcessAdminState = {
-    status: "not-built",
-  };
-
   constructor(
-    protected objectState: DurableObjectState,
-    protected handlers: ProcessEventHandlers,
-    protected env: Env,
-    protected system: System
+    objectState: DurableObjectState,
+    handlers: ProcessEventHandlers,
+    env: Env,
+    system: System
   ) {
-    super(objectState);
-    this.storage = objectState.storage;
-    this.logger = getLogger(`${this.constructor.name}`);
+    super(objectState, env, system, (event) =>
+      handleProcessEvent({
+        event,
+        handlers,
+        env,
+        system,
+        logger: this.logger,
+      })
+    );
   }
-
-  protected async init() {
-    const stored: ProcessAdminState = await this.storage.get("adminState");
-    this.adminState = stored ?? this.adminState;
-  }
-
-  onEvent: RPCHandler<API, "onEvent"> = async ({ event }) => {
-    this.logger.debug(`handling event '${event.kind}'`);
-
-    const handler: ProcessEventHandler = findInObj(this.handlers.handlers, event.kind);
-    if (!handler) {
-      this.logger.debug(`No handler found for event '${event.kind}'`);
-      return {};
-    }
-
-    await handler({
-      event: event as any,
-      effects: {
-        executeCommand: async (command) =>
-          executeCommand({
-            env: this.env,
-            command,
-            userId: processUserId,
-            system: this.system,
-          }),
-      },
-    });
-
-    return {};
-  };
-
-  rebuild: RPCHandler<API, "rebuild"> = async ({}) => {
-    this.logger.debug(`rebuilding..`);
-    await this.storage.deleteAll();
-
-    this.adminState = {
-      status: "building",
-    };
-    await this.storage.put("adminState", this.adminState);
-
-    // This should be done as a cronjob response
-    const doRebuild = async () => {
-      // Without waiting for the response lets rebuild, hopefully this promise isnt killed..
-      const { events } = await this.system.getEventStore(this.env).getEvents({});
-      for (let event of events) await this.onEvent({ event });
-    };
-
-    await doRebuild();
-
-    this.adminState = {
-      status: "built",
-    };
-    await this.storage.put("adminState", this.adminState);
-
-    return {};
-  };
 }

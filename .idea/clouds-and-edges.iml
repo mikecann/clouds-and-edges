@@ -5,10 +5,11 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/workers-es/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/shared/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/server/.mf" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/shared/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/workers-es/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/essentials/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

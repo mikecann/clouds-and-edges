@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/clouds-and-edges.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/useQueryStorage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site/src/features/api/useApiMutation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site/src/features/api/useApiQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useAuthToken.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/readModels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tinkering-with-durable-objects.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/matches/MatchesProjection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/matches/MatchesProjection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/users/UsersProjection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/users/UsersProjection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/storage/ConnectedInspectableStorage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/ConnectedInspectableStorage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/storage/InspectableStorage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/InspectableStorage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/useAdminRebuild.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/useAdminRebuild.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/useQueryStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/performRPCOperation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/performRPCOperation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useCommand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/useCommand.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useEventStoreEvents.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useGenericErrorHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/errors/useGenericErrorHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useMe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/useMe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useRPCOperation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/useRPCOperation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSetName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/useSetName.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSignout.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useSignout.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSignup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useSignup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/user/useUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/Finished.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/Finished.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/ConnectedMatchCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/ConnectedMatchCards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCancelMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCancelMatch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCreateNewMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCreateNewMatch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useJoinMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useJoinMatch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatches.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMyMatches.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useTakeTurn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useTakeTurn.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/me/ConnectedEditableUserName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/ConnectedEditableUserName.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/me/MyProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/MyProfilePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/sidebar/ConnectedDashboardSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/sidebar/ConnectedDashboardSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/signup/SignupPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/signup/SignupPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/state/useAppStatePersistance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/state/useAppStatePersistance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/projections.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/projections.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Test" />
+        <option value="Function" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1zG0RfW09GjwTvzAyjxTEzh7NhZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/site/src/features/api" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\dev\me\clouds-and-edges\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="ts.external.directory.path" value="C:\dev\me\clouds-and-edges\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\api" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\workers-es\src\projections" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\workers-es\src\readModel" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin\storage" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\errors" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\user" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\me" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="" />
+      <created>1633759113894</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1633759113894</updated>
+      <workItem from="1633759115808" duration="1942000" />
+      <workItem from="1633761090716" duration="8885000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

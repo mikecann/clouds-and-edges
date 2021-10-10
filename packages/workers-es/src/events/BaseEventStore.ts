@@ -8,8 +8,7 @@ const logger = getLogger(`EventStore`);
 
 // This key is super important
 // We use leftFillNum to ensure lexographically incrementing keys when we retrieve events when rebuilding
-const getEventId = (aggregate: string, aggregateId: string, index: number) =>
-  `e:${aggregate}:${aggregateId}:${leftFillNum(index, 10)}`;
+const getEventId = (index: number) => `${leftFillNum(index, 9)}`;
 
 export type BaseEventStoreAPI = {
   addEvent: {
@@ -26,7 +25,7 @@ export type BaseEventStoreAPI = {
   };
   getEvents: {
     input: {
-      aggregate?: string;
+      fromEventId?: string;
     };
     output: {
       events: StoredEvent[];
@@ -62,7 +61,7 @@ export class BaseEventStore<TEnv extends Env = Env>
     payload,
     timestamp,
   }) => {
-    const id = getEventId(aggregate, aggregateId, this.eventIndex);
+    const id = getEventId(this.eventIndex);
 
     const event: StoredEvent = {
       id,
@@ -89,12 +88,10 @@ export class BaseEventStore<TEnv extends Env = Env>
     };
   };
 
-  getEvents: RPCHandler<API, "getEvents"> = async ({ aggregate }) => {
-    const prefix = `e:${aggregate ? `${aggregate}:` : ``}`;
-    this.logger.debug(`getting events with prefix '${prefix}'`);
+  getEvents: RPCHandler<API, "getEvents"> = async ({ fromEventId }) => {
     const contents = await this.storage.list({
       limit: 100,
-      prefix,
+      start: fromEventId,
     });
     const events: StoredEvent[] = [...contents.values()] as any;
     return { events };
