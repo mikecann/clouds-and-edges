@@ -118,6 +118,14 @@ export const createSystem = <
       getStub("processes", name as any, env)
     ) as InstanceType<TProcesses[T]>;
 
+  const getReadModels = (
+    env: Env
+  ): (InstanceType<TProcesses[string]> | InstanceType<TProjections[string]>)[] => {
+    const projections = Object.keys(namespaces.projections).map((name) => getProjection(name, env));
+    const processes = Object.keys(namespaces.processes).map((name) => getProcess(name, env));
+    return [...projections, ...processes];
+  };
+
   return {
     getNamespace,
     getAggregateNamespaceName,
@@ -127,6 +135,7 @@ export const createSystem = <
     getProjection,
     getProcess,
     getAggregate,
+    getReadModels,
   };
 };
 
@@ -143,6 +152,9 @@ export interface System<
   getEventStore: (env: Env) => InstanceType<TEventStore>;
   getProjection: <T extends keyof TProjections>(name: T, env: Env) => InstanceType<TProjections[T]>;
   getProcess: <T extends keyof TProcesses>(name: T, env: Env) => InstanceType<TProcesses[T]>;
+  getReadModels: (
+    env: Env
+  ) => (InstanceType<TProcesses[string]> | InstanceType<TProjections[string]>)[];
   getAggregate: <T extends keyof TAggregates>(
     name: T,
     env: Env,

@@ -27,6 +27,8 @@ export class ProcessDurableObject<TEnv = Env>
         env,
         system,
         logger: this.logger,
+        // We can only execute side effects once we are built
+        canExecuteSideEffects: this.adminState.status == "built",
       })
     );
   }

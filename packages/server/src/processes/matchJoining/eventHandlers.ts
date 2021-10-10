@@ -1,5 +1,5 @@
 import { ProcessEventHandlers } from "@project/workers-es";
-import { Events } from "../../events";
+import { Events } from "../../events/events";
 import { getLogger } from "@project/essentials";
 import { Commands } from "@project/shared";
 import { Db } from "./db";

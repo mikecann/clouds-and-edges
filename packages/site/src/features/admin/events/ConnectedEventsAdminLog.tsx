@@ -5,5 +5,4 @@ interface Props {}
 
 export const ConnectedEventsAdminLog: React.FC<Props> = ({}) => {
   return <ConnectedInspectableStorage identifier={{ kind: "eventStore" }} />;
-  //return <EventsAdminLog events={events?.events ?? []} />;
 };

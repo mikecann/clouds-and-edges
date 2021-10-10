@@ -1,10 +1,13 @@
 import { Command, CommandExecutionResponse, EventInput, StoredEvent } from "@project/workers-es";
 
-type ProcessSideEffects<TCommands extends Command> = {
+export type ProcessSideEffects<TCommands extends Command> = {
   executeCommand: (
     command: TCommands & { aggregateId?: string }
-  ) => Promise<CommandExecutionResponse>;
+  ) => Promise<CommandExecutionResponse | undefined>;
 };
+
+export type UserSideEffect = Function;
+export type UserSideEffects = Record<string, UserSideEffect>;
 
 type Storage = DurableObjectStorage;
 
@@ -12,7 +15,7 @@ export type ProcessEventHandler<
   TEvents extends EventInput = EventInput,
   TCommands extends Command = Command,
   TStorage extends Storage = Storage,
-  TSideEffects extends Record<string, Function> = Record<string, Function>,
+  TSideEffects extends UserSideEffects = UserSideEffects,
   P extends TEvents["kind"] = TEvents["kind"]
 > = (context: {
   event: StoredEvent<Extract<TEvents, { kind: P }>>;
@@ -23,7 +26,7 @@ export type ProcessEventHandlers<
   TEvents extends EventInput = EventInput,
   TCommands extends Command = Command,
   TStorage extends Storage = Storage,
-  TSideEffects extends Record<string, Function> = Record<string, Function>
+  TSideEffects extends UserSideEffects = UserSideEffects
 > = {
   handlers: Partial<{
     [P in TEvents["kind"]]: ProcessEventHandler<TEvents, TCommands, TStorage, TSideEffects, P>;

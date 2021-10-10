@@ -48,6 +48,7 @@ export const CellView: React.FC<Props> = ({ cell, game, ...rest }) => {
             width={`100%`}
             height={`100%`}
             userSelect={"none"}
+            fontSize={`35px`}
           >
             {ownerPlayer.avatar}
           </Center>

@@ -4,8 +4,8 @@ import { StoredEvent } from "../events/events";
 import { Env } from "../env";
 import { System } from "../system/system";
 import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
-import { iterateEventStore } from "../events/iterateEventStore";
 import { ReadModelAdminState, ReadModelAdminStatus } from "./readModels";
+import { build } from "./build";
 
 export type ReadModalDurableObjectAPI = {
   onEvent: {
@@ -38,7 +38,7 @@ export class ReadModalDurableObject<TEnv = Env>
     protected objectState: DurableObjectState,
     protected env: Env,
     protected system: System,
-    protected handleEvent: (event: StoredEvent) => Promise<unknown>
+    protected eventHandler: (event: StoredEvent) => Promise<unknown>
   ) {
     super(objectState);
     this.storage = objectState.storage;
@@ -51,7 +51,8 @@ export class ReadModalDurableObject<TEnv = Env>
 
   private async setBuildStatus(status: ReadModelAdminStatus) {
     this.logger.debug(`Build status changed: '${status}'`);
-    await this.storage.put("adminState", { ...this.adminState, status });
+    this.adminState = { ...this.adminState, status };
+    await this.storage.put("adminState", this.adminState);
   }
 
   /**
@@ -63,17 +64,24 @@ export class ReadModalDurableObject<TEnv = Env>
     this.eventBuffer.push(event);
 
     // If we are rebuilding then we cant handle the event right now so lets just return
-    if (this.adminState.status != "built") {
-      this.logger.debug(
-        `cannot handle '${event.kind}' while in the '${this.adminState.status}' state..`
-      );
-      return;
-    }
+    if (this.adminState.status == "building") return {};
+
+    // If we havent been built yet then lets do so now
+    if (this.adminState.status == "not-built")
+      await build({
+        setBuildStatus: this.setBuildStatus.bind(this),
+        storage: this.storage,
+        store: this.system.getEventStore(this.env),
+        eventHandler: this.eventHandler.bind(this),
+        // We add this so that the build process finishes when we reach this event as
+        // we dont want to process this event twice
+        untilEvent: event.id,
+      });
 
     // Now we can iterate through the stack and handle each event
     while (this.eventBuffer.length > 0) {
       const event = ensure(this.eventBuffer.shift());
-      await this.handleEvent(event);
+      await this.eventHandler(event);
     }
 
     return {};
@@ -81,22 +89,16 @@ export class ReadModalDurableObject<TEnv = Env>
 
   rebuild: RPCHandler<API, "rebuild"> = async ({}) => {
     if (this.adminState.status != "built")
-      throw new Error(`Cannot rebuild while in the '${this.adminState.status}' state`);
+      throw new Error(
+        `${this.constructor.name} cannot rebuild while in the '${this.adminState.status}' state`
+      );
 
-    // First we update the status so other events cant come in
-    await this.setBuildStatus("building");
-
-    // First empty all the storage
-    await this.storage.deleteAll();
-
-    // Then iterate over all the events in the store
-    await iterateEventStore({
+    await build({
+      setBuildStatus: this.setBuildStatus.bind(this),
+      storage: this.storage,
       store: this.system.getEventStore(this.env),
-      cb: (event) => this.handleEvent(event),
+      eventHandler: this.eventHandler.bind(this),
     });
-
-    // Finally reset the status so events can come back in
-    await this.setBuildStatus("built");
 
     return {};
   };

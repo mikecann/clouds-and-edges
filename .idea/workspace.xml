@@ -2,64 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/clouds-and-edges.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/useQueryStorage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site/src/features/api/useApiMutation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site/src/features/api/useApiQuery.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useAuthToken.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/readModels.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tinkering-with-durable-objects.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/server/src/events/EventStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/ids.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/build.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/matches/MatchesProjection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/matches/MatchesProjection.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/users/UsersProjection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/users/UsersProjection.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/EventStore.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/events/events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/MatchCreationProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/MatchCreationProcess.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchCreation/eventHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/processes/matchJoining/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/processes/matchJoining/eventHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/matches/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/matches/eventHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/projections/users/eventHandlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/projections/users/eventHandlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/system.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/events/ConnectedEventsAdminLog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/storage/ConnectedInspectableStorage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/ConnectedInspectableStorage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/storage/InspectableStorage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/storage/InspectableStorage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/useAdminRebuild.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/admin/useAdminRebuild.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/admin/useQueryStorage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/performRPCOperation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/performRPCOperation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useCommand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/useCommand.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useEventStoreEvents.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useGenericErrorHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/errors/useGenericErrorHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useMe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/useMe.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useRPCOperation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/api/useRPCOperation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSetName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/useSetName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSignout.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useSignout.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useSignup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/auth/useSignup.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/api/useUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/user/useUser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/Finished.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/Finished.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/MatchPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/MatchPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/PlayingGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/ConnectedMatchCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/ConnectedMatchCards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCancelMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCancelMatch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCreateNewMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useCreateNewMatch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useJoinMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useJoinMatch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMatches.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useMyMatches.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useTakeTurn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/matches/useTakeTurn.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/match/game/CellView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/match/game/CellView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/ConnectedOpenMatches.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/ConnectedOpenMatches.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/matches/openMatches/useOpenMatches.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/me/ConnectedEditableUserName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/ConnectedEditableUserName.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/me/MyProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/me/MyProfilePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/sidebar/ConnectedDashboardSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/sidebar/ConnectedDashboardSidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/signup/SignupPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/signup/SignupPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/state/useAppStatePersistance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/state/useAppStatePersistance.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/ProcessDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/handleProcessEvent.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/projections.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/projections.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +78,7 @@
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\dev\me\clouds-and-edges\node_modules\prettier" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
@@ -121,12 +93,85 @@
       <recent name="C:\dev\me\clouds-and-edges\packages\workers-es\src\readModel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\me\clouds-and-edges\packages\server\src\events" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin\storage" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\errors" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\user" />
-      <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\me" />
     </key>
+  </component>
+  <component name="RunManager" selected="Jest.iterateEventStore.test.ts">
+    <configuration name="can handle multiple batches" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <test-names>
+        <test-name value="can handle multiple batches" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="iterateEventStore.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <method v="2" />
+    </configuration>
+    <configuration name="works for multiple events in the same batch" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <test-names>
+        <test-name value="works for multiple events in the same batch" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="works for one event" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <test-names>
+        <test-name value="works for one event" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="works" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <test-names>
+        <test-name value="works" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.iterateEventStore.test.ts" />
+        <item itemvalue="Jest.can handle multiple batches" />
+        <item itemvalue="Jest.works for multiple events in the same batch" />
+        <item itemvalue="Jest.works for one event" />
+        <item itemvalue="Jest.works" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -137,7 +182,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633759113894</updated>
       <workItem from="1633759115808" duration="1942000" />
-      <workItem from="1633761090716" duration="8885000" />
+      <workItem from="1633761090716" duration="15526000" />
     </task>
     <servers />
   </component>
@@ -155,6 +200,18 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts</url>
+          <line>96</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

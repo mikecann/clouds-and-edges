@@ -3,12 +3,10 @@ import { RPCApiHandler, RPCHandler } from "../durableObjects/rpc";
 import { StoredEvent } from "./events";
 import { Env } from "../env";
 import { InspectableStorageDurableObject } from "../admin/InspectableStorageDurableObject";
+import { System } from "../system/system";
+import { getEventId } from "./ids";
 
 const logger = getLogger(`EventStore`);
-
-// This key is super important
-// We use leftFillNum to ensure lexographically incrementing keys when we retrieve events when rebuilding
-const getEventId = (index: number) => `${leftFillNum(index, 9)}`;
 
 export type BaseEventStoreAPI = {
   addEvent: {
@@ -26,6 +24,7 @@ export type BaseEventStoreAPI = {
   getEvents: {
     input: {
       fromEventId?: string;
+      limit?: number;
     };
     output: {
       events: StoredEvent[];
@@ -43,12 +42,14 @@ export class BaseEventStore<TEnv extends Env = Env>
 
   protected storage: DurableObjectStorage;
 
-  constructor(protected objectState: DurableObjectState, protected env: TEnv) {
+  constructor(
+    protected objectState: DurableObjectState,
+    protected env: TEnv,
+    protected system: System
+  ) {
     super(objectState);
     this.storage = objectState.storage;
   }
-
-  protected onEventAdded = (event: StoredEvent): any => {};
 
   async init() {
     this.eventIndex = (await this.storage.get("eventIndex")) ?? 0;
@@ -78,20 +79,19 @@ export class BaseEventStore<TEnv extends Env = Env>
     await this.storage.put(`eventIndex`, ++this.eventIndex);
     await this.storage.put(id, event);
 
-    // We now need to inform all projection and processes about the event but we dont
-    // want to wait for them to finish as they could take a while.
-    // I hope this is how it works in DOs
-    await this.onEventAdded(event);
+    // We now need to inform all read models about the event
+    for (const model of this.system.getReadModels(this.env)) await model.onEvent({ event });
 
     return {
       eventId: id,
     };
   };
 
-  getEvents: RPCHandler<API, "getEvents"> = async ({ fromEventId }) => {
+  getEvents: RPCHandler<API, "getEvents"> = async ({ fromEventId, limit = 100 }) => {
     const contents = await this.storage.list({
-      limit: 100,
+      limit,
       start: fromEventId,
+      prefix: `e:`,
     });
     const events: StoredEvent[] = [...contents.values()] as any;
     return { events };

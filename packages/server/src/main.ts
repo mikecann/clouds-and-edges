@@ -12,7 +12,7 @@ export { MatchesProjection } from "./projections/matches/MatchesProjection";
 export { MatchCreationProcess } from "./processes/matchCreation/MatchCreationProcess";
 export { MatchJoiningProcess } from "./processes/matchJoining/MatchJoiningProcess";
 
-export { EventStore } from "./EventStore";
+export { EventStore } from "./events/EventStore";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

@@ -1,5 +1,5 @@
 import { ProjectionEventHandlers } from "@project/workers-es";
-import { Events } from "../../events";
+import { Events } from "../../events/events";
 import { getLogger } from "@project/essentials";
 
 const logger = getLogger(`UsersProjection-handlers`);

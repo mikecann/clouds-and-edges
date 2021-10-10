@@ -5,7 +5,7 @@ export const useOpenMatches = () => {
   const [{ userId }] = useAppState();
   return useApiQuery({
     endpoint: "projections.matches.getOpen",
-    key: `matches`,
+    key: `openMatches`,
     input: {
       excludePlayer: userId,
     },

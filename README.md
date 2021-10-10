@@ -48,3 +48,4 @@ yarn site storybook
 
 - Lexographic order on event store means problems for event store
 - event store currently has a limit or 9 
+- There are definately issues around rebuilding readmodels where events can come in while rebuilding etc

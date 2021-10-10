@@ -1,5 +1,5 @@
 import { ProcessEventHandlers } from "@project/workers-es";
-import { Events } from "../../events";
+import { Events } from "../../events/events";
 import { getLogger } from "@project/essentials";
 import { Commands } from "@project/shared";
 import { Db } from "./db";
@@ -46,6 +46,10 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
         },
       });
 
+      // Its possible that we are being rebuilt. In which case the command wont actually
+      // get executed and thus there will be no response so we can just end here
+      if (!response) return;
+
       // Then we automatically join the first player as the creator
       await effects.executeCommand({
         aggregate: "match",
@@ -61,7 +65,7 @@ export const getHandlers = (db: Db): ProcessEventHandlers<Events, Commands> => (
     },
   },
   effects: {
-    sendEmail: (toUserId: string) => {
+    sendEmail: async (toUserId: string) => {
       // todo
     },
   },

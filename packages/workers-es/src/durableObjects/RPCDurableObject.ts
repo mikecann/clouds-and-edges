@@ -29,7 +29,7 @@ export abstract class RPCDurableObject<TEnv> implements DurableObject {
     const handler = getInObj(this, endpoint);
     const output = await handler.bind(this)(payload);
 
-    this.logger.debug(`returning`, output);
+    this.logger.debug(`returning from '${endpoint}'`, output);
 
     return new Response(JSON.stringify(output));
   }

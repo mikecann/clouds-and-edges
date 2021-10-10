@@ -1,5 +1,5 @@
 import { ProjectionEventHandlers } from "@project/workers-es";
-import { Events } from "../../events";
+import { Events } from "../../events/events";
 import { Db } from "./db";
 
 export const getHandlers = (db: Db): ProjectionEventHandlers<Events> => ({
