@@ -4,9 +4,9 @@
 
 A Serverless & Databaseless Event-Sourced game powered by Cloudflare's Workers and Durable Objects.
 
-This is a proof of concept projected created to test the feasibility of building an Event-Sourced system purely on Cloudflare Workers and Durable Objects. 
+This is a proof of concept projected created to test the feasibility of building an Event-Sourced system purely on Cloudflare Workers and Durable Objects.
 
-To properly explore the space I implemented a simple multiplayer game based on the popular [Dots and Boxes](https://en.wikipedia.org/wiki/Dots_and_Boxes) which I call "Clouds & Edges". 
+To properly explore the space I implemented a simple multiplayer game based on the popular [Dots and Boxes](https://en.wikipedia.org/wiki/Dots_and_Boxes) which I call "Clouds & Edges".
 
 ## What it looks like
 
@@ -55,17 +55,37 @@ yarn site dev
 
 There are a bunch of other commands you an run such as storybook or tests. See the "scripts" in the relevant `package.json` for whats available.
 
-## Issues
+## Caveats
 
-I ran into a number of issues during development that perhaps make building an Event-Sourced system purely on Workers and Durable Objects. Its definitely possible as this repo demonstrates but it would probably make development considerably simpler if some external services were used too.
+This project is very much a Proof of Concept. It works but there are a great many known (and likely unknown) issues.
+
+For interested readers im going to detail the biggest points below.
 
 ### Async and Cloudflare Workers
 
 - can things run in the background?
 
-## ToDo
+### Limited Queries
 
-Theres a number of outstanding tasks that if I had more time to spend I would look into.
+Because all data is stored in the DurableObjectStorage its conceptually easy to understand and the limited [Storage API](https://developers.cloudflare.com/workers/runtime-apis/durable-objects#transactional-storage-api) adds about some interesting challenges.
+
+For example the EventStore cannot be queried for events related to only one aggregate, instead you must return ALL events (in batches) then filter them for the aggregates you want.
+
+Another example is the Matches projection is rather limited and currently a little "hacky" because the storage and querying of matches is limited to just a single prefix string.
+
+I think a future version of this project might have to look into using a third party database service such as [Fauna](https://fauna.com/).
+
+### Sync Async
+
+In a typical Event-Sourced system the various parts (Aggregates, Event Store, Read Models) are all separated by buffers and queues. This means that each part is distinct and independent from each other.
+
+Well this is not really the way it works with Cloudflare DurableObjects. One object calls another object then must "await" its return before it can return to the client.
+
+This is problematic as a command on an aggregate can cause a whole cascade of things to happen such as events adding to the store triggering processes which trigger yet more commands to be executed. During this whole process the initial command must wait for all this to happen before returning to the user.
+
+This is particularly problematic when "rebuilding" a read model. Because the store could have millions / billions or more events in it, a "rebuild" could potentially take a very long time. Thus the caller or the rebuild might stall in the meantime.
+
+This is something that would need to be looked at in a future version. Perhaps some external queuing service such as Kafka could be brought in to help.
 
 ### Proper Authentication
 
@@ -89,7 +109,6 @@ Some quick edge-cases that would need to be considered:
 
 - Ensure that when building / rebuilding read-models events are correctly buffered and played in the correct order
 - Proper error handling and rollback of transactions if things go wrong
-- 
 
 ## More Testing
 
@@ -97,7 +116,15 @@ Unit tests are embarrassingly sparse in this project unfortunately. I am usually
 
 Anyways, given more time I would most definitely be adding many more tests of various sorts (unit, integration, e2e) to ensure that all the various edge cases are handled.
 
+## Aggregate Rebuilding
 
+Currently there is no way to "rebuild" an aggregate. Its state is fixed and cached in the DO and its storage. This is probably something that I would want to improve in the future.
+
+## Resolve
+
+[Resolve](https://github.com/reimagined/resolve) from DevExpress is an excellent Event-Sourcing libray in development that this project took a bunch of inspiration from. I originally intended to port it over directly to Cloudflare and Durable objects but there were issues with a few things so in the end I decided to roll my own.
+
+If I was to do a future version of this project I would look harder at making it compatible as they have solved many of the issues above already.
 
 ## Notes For Video
 
@@ -105,34 +132,19 @@ Anyways, given more time I would most definitely be adding many more tests of va
 2. Take them into Miro and show them how the bits fit together
 3. To dive a little deeper explain a rough overview of how the project is laid out, again can use miro
 4. Rather than going through the code line by line, it might be best to explain some of the things it DOESNT do
-  - 
+
+-
+
 5. Some of the things it DOES do..
-  - hooks
-  - rpc
 
+- hooks
+- rpc
 
-
-
-
-- Make sure that the DO doesnt close the processes and projects
-- Adding event to event store should be done in transaction just incase it fails the aggregate state set should be rolled back
-- What happenes to the stored state if you dont reference it for a while?
-- Issues are that the projections might have to use a different DB to support more powerful queries
-- Make better use of react query keys according to that site
-- probably xstate would be better for aggregates
-- processes are not atomic so theres room for state corruption in there
-- think about error retrys in processes, what if an event handler fails, do we retry?
-- need to rebuild aggregates too
-- Rebuilding Aggregates
-
-- Lexographic order on event store means problems for event store
 - event store currently has a limit or 9
 - There are definately issues around rebuilding readmodels where events can come in while rebuilding etc
-
-
 
 ## Inspiration
 
 I have been a fan of Event Sourcing for some time now and have even built a Serverless Event-Sourced system on AWS when I was working at [Bamboo](https://www.getbamboo.io/). At the time there was virtually nothing on the topic so we struggled through all the various edge cases to build the working system.
 
-Now however there are a few good examples, one I have been watching for some time now is [Resolve](https://github.com/reimagined/resolve) from DevExpress. They are a much more competent at event 
+Now however there are a few good examples, one I have been watching for some time now is [Resolve](https://github.com/reimagined/resolve) from DevExpress. They are a much more competent at event
