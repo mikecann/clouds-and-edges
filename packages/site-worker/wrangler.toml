@@ -1,3 +1,5 @@
+compatibility_date = "2021-10-10"
+
 name = "clouds-and-edges-site-dev"
 type = "webpack"
 route = ''
