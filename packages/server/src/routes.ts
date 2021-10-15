@@ -7,8 +7,10 @@ import { system } from "./system";
 
 export const router = Router();
 
-router.get("/", async () => {
-  return new Response("Hello from Clouds and Edges!");
+router.get("/", async (input, env) => {
+  return new Response(
+    `Hello from Clouds and Edges!\n\nDurable Objects:\n${JSON.stringify(env, null, 2)}`
+  );
 });
 
 addRpcRoutes<API, Env>({

@@ -14,7 +14,7 @@ There is a small Miro whiteboard here that highlights some of the important part
 
 [INSERT VIDEO LINK HERE]
 
-You can play this over at: [INSERT LINK HERE]
+You can play this over at: https://clouds-and-edges-site.mikeysee.workers.dev/
 
 ## Packages
 
@@ -87,19 +87,19 @@ This is something that would need to be looked at in a future version. Perhaps s
 
 ### Proper Authentication
 
-Currently the "auth token" is simply your user ID. This means that in theory anyone could execute API calls on behalf of any other user so long as you know their ID. Given more time it would fairly simple to implement some sort of simple auth such as JWT.
+Currently the "auth token" is simply your user ID. This means that in theory anyone could execute API calls on behalf of any other user so long as you know their ID. Given more time it would be fairly simple to implement some sort of simple auth such as JWT.
 
 ### Authorization
 
-Hand in hand with Authentication comes Authorization. Currently there is no permissions or roles for users. Given more time it would be nice to give users roles particularly for "System Users" so that a distinction in user ability can be made.
+Hand in hand with Authentication comes Authorization. Currently, there is no permissions or roles for users. Given more time it would be nice to give users roles particularly for "System Users" so that a distinction in user ability can be made.
 
 ### API Input Validation
 
-Its obviously a good idea for a server to validate a user's input rather than blindly trusting it..well this project does none of that. It would be a simple matter of using [Zod](https://github.com/colinhacks/zod) or [io-ts](https://github.com/gcanti/io-ts) to ensure the input types at runtime match what you expect at compile time.
+It's obviously a good idea for a server to validate a user's input rather than blindly trusting it.. well this project does none of that. It would be a simple matter of using [Zod](https://github.com/colinhacks/zod) or [io-ts](https://github.com/gcanti/io-ts) to ensure the input types at runtime match what you expect at compile time.
 
 ## Edge Cases
 
-My past experience building a Serverless Event-Sourced solution at [Bamboo](https://www.getbamboo.io/) taught me that the devil is in the details with Event-Sourcing. There are a number of "gotchas" and edge-cases that you need to think about.
+My experience building a Serverless Event-Sourced solution at [Bamboo](https://www.getbamboo.io/) taught me that the devil is in the details with Event-Sourcing. There are a number of "gotchas" and edge-cases that you need to think about.
 
 This project is functional however I know it likely has some nasty out-of-order bugs and edge cases that need to be properly thought out and tests cases written for.
 
@@ -113,13 +113,13 @@ Some quick edge-cases that would need to be considered:
 
 ## More Testing
 
-Unit tests are embarrassingly sparse in this project unfortunately. I am usually a big fan of automated testing and often use TDD. Unfortunately however when you are kind of exploring your problem space by simply coding it things get added, deleted and moved around all the time. Doing thorough testing during that process just slows things down and makes the architecture too rigid too early.
+Unit tests are embarrassingly sparse in this project, unfortunately. I am usually a big fan of automated testing and often use TDD. Unfortunately however when you are kind of exploring your problem space by simply coding it things get added, deleted and moved around all the time. Doing thorough testing during that process just slows things down and makes the architecture too rigid too early.
 
 Anyways, given more time I would most definitely be adding many more tests of various sorts (unit, integration, e2e) to ensure that all the various edge cases are handled.
 
 ## Aggregate Rebuilding
 
-Currently there is no way to "rebuild" an aggregate. Its state is fixed and cached in the DO and its storage. This is probably something that I would want to improve in the future.
+Currently, there is no way to "rebuild" an aggregate. Its state is fixed and cached in the DO and its storage. This is probably something that I would want to improve in the future.
 
 ## Inspiration & Resolve
 

@@ -30,20 +30,25 @@ bindings = [
   {name = "MatchJoiningProcess", class_name = "MatchJoiningProcess"},
 ]
 
-[[migrations]]
-tag = "v1"
-new_classes = [
-  "UserAggregate",
-  "MatchAggregate",
+# Migrations dont seem to work?!
 
-  "EventStore",
-
-  "UsersProjection",
-  "MatchesProjection",
-
-  "MatchCreationProcess",
-  "MatchJoiningProcess"
-]
+#[[migrations]]
+#tag = "v1"
+#new_classes = [
+#  "UserAggregate",
+#  "MatchAggregate",
+#
+#  "EventStore",
+#
+#  "UsersProjection",
+#  "MatchesProjection",
+#
+#  "MatchCreationProcess",
+#  "MatchJoiningProcess"
+#]
+#
+#[[migrations]]
+#tag = "v2"
 
 [env.main]
 name = "clouds-and-edges-server"
