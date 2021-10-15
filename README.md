@@ -61,11 +61,7 @@ There are a bunch of other commands you an run such as storybook or tests. See t
 
 This project is very much a Proof of Concept. It works but there are a great many known (and likely unknown) issues.
 
-For interested readers im going to detail the biggest points below.
-
-### Async and Cloudflare Workers
-
-- can things run in the background?
+For interested readers im going to detail the biggest problems below.
 
 ### Limited Queries
 
@@ -75,7 +71,7 @@ For example the EventStore cannot be queried for events related to only one aggr
 
 Another example is the Matches projection is rather limited and currently a little "hacky" because the storage and querying of matches is limited to just a single prefix string.
 
-I think a future version of this project might have to look into using a third party database service such as [Fauna](https://fauna.com/).
+I think a future version of this project might have to look into using a third party database service such as [Fauna](https://fauna.com/). DurableObject KV storage could then just be limited to being a "caching" layer like Redis is in usual applications.
 
 ### Sync Async
 
@@ -111,6 +107,9 @@ Some quick edge-cases that would need to be considered:
 
 - Ensure that when building / rebuilding read-models events are correctly buffered and played in the correct order
 - Proper error handling and rollback of transactions if things go wrong
+- Ensure that events will always be inserted into the EventStore in order
+- Ensure that Aggregate commands are executed in a single-threaded manner
+- Ensure that side-effects in processes are only executed once while the process is "live"
 
 ## More Testing
 

@@ -105,6 +105,10 @@ jobs:
           path: node_modules
           key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
 
+      # Need to setup correct sym-links between the packages in the monorepo
+      - name: yarn install
+        run: yarn install --pure-lockfile --production=false
+
       - name: Install Cloudflare Wrangler
         run: npm i @cloudflare/wrangler -g
 
