@@ -66,7 +66,7 @@ describe(`isLineAroundCell`, () => {
         },
         { x: 1, y: 1 }
       )
-    ).toBe(false);
+    ).toBe(true);
 
     expect(
       isLineAroundCell(

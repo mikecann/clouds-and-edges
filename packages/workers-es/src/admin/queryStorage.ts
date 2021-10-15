@@ -6,7 +6,7 @@ interface Options {
   logger: Logger;
 }
 
-type JSONType = string | boolean | object | null | undefined;
+type JSONType = string | boolean | Record<string, unknown> | null | undefined;
 
 export interface QueryStorageAPI {
   input: {

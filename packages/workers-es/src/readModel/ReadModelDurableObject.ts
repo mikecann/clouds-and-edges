@@ -12,11 +12,11 @@ export type ReadModalDurableObjectAPI = {
     input: {
       event: StoredEvent;
     };
-    output: {};
+    output: Record<string, never>;
   };
   rebuild: {
-    input: {};
-    output: {};
+    input: Record<string, never>;
+    output: Record<string, never>;
   };
 };
 

@@ -4,8 +4,6 @@ export abstract class RPCDurableObject<TEnv> implements DurableObject {
   protected logger = getLogger(`${this.constructor.name}`);
   protected initPromise: Promise<any> | undefined = undefined;
 
-  protected constructor() {}
-
   protected async init() {}
 
   // Handle HTTP requests from clients.

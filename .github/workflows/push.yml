@@ -1,0 +1,225 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  NODE_ENV: "production"
+  BUILD_NUMBER: ${{ github.run_number }} 
+  NODE_OPTIONS: "--max_old_space_size=8096"
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.6.x
+
+      - name: Debug Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
+
+      # We must set --production=false here because we have NODE_ENV set to "production" at the
+      # top level env and thus yarn will NOT install devDependencies unless we use the flag
+      - name: yarn install
+        run: yarn install --pure-lockfile --production=false
+
+  test:
+    needs: install
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.6.x
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
+
+      - name: Test Everything
+        run: yarn test
+        env:
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_HOST: localhost
+          # for some reason we get strange test issue if we parallelize :(
+          JEST_SERVER_SHARED_MAX_WORKERS: 1
+
+  lint:
+    needs: install
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.6.x
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
+
+      - name: Lint
+        run: yarn lint
+
+  build-and-deploy:
+    needs: [install, test, lint]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.6.x
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
+
+      - name: Install A Few Global tools
+        run: yarn global add netlify-cli
+
+      - name: Globally Install Heroku
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Remove WIP Assets on Main
+        if: github.ref == 'refs/heads/main'
+        run: yarn rimraf ./packages/client-shared/assets/**/wip
+
+      - name: Build
+        run: yarn build
+        env:
+          BT_ENVIRONMENT: ${{ env.ENVIRONMENT }}
+          BT_ANALYTICS_DISABLED: ${{ fromJSON('["true", "false"]')[github.ref == 'refs/heads/main'] }}
+          BT_MIN_ASYNC_WAIT_TIME: "0"
+          BT_SERVER_ROOT: https://${{ env.HEROKU_APP }}.herokuapp.com
+          BT_SENTRY_DISABLED: "false"
+          BT_WEB_ROOT_DEV: "https://${{ github.sha }}--battletabs-web.netlify.app"
+          BT_WEB_ROOT_MAIN: "https://battletabs.io"
+          BT_DISCORD_CLIENT_ID: "869831403225899059"
+          BT_STRIPE_PUBLISH_KEY: ${{ fromJSON('["pk_test_51HkLyoJ5cPnQNGm1z9pm07LLnw38QBUMadCxuPgzSS9DDV8JzCeYhGD7a9tZr9lFM9ZSDQOlakx0noUKAwzW2EJW00YAu86TxK", "pk_live_51HkLyoJ5cPnQNGm1p4X67diAWZVw605Ox2lACE1zZqE6lN3ikbqChTjJ5Ng5AXlTjT72KTB7US3uj7abD6qIMK6O00iwXYuXa4"]')[github.ref == 'refs/heads/main'] }}
+          EXCLUDE_WIP_SHIPS: ${{ fromJSON('["false", "true"]')[github.ref == 'refs/heads/main'] }}
+          EXCLUDE_SEASONS: "true"
+
+#      - name: Upload Sourcemaps To Sentry
+#        run: |
+#          yarn nx script web --name=uploadSourcemapsToSentry
+#          yarn nx script extension --name=uploadSourcemapsToSentry
+#        env:
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Deploy Server
+        run: yarn server deploy
+
+      - name: Deploy Web
+        if: github.ref != 'refs/heads/main'
+        run: netlify deploy --dir ./packages/web/dist --alias "${{ github.sha }}"
+        env:
+          NETLIFY_SITE_ID: 62cef47d-9f33-42d0-b077-538db26dba42
+
+      - name: Deploy Web To Production
+        if: github.ref == 'refs/heads/main'
+        run: netlify deploy --dir ./packages/web/dist --prod
+        env:
+          NETLIFY_SITE_ID: 62cef47d-9f33-42d0-b077-538db26dba42
+
+#      - name: Deploy Storybook
+#        run: yarn netlify deploy --dir ./libs/client-shared/dist/storybook --alias "${{ github.sha }}"
+#        env:
+#          NETLIFY_SITE_ID: ceef60eb-752e-4c9c-9aa9-bfcbe6a194f1
+
+      - name: Deploy Chrome Extension
+        run: yarn extension deploy
+        env:
+          TARGET_BROWSER: "chrome"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+#          # These guys get injected into 'env.json' which is loaded at runtime
+#          BT_BROWSER: "chrome"
+#          BT_ENVIRONMENT: ${{ env.ENVIRONMENT }}
+#          BT_ANALYTICS_DISABLED: "false"
+#          BT_MIN_ASYNC_WAIT_TIME: "0"
+#          BT_SERVER_ROOT: https://${{ env.HEROKU_APP }}.herokuapp.com
+#          BT_SENTRY_DISABLED: "false"
+#          BT_WEB_ROOT_DEV: "https://${{ github.sha }}--battletabs-web.netlify.app"
+#          BT_WEB_ROOT_MAIN: "https://battletabs.io"
+#          BT_STRIPE_PUBLISH_KEY: ${{ fromJSON('["pk_test_51HkLyoJ5cPnQNGm1z9pm07LLnw38QBUMadCxuPgzSS9DDV8JzCeYhGD7a9tZr9lFM9ZSDQOlakx0noUKAwzW2EJW00YAu86TxK", "pk_live_51HkLyoJ5cPnQNGm1p4X67diAWZVw605Ox2lACE1zZqE6lN3ikbqChTjJ5Ng5AXlTjT72KTB7US3uj7abD6qIMK6O00iwXYuXa4"]')[github.ref == 'refs/heads/main'] }}
+
+      - name: Deploy Edge Extension
+        run: yarn extension deploy
+        env:
+          TARGET_BROWSER: "edge"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          # These guys get injected into 'env.json' which is loaded at runtime
+#          BT_ANALYTICS_DISABLED: "false"
+#          BT_ENVIRONMENT: ${{ env.ENVIRONMENT }}
+#          BT_MIN_ASYNC_WAIT_TIME: "0"
+#          BT_SERVER_ROOT: https://${{ env.HEROKU_APP }}.herokuapp.com
+#          BT_SENTRY_DISABLED: "false"
+#          BT_WEB_ROOT_DEV: "https://${{ github.sha }}--battletabs-web.netlify.app"
+#          BT_WEB_ROOT_MAIN: "https://battletabs.io"
+#          BT_STRIPE_PUBLISH_KEY: ${{ fromJSON('["pk_test_51HkLyoJ5cPnQNGm1z9pm07LLnw38QBUMadCxuPgzSS9DDV8JzCeYhGD7a9tZr9lFM9ZSDQOlakx0noUKAwzW2EJW00YAu86TxK", "pk_live_51HkLyoJ5cPnQNGm1p4X67diAWZVw605Ox2lACE1zZqE6lN3ikbqChTjJ5Ng5AXlTjT72KTB7US3uj7abD6qIMK6O00iwXYuXa4"]')[github.ref == 'refs/heads/main'] }}
+
+#      # Theres a few things we have to do that are itch specific before we deploy
+#      - name: Prepare Itch.io Dist
+#        if: github.ref == 'refs/heads/main'
+#        run: yarn script:web ./apps/web/scripts/prepareItchDist.ts
+#
+#      # Lets push to itch using "butler"
+#      - name: Deploy to Itch.io
+#        if: github.ref == 'refs/heads/main'
+#        uses: josephbmanley/butler-publish-itchio-action@master
+#        env:
+#          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+#          CHANNEL: html
+#          ITCH_GAME: play
+#          ITCH_USER: battletabs
+#          PACKAGE: apps/web/itch-dist
+#
+      - name: Notify Slack
+        run: yarn extension script ./scripts/notifySlackOfNewBuild.ts
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          RUN_ID: ${{ github.run_id }}
+          BRANCH: ${{ github.ref }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
+          COMMIT_AUTHOR: ${{ github.event.head_commit.author.name }}
+          GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
+          SLACK_CLIENT_SECRET: ${{ secrets.SLACK_CLIENT_SECRET }}
+          SLACK_CHANNEL: "#battletabs-builds"
+          STORIES_URL: "https://${{ github.sha }}--battletabs-stories.netlify.app/"
+          WEB_URL: "https://${{ github.sha }}--battletabs-web.netlify.app/"

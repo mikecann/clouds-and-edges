@@ -45,6 +45,6 @@ describe("calculateWinner", () => {
     const cell1 = produceCellState({ x: 0, y: 0 }, "bob");
     const cell2 = produceCellState({ x: 0, y: 0 }, "dave");
     const cell3 = produceCellState({ x: 0, y: 0 }, "bob");
-    expect(calculateWinner([cell1, cell2, cell3])).toEqual("dave");
+    expect(calculateWinner([cell1, cell2, cell3])).toEqual("bob");
   });
 });

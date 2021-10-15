@@ -10,13 +10,8 @@ export const createDurableObjectRPCProxy = <TObject extends abstract new (...arg
     get: function (target, prop) {
       return async function () {
         const endpoint = prop as string;
+        // eslint-disable-next-line prefer-rest-params
         const input = arguments[0];
-
-        // logger.debug(`calling durable object '${obj.name}'`, {
-        //   stub,
-        //   endpoint,
-        //   input,
-        // });
 
         const response = await stub.fetch(`https://${stub.id}/${endpoint}`, {
           method: "POST",
@@ -26,8 +21,6 @@ export const createDurableObjectRPCProxy = <TObject extends abstract new (...arg
         if (!response.ok) throw new Error(`Calling durable object failed ${response}`);
 
         const payload = await response.json();
-
-        //logger.debug(`[${endpoint}] response`, payload);
 
         return payload;
       };

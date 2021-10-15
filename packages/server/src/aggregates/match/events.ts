@@ -31,7 +31,7 @@ export interface MatchStarted {
 
 export interface MatchCancelled {
   kind: "match-cancelled";
-  payload: {};
+  payload: Record<string, never>;
 }
 
 export interface MatchTurnTaken {

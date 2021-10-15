@@ -11,13 +11,13 @@ interface Options {
 
 export const iterateEventStore = async ({ cb, store, untilEvent, batchSize = 100 }: Options) => {
   // Remember the index to go from
-  let fromEventId: string | undefined = undefined;
+  let fromEventId: string | undefined;
 
   while (true) {
     // Lets grab a fresh batch of events
     const events: StoredEvent[] = (await store.getEvents({ limit: batchSize, fromEventId })).events;
 
-    for (let event of events) {
+    for (const event of events) {
       // We should stop once we reach this event
       if (event.id == untilEvent) return;
 

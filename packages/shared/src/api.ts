@@ -7,7 +7,7 @@ import { MatchProjection } from "./match/projections";
 export type API = {
   "projections.users.findUserById": Projections["users"]["findUserById"];
   "projections.matches.getMine": {
-    input: {};
+    input: Record<string, never>;
     output: MatchProjection[];
   };
   "projections.matches.getMatch": Projections["matches"]["getMatch"];
@@ -22,9 +22,9 @@ export type API = {
   "admin.rebuild": {
     input: {
       identifier: DurableObjectIdentifier;
-      input: {};
+      input: Record<string, never>;
     };
-    output: {};
+    output: Record<string, never>;
   };
   "auth.signup": {
     input: {

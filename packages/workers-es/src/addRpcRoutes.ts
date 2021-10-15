@@ -22,7 +22,7 @@ export const addRpcRoutes = <TApi extends RpcRoutesApi, TEnv>({
   urlPrefix = `/`,
   router,
 }: Options<TApi, TEnv>) => {
-  for (let endpoint in routes) {
+  for (const endpoint in routes) {
     router.post(`${urlPrefix}${endpoint}`, async (request, env) => {
       const userId = iife(() => {
         const headers: Headers = (request as any).headers;

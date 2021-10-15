@@ -10,7 +10,7 @@ interface Options {
 export const computeCellStates = ({ settings, lines }: Options): CellState[] => {
   const cells = produceCellStates(settings.gridSize);
 
-  for (let cell of cells) {
+  for (const cell of cells) {
     const cellLines = getLinesAroundCell(lines, cell.position);
     if (cellLines.length == 4) cell.owner = cellLines[3].owner;
   }

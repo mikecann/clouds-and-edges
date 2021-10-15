@@ -1,4 +1,6 @@
-import { Command, CommandExecutionResponse, EventInput, StoredEvent } from "@project/workers-es";
+import { Command } from "../commands/commands";
+import { CommandExecutionResponse } from "../aggregates/AggreateDurableObject";
+import { EventInput, StoredEvent } from "../events/events";
 
 export type ProcessSideEffects<TCommands extends Command> = {
   executeCommand: (
@@ -6,7 +8,7 @@ export type ProcessSideEffects<TCommands extends Command> = {
   ) => Promise<CommandExecutionResponse | undefined>;
 };
 
-export type UserSideEffect = Function;
+export type UserSideEffect = (...args: any[]) => unknown;
 export type UserSideEffects = Record<string, UserSideEffect>;
 
 type Storage = DurableObjectStorage;

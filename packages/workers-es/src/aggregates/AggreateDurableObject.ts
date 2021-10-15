@@ -49,7 +49,7 @@ export class AggreateDurableObject<TState extends unknown = unknown, TEnv extend
   }
 
   protected async init() {
-    let stored = (await this.storage.get("state")) as TState | undefined;
+    const stored = (await this.storage.get("state")) as TState | undefined;
     this.state = stored || ({} as any);
   }
 

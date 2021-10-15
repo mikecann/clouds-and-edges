@@ -10,7 +10,7 @@ import {
 
 export type ProjectionDurableObjectAPI = ReadModalDurableObjectAPI;
 
-export class ProjectionDurableObject<TEnv = object>
+export class ProjectionDurableObject<TEnv = Record<string, unknown>>
   extends ReadModalDurableObject<TEnv>
   implements RPCApiHandler<ProjectionDurableObjectAPI>
 {

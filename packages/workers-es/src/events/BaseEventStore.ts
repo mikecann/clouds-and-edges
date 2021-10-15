@@ -38,7 +38,7 @@ export class BaseEventStore<TEnv extends Env = Env>
   extends InspectableStorageDurableObject<TEnv>
   implements RPCApiHandler<API>
 {
-  private eventIndex: number = 0;
+  private eventIndex = 0;
 
   protected storage: DurableObjectStorage;
 

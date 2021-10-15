@@ -2,29 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/build-and-deploy-dev.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/essentials/src/utils/prng.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/essentials/src/utils/random.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site-worker/worker/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/server/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/shared/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/site-worker/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/workers-es/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/essentials/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/id.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/id.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/rand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/rand.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/essentials/src/utils/random.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/essentials/src/utils/random.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/scripts/build.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/scripts/build.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/wrangler.toml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/wrangler.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site-worker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site-worker/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site-worker/wrangler.toml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site-worker/wrangler.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/features/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/features/config/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/site/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/site/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/src/aggregates/match/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/aggregates/match/events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/match/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/match/commands.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/computeCellStates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/computeCellStates.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/score.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/score.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/score.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/score.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/processes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/addRpcRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/addRpcRoutes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/system/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,10 +68,9 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/packages/server/dist/main.mjs" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/site/src/features/api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/server" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -78,16 +78,17 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\dev\me\clouds-and-edges\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
     <property name="ts.external.directory.path" value="C:\dev\me\clouds-and-edges\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\me\clouds-and-edges\packages\server" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\shared" />
+      <recent name="C:\dev\me\clouds-and-edges\packages\site-worker" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\api" />
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\admin" />
-      <recent name="C:\dev\me\clouds-and-edges\packages\workers-es\src\projections" />
-      <recent name="C:\dev\me\clouds-and-edges\packages\workers-es\src\readModel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\me\clouds-and-edges\packages\server\src\events" />
@@ -97,17 +98,18 @@
       <recent name="C:\dev\me\clouds-and-edges\packages\site\src\features\user" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.works (1)">
-    <configuration name="can handle multiple batches" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.isLineAroundCell.works">
+    <configuration name="isLineAroundCell.works" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
+      <working-dir value="$PROJECT_DIR$/packages/shared" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <test-file value="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" />
       <test-names>
-        <test-name value="can handle multiple batches" />
+        <test-name value="isLineAroundCell" />
+        <test-name value="works" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -119,6 +121,16 @@
       <envs />
       <scope-kind value="TEST_FILE" />
       <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
+      <method v="2" />
+    </configuration>
+    <configuration name="line.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/packages/shared" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" />
       <method v="2" />
     </configuration>
     <configuration name="random.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
@@ -144,26 +156,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="works for multiple events in the same batch" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/packages/workers-es" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.test.ts" />
-      <test-names>
-        <test-name value="works for multiple events in the same batch" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.isLineAroundCell.works" />
+        <item itemvalue="Jest.line.test.ts" />
         <item itemvalue="Jest.works (1)" />
         <item itemvalue="Jest.random.test.ts" />
         <item itemvalue="Jest.iterateEventStore.test.ts" />
-        <item itemvalue="Jest.can handle multiple batches" />
-        <item itemvalue="Jest.works for multiple events in the same batch" />
       </list>
     </recent_temporary>
   </component>
@@ -177,6 +176,9 @@
       <updated>1633759113894</updated>
       <workItem from="1633759115808" duration="1942000" />
       <workItem from="1633761090716" duration="25310000" />
+      <workItem from="1634263836686" duration="160000" />
+      <workItem from="1634264457656" duration="6000" />
+      <workItem from="1634264464653" duration="797000" />
     </task>
     <servers />
   </component>
@@ -204,7 +206,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts</url>
           <line>96</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

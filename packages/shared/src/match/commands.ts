@@ -17,12 +17,12 @@ interface Create extends Base {
 
 interface Cancel extends Base {
   kind: `cancel`;
-  payload: {};
+  payload: Record<string, never>;
 }
 
 interface JoinRequest extends Base {
   kind: `join-request`;
-  payload: {};
+  payload: Record<string, never>;
 }
 
 interface Join extends Base {

@@ -8,6 +8,8 @@ This is a proof of concept projected created to test the feasibility of building
 
 To properly explore the space I implemented a simple multiplayer game based on the popular [Dots and Boxes](https://en.wikipedia.org/wiki/Dots_and_Boxes) which I call "Clouds & Edges".
 
+There is a small Miro whiteboard here that highlights some of the important parts: https://miro.com/app/board/o9J_lq_d2nE=/
+
 ## What it looks like
 
 [INSERT VIDEO LINK HERE]
@@ -25,7 +27,7 @@ At the top level the project is divided into a number of packages that use [yarn
 - **site-worker** - hosts the site on Cloudflare
 - **workers-es** - contains project agnostic "Workers Event-Sourcing" code. This could potentially be turned into a public repo and published to npm.
 
-See this part of the miro document for an overview of how all these parts fit together [TODO: INSERT MIRO HERE]
+See this part of the miro document for an overview of how all these parts fit together: https://miro.com/app/board/o9J_lq_d2nE=/
 
 ## Running it yourself
 
@@ -125,23 +127,6 @@ Currently there is no way to "rebuild" an aggregate. Its state is fixed and cach
 [Resolve](https://github.com/reimagined/resolve) from DevExpress is an excellent Event-Sourcing libray in development that this project took a bunch of inspiration from. I originally intended to port it over directly to Cloudflare and Durable objects but there were issues with a few things so in the end I decided to roll my own.
 
 If I was to do a future version of this project I would look harder at making it compatible as they have solved many of the issues above already.
-
-## Notes For Video
-
-1. Take them through the app
-2. Take them into Miro and show them how the bits fit together
-3. To dive a little deeper explain a rough overview of how the project is laid out, again can use miro
-4. Rather than going through the code line by line, it might be best to explain some of the things it DOESNT do
-
--
-
-5. Some of the things it DOES do..
-
-- hooks
-- rpc
-
-- event store currently has a limit or 9
-- There are definately issues around rebuilding readmodels where events can come in while rebuilding etc
 
 ## Inspiration
 
