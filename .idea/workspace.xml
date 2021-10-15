@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32067d8d-79fa-401c-84a1-726617296d83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/server/.eslintrc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/shared/.eslintrc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/site-worker/.eslintrc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/workers-es/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/src/aggregates/match/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/src/aggregates/match/events.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/match/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/match/commands.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/computeCellStates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/computeCellStates.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/line.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/score.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/score.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/modal/score.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/modal/score.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/shared/src/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/shared/src/processes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/addRpcRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/addRpcRoutes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/admin/queryStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/aggregates/AggreateDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/RPCDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/durableObjects/createDurableObjectRPCProxy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/BaseEventStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/events/iterateEventStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/processes/processes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/projections/ProjectionDurableObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/workers-es/src/readModel/ReadModelDurableObject.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +155,7 @@
       <workItem from="1633761090716" duration="25310000" />
       <workItem from="1634263836686" duration="160000" />
       <workItem from="1634264457656" duration="6000" />
-      <workItem from="1634264464653" duration="797000" />
+      <workItem from="1634264464653" duration="1431000" />
     </task>
     <servers />
   </component>

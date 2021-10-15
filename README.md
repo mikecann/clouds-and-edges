@@ -122,14 +122,10 @@ Anyways, given more time I would most definitely be adding many more tests of va
 
 Currently there is no way to "rebuild" an aggregate. Its state is fixed and cached in the DO and its storage. This is probably something that I would want to improve in the future.
 
-## Resolve
-
-[Resolve](https://github.com/reimagined/resolve) from DevExpress is an excellent Event-Sourcing libray in development that this project took a bunch of inspiration from. I originally intended to port it over directly to Cloudflare and Durable objects but there were issues with a few things so in the end I decided to roll my own.
-
-If I was to do a future version of this project I would look harder at making it compatible as they have solved many of the issues above already.
-
-## Inspiration
+## Inspiration & Resolve
 
 I have been a fan of Event Sourcing for some time now and have even built a Serverless Event-Sourced system on AWS when I was working at [Bamboo](https://www.getbamboo.io/). At the time there was virtually nothing on the topic so we struggled through all the various edge cases to build the working system.
 
-Now however there are a few good examples, one I have been watching for some time now is [Resolve](https://github.com/reimagined/resolve) from DevExpress. They are a much more competent at event
+[Resolve](https://github.com/reimagined/resolve) from DevExpress is a relatively new entrant to the Event-Sourcing libray space and is excellent. This project took a bunch of inspiration from it. Originally I intended to port Resolve over to Cloudflare and Durable objects but there were some compatibility issues  so in the end I decided to roll my own.
+
+If I was to do a future version of this project I would look harder at making it compatible as they have solved many of the issues and edge-cases listed above already.
