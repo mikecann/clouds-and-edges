@@ -11,7 +11,7 @@
     "dev": "yarn compile --watch",
     "compile": "tsc --build",
     "build": "yarn compile && lerna run build --stream",
-    "deploy:dev": "yarn cross-env ",
+    "deploy": "yarn cross-env ",
     "clean:ts": "rimraf **/dist **/.mf **/tsconfig.tsbuildinfo",
     "clean:deps": "rimraf **/node_modules **/yarn-error.log **/yarn.lock",
     "clean:full": "yarn clean:deps && yarn clean:ts",

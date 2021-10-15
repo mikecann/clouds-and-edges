@@ -103,26 +103,19 @@ jobs:
           path: node_modules
           key: cache-node-modules-4-${{ hashFiles('yarn.lock') }}
 
-      - name: Install A Few Global tools
-        run: yarn global add wrangler
+      - name: Install Cloudflare Wrangler
+        run: npm i @cloudflare/wrangler -g
 
       - name: Ensure Wrangler is Authenticated
         run: wrangler whoami
 
       - name: Build
         run: yarn build
+        env:
+          VITE_SERVER_ROOT: "https://clouds-and-edges-server.mikeysee.workers.dev"
 
-      # - name: Deploy Server
-      #   run: yarn server deploy
+      - name: Deploy Site
+        run: yarn site-worker deploy --env main
 
-      # - name: Deploy Web
-      #   if: github.ref != 'refs/heads/main'
-      #   run: netlify deploy --dir ./packages/web/dist --alias "${{ github.sha }}"
-      #   env:
-      #     NETLIFY_SITE_ID: 62cef47d-9f33-42d0-b077-538db26dba42
-
-      # - name: Deploy Web To Production
-      #   if: github.ref == 'refs/heads/main'
-      #   run: netlify deploy --dir ./packages/web/dist --prod
-      #   env:
-      #     NETLIFY_SITE_ID: 62cef47d-9f33-42d0-b077-538db26dba42
+      - name: Deploy Server
+        run: yarn server deploy --env main
