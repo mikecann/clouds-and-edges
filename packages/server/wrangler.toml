@@ -30,25 +30,35 @@ bindings = [
   {name = "MatchJoiningProcess", class_name = "MatchJoiningProcess"},
 ]
 
-# Migrations dont seem to work?!
+[env.main.durable_objects]
+bindings = [
+  {name = "UserAggregate", class_name = "UserAggregate"},
+  {name = "MatchAggregate", class_name = "MatchAggregate"},
 
-#[[migrations]]
-#tag = "v1"
-#new_classes = [
-#  "UserAggregate",
-#  "MatchAggregate",
-#
-#  "EventStore",
-#
-#  "UsersProjection",
-#  "MatchesProjection",
-#
-#  "MatchCreationProcess",
-#  "MatchJoiningProcess"
-#]
-#
-#[[migrations]]
-#tag = "v2"
+  {name = "EventStore", class_name = "EventStore"},
+
+  {name = "UsersProjection", class_name = "UsersProjection"},
+  {name = "MatchesProjection", class_name = "MatchesProjection"},
+
+  {name = "MatchCreationProcess", class_name = "MatchCreationProcess"},
+  {name = "MatchJoiningProcess", class_name = "MatchJoiningProcess"},
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = [
+  "UserAggregate",
+  "MatchAggregate",
+
+  "EventStore",
+
+  "UsersProjection",
+  "MatchesProjection",
+
+  "MatchCreationProcess",
+  "MatchJoiningProcess"
+]
+
 
 [env.main]
 name = "clouds-and-edges-server"
