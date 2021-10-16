@@ -11,7 +11,7 @@
     "dev": "yarn compile --watch",
     "compile": "tsc --build",
     "build": "yarn compile && lerna run build --stream",
-    "deploy": "yarn cross-env ",
+    "deploy:dev": "yarn cross-env VITE_SERVER_ROOT=\"https://clouds-and-edges-server-dev.mikeysee.workers.dev\" yarn site build && yarn site-worker deploy && yarn server deploy",
     "clean:ts": "rimraf **/dist **/.mf **/tsconfig.tsbuildinfo",
     "clean:deps": "rimraf **/node_modules **/yarn-error.log **/yarn.lock",
     "clean:full": "yarn clean:deps && yarn clean:ts",

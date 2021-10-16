@@ -6,6 +6,6 @@ export const useSignout = () => {
   const queryClient = useQueryClient();
   return () => {
     queryClient.clear();
-    setAppState((p) => ({ ...p, userId: undefined }));
+    setAppState((p) => ({ ...p, userId: "" }));
   };
 };

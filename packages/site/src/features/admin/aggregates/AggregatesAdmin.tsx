@@ -14,10 +14,10 @@ export const AggregatesAdmin: React.FC<Props> = ({}) => {
 
       <TabPanels>
         <TabPanel paddingTop={0} paddingBottom={0}>
-          <SectionContainer title={"User"}>User</SectionContainer>
+          <SectionContainer title={"User"}>Todo: Implement me :)</SectionContainer>
         </TabPanel>
         <TabPanel paddingTop={0} paddingBottom={0}>
-          <SectionContainer title={"Match"}>Match</SectionContainer>
+          <SectionContainer title={"Match"}>Todo: Implement me :)</SectionContainer>
         </TabPanel>
       </TabPanels>
     </Tabs>
