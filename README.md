@@ -12,9 +12,9 @@ There is a small Miro whiteboard here that highlights some of the important part
 
 ## What it looks like
 
-[INSERT VIDEO LINK HERE]
+[![Watch the video](docs/images/youtube-thumb.png)](https://youtu.be/W7PmZmVmsDo)
 
-You can play this over at: https://clouds-and-edges-site.mikeysee.workers.dev/
+You can view the demo this over at: https://clouds-and-edges-site.mikeysee.workers.dev/
 
 ## Packages
 
